@@ -1,8 +1,9 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-const server = require("./index.js")
+const DBurl = "mongodb://a22miqdervil:Pedralbes23@ac-nzxncrt-shard-00-00.yfxmjwr.mongodb.net:27017,ac-nzxncrt-shard-00-01.yfxmjwr.mongodb.net:27017,ac-nzxncrt-shard-00-02.yfxmjwr.mongodb.net:27017/?replicaSet=atlas-g6ezpq-shard-0&ssl=true&authSource=admin";
+const DBname = "EventoliaFinal";
 
-const client = new MongoClient(server.DBurl, {
+const client = new MongoClient(DBurl, {
     serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
@@ -11,9 +12,8 @@ const client = new MongoClient(server.DBurl, {
     }
 });
 
-const database = client.db(server.DBname);
-usersCollection = database.collection("users");
-
+const database = client.db(DBname);
+usersCollection = database.collection("Users")
 
 function getUsers() {
     return new Promise((resolve, reject) => {
@@ -27,12 +27,12 @@ function getUsers() {
                         resolve(result);
                     })
                     .catch((error) => {
-                        console.error("Error getting users: ", error);
+                        console.error("Error getting users: ", error)
                         reject(error);
                     });
             })
             .catch((error) => {
-                console.error("Error connecting to database: ", error);
+                console.error("Error connecting to database: ", error)
                 reject(error);
             });
     });
@@ -46,16 +46,16 @@ function addUser(user) {
                 usersCollection
                     .insertOne(user)
                     .then((result) => {
-                        resolve(result);
+                        resolve(result)
                     })
                     .catch((error) => {
-                        console.error("Error adding user: ", error);
+                        console.error("Error adding user: ", error)
                         reject(error);
                     });
             })
             .catch((error) => {
-                console.error("Error connecting to database: ", error);
-                reject(error);
+                console.error("Error connecting to database: ", error)
+                reject(error)
             });
     });
 }
