@@ -18,7 +18,6 @@ app.listen(PORT, () => {
     console.log("Server running on port: ", PORT)
 });
 
-
 app.get("/getUsers", async (req, res) => {
     try {
         const users = await usersDB.getUsers()
@@ -35,5 +34,14 @@ app.post("/addUser", async (req, res) => {
         await usersDB.addUser(user)
     } catch (error) {
         console.error("Error adding user", error)
+    }
+})
+
+app.get("/getUserById", async (req, res) => {
+    try {
+        const idUser = req.body
+        await usersDB.getUserById(idUser)
+    } catch (error) {
+        console.error("Error getting user", error)
     }
 })

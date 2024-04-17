@@ -60,7 +60,30 @@ function addUser(user) {
     });
 }
 
+function getUserById(idUser) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                usersCollection
+                    .findOne({ id: idUser })
+                    .then((user) => {
+                        resolve(user);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting user: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 module.exports = {
     getUsers,
-    addUser
+    addUser,
+    getUserById
 }
