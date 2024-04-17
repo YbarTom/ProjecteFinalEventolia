@@ -1,17 +1,26 @@
-const { MongoClient } = require("mongodb")
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const server = require("./index.js")
 
-const database = server.client.db(server.DBname);
-users = database.collection("users");
+const client = new MongoClient(server.DBurl, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+        poolSize: 15
+    }
+});
+
+const database = client.db(server.DBname);
+usersCollection = database.collection("users");
 
 
 function getUsers() {
     return new Promise((resolve, reject) => {
-        server.client
+        client
             .connect()
             .then(() => {
-                users
+                usersCollection
                     .find()
                     .toArray()
                     .then((result) => {
@@ -31,10 +40,10 @@ function getUsers() {
 
 function addUser(user) {
     return new Promise((resolve, reject) => {
-        server.client
+        client
             .connect()
             .then(() => {
-                users
+                usersCollection
                     .insertOne(user)
                     .then((result) => {
                         resolve(result);
