@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-text">
+  <div class="container ">
     <div class="leftBar"></div>
   </div>
 </template>
@@ -11,13 +11,13 @@
 <style scoped>
   .container {
     height: 100vh;
+
   }
 
   .leftBar {
     width: 54%;
     height: 100vh;
-    background-color: #f8f9fa;
-    border-right: 1px solid #e9ecef;
+    border-right: 1px solid #3F0D44;
   }
 
 
