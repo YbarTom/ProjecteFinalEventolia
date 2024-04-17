@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-warning">
+  <div class="container bg-background">
 
   </div>
 </template>
