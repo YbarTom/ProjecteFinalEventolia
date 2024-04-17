@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="left-panel"></div>
+    <div class="left-panel"><h1 class="text-text">hola</h1></div>
     <div class="middle-panel"></div>
     <div class="right-panel"></div>
   </div>
@@ -20,15 +20,5 @@
     flex: 1;
   }
 
-  .left-panel {
-    background-color: blue;
-  }
 
-  .middle-panel {
-    background-color: green;
-  }
-
-  .right-panel {
-    background-color: red;
-  }
 </style>
