@@ -35,6 +35,9 @@ const myCustomDarkTheme = {
     warning: '#FFC107', // Color de advertencia
   },
 }
+
+export{myCustomDarkTheme, myCustomLightTheme}
+
 export default createVuetify({
   theme: {
     defaultTheme: 'myCustomLightTheme',
