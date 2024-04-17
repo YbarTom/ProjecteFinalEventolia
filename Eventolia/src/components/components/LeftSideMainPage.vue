@@ -2,12 +2,15 @@
   <div class="container">
     <div class="leftBar">
       <h1 class="title text-text">Eventolia</h1>
+      <SideBar />
       <div class="bar bg-text"></div>
     </div>
   </div>
 </template>
 
 <script setup>
+import SideBar from './sideBar.vue';
+
   // Aquí puedes añadir tu lógica JavaScript si es necesario
 </script>
 
@@ -32,8 +35,8 @@
 
   .title {
     font-size: 2rem;
-    margin: 20px auto 0; /* 20px de margen superior y centrado horizontalmente */
+    margin: 30px auto 0; /* 20px de margen superior y centrado horizontalmente */
     margin-left: 20px;
-    padding: 1rem;
+    margin-bottom: 30px;
   }
 </style>
