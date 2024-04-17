@@ -1,6 +1,6 @@
 
 <template>
-  <div class="container bg-success">
+  <div class="container bg-background">
 
   </div>
 </template>
