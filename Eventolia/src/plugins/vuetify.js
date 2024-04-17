@@ -28,7 +28,7 @@ const myCustomDarkTheme = {
   dark: true, // Establecer el modo oscuro en verdadero
   colors: {
     background: '#3f0D44', // Color de fondo oscuro
-    text: '#000000', // Color de texto
+    text: '#fcecfd', // Color de texto
     error: '#f44336', // Color de error
     info: '#2196F3', // Color de información
     success: '#4CAF50', // Color de éxito

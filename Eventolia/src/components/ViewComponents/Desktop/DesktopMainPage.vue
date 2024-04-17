@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="left-panel"><h1 class="text-text">hola</h1></div>
-    <div class="middle-panel"></div>
+    <div class="middle-panel"><h1></h1></div>
     <div class="right-panel"></div>
   </div>
 </template>
