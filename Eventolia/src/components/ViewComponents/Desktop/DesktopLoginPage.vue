@@ -1,7 +1,12 @@
 <template>
   <div class="container" :class="{ 'dark-theme': currentTheme === 'dark' }" :style="{ backgroundColor: currentBackgroundColor, color: currentTextColor }">
-    <div class="left-panel"><h1>{{ greeting }}</h1></div>
-    <theme-toggler :toggleTheme="toggleTheme" />
+    <div class="right-panel"><RightSideLoginPage/>
+      <theme-toggler :toggleTheme="toggleTheme" /></div>
+      <div class="left-panel"><h1>{{ greeting }}</h1></div>
+
+    <div class="left-panel"><LeftSideLoginPage/>
+      <div class="textField"><TextField/></div>
+    </div>
 
   </div>
 </template>
@@ -10,6 +15,10 @@
   import { ref } from 'vue'
   import { myCustomLightTheme, myCustomDarkTheme } from '@/plugins/vuetify'
   import ThemeToggler from '@/components/components/ThemeToggler.vue'
+  import TextField from '@/components/components/Log_Reg/InsertNameTextField.vue'
+  import LeftSideLoginPage from '@/components/components/Log_Reg/LeftSideLoginPage.vue'
+  import RightSideLoginPage from '@/components/components/Log_Reg/RightSideLoginPage.vue'
+
 
   const currentTheme = ref('dark')
   const currentBackgroundColor = ref(myCustomDarkTheme.colors.background)
@@ -32,6 +41,7 @@
   export default {
     components: {
       ThemeToggler,
+      TextField, // Asegúrate de incluir el componente TextField aquí
     },
   }
 </script>

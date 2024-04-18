@@ -1,7 +1,7 @@
 <template>
     <div class="middle-panel">
       <button class="theme-toggler" @click="toggleTheme">
-        Toggle Theme
+        Pa cambiar el fondo
       </button>
     </div>
   </template>
