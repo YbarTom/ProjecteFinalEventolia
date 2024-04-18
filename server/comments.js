@@ -12,10 +12,45 @@ const client = new MongoClient(DBurl, {
     }
 });
 
+const generalFunctions = require("./generalFunctions.js")
+
 const database = client.db(DBname);
-usersCollection = database.collection("Comments")
+commentsCollection = database.collection("Comments")
 
-
+function createComment(comment) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                const uniqueId = generalFunctions.generateUniqueId();
+                generalFunctions.checkDuplicateId(uniqueId, commentsCollection)
+                    .then((isDuplicate) => {
+                        if (isDuplicate) {
+                            const newUniqueId = generalFunctions.generateUniqueId();
+                            comment.id = newUniqueId;
+                        } else {
+                            comment.id = uniqueId;
+                        }
+                        commentsCollection.insertOne(comment)
+                            .then((result) => {
+                                resolve(result);
+                            })
+                            .catch((error) => {
+                                console.error("Error adding comment: ", error);
+                                reject(error);
+                            });
+                    })
+                    .catch((error) => {
+                        console.error("Error checking for duplicate ID: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 
 module.exports = {
+    createComment
 }
