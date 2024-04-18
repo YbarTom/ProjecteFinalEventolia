@@ -15,7 +15,7 @@
   import { ref } from 'vue'
   import { myCustomLightTheme, myCustomDarkTheme } from '@/plugins/vuetify'
   import ThemeToggler from '@/components/components/ThemeToggler.vue'
-  import TextField from '@/components/components/Log_Reg/InsertNameTextField.vue'
+  import TextField from '@/components/components/Log_Reg/TextField.vue'
   import LeftSideLoginPage from '@/components/components/Log_Reg/LeftSideLoginPage.vue'
   import RightSideLoginPage from '@/components/components/Log_Reg/RightSideLoginPage.vue'
 
