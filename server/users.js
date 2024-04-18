@@ -12,6 +12,8 @@ const client = new MongoClient(DBurl, {
     }
 });
 
+const generalFunctions = require("./generalFunctions.js")
+
 const database = client.db(DBname);
 usersCollection = database.collection("Users")
 
@@ -43,13 +45,26 @@ function createUser(user) {
         client
             .connect()
             .then(() => {
-                usersCollection
-                    .insertOne(user)
-                    .then((result) => {
-                        resolve(result)
+                const uniqueId = generalFunctions.generateUniqueId();
+                generalFunctions.checkDuplicateId(uniqueId, usersCollection)
+                    .then((isDuplicate) => {
+                        if (isDuplicate) {
+                            const newUniqueId = generalFunctions.generateUniqueId();
+                            user.id = newUniqueId;
+                        } else {
+                            user.id = uniqueId;
+                        }
+                        usersCollection.insertOne(user)
+                            .then((result) => {
+                                resolve(result);
+                            })
+                            .catch((error) => {
+                                console.error("Error creating user: ", error);
+                                reject(error);
+                            });
                     })
                     .catch((error) => {
-                        console.error("Error adding user: ", error)
+                        console.error("Error checking for duplicate ID: ", error);
                         reject(error);
                     });
             })

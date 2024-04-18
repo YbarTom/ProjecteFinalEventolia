@@ -19,7 +19,8 @@ commentsCollection = database.collection("Comments")
 
 function createComment(comment) {
     return new Promise((resolve, reject) => {
-        client.connect()
+        client
+            .connect()
             .then(() => {
                 const uniqueId = generalFunctions.generateUniqueId();
                 generalFunctions.checkDuplicateId(uniqueId, commentsCollection)
