@@ -5,7 +5,7 @@
       <div class="left-panel"><h1>{{ greeting }}</h1></div>
 
     <div class="left-panel"><LeftSideLoginPage/>
-      <div class="textField"><TextField/></div>
+      <div><TextField text="email"/></div>
     </div>
 
   </div>
