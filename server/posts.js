@@ -15,6 +15,73 @@ const client = new MongoClient(DBurl, {
 const database = client.db(DBname);
 postsCollection = database.collection("Posts")
 
+function getPosts() {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                postsCollection
+                    .find()
+                    .toArray()
+                    .then((result) => {
+                        resolve(result);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting posts: ", error)
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error)
+                reject(error);
+            });
+    });
+}
+
+function createPost(post) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                postsCollection
+                    .insertOne(post)
+                    .then((result) => {
+                        resolve(result)
+                    })
+                    .catch((error) => {
+                        console.error("Error adding post: ", error)
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error)
+                reject(error)
+            });
+    });
+}
+
+function getPostById(idPost) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                usersCollection
+                    .findOne({ id: idPost })
+                    .then((user) => {
+                        resolve(user);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting post: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 function likePost(idUser, idPost) {
     return new Promise((resolve, reject) => {
         client
@@ -41,5 +108,8 @@ function likePost(idUser, idPost) {
 }
 
 module.exports = {
-    likePost
+    likePost,
+    getPosts,
+    createPost,
+    getPostById
 }
