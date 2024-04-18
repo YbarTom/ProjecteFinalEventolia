@@ -38,7 +38,7 @@ function getUsers() {
     });
 }
 
-function addUser(user) {
+function createUser(user) {
     return new Promise((resolve, reject) => {
         client
             .connect()
@@ -82,8 +82,73 @@ function getUserById(idUser) {
     });
 }
 
+function followUser(idFollower, idFollowed) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                const updateFollower = {
+                    $push: { followed: idFollowed }
+                };
+                const updateFollowed = {
+                    $push: { followers: idFollower }
+                };
+                Promise.all([
+                    usersCollection.updateOne({ id: idFollower }, updateFollower),
+                    usersCollection.updateOne({ id: idFollowed }, updateFollowed)
+                ])
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        console.error("Error updating users: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+/*function followUser(idFollower, idFollowed) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                // Update the follower
+                usersCollection.findOneAndUpdate(
+                    { id: idFollower },
+                    { $push: { followed: idFollowed } },
+                    { returnOriginal: false }
+                )
+                    .then(() => {
+                        // Update the followed
+                        return usersCollection.findOneAndUpdate(
+                            { id: idFollowed },
+                            { $push: { followers: idFollower } },
+                            { returnOriginal: false }
+                        );
+                    })
+                    .then((updatedFollowedUser) => {
+                        resolve(updatedFollowedUser);
+                    })
+                    .catch((error) => {
+                        console.error("Error updating followed user: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}*/
+
+
 module.exports = {
     getUsers,
-    addUser,
-    getUserById
+    createUser,
+    getUserById,
+    followUser
 }
