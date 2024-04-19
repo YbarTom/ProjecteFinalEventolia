@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container ">
     <div class="leftBar">
       <h1 class="title text-text">Eventolia</h1>
       <SideBar />
