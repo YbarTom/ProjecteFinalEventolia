@@ -66,7 +66,8 @@ const adjustHeight = () => {
   left: 0;
   width: 100%;
   height: auto;
-  max-height: calc(100% - 65px);
+  bottom: 100px;
   max-width: 100%;
+  object-fit: contain;
 }
 </style>
