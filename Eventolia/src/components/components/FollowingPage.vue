@@ -1,5 +1,5 @@
 <template>
-  <div class="blue-div"></div> <!-- Nuevo div con color azul -->
+  <div class="div"></div> <!-- Nuevo div con color azul -->
 
 </template>
 
@@ -9,7 +9,7 @@
 
 <style scoped>
 
-.blue-div {
+.div {
   position: absolute; /* Posicionamos el div absolutamente dentro del contenedor */
   top: 78px; /* Altura del topBar */
   left: 0;

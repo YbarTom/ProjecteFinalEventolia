@@ -16,6 +16,7 @@ const myCustomLightTheme = {
   dark: false,
   colors: {
     background: '#fcecfd',
+    principal: '#F0A1F7',
     text: '#3f0D44',
     error: '#B00020',
     info: '#2196F3',
@@ -29,6 +30,7 @@ const myCustomDarkTheme = {
   dark: true, // Establecer el modo oscuro en verdadero
   colors: {
     background: '#3f0D44', // Color de fondo oscuro
+    principal: '#780F80',
     text: '#fcecfd', // Color de texto
     error: '#f44336', // Color de error
     info: '#2196F3', // Color de información
@@ -42,7 +44,7 @@ export{myCustomDarkTheme, myCustomLightTheme}
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'myCustomDarkTheme',
+    defaultTheme: 'myCustomLightTheme',
     themes: {
       myCustomLightTheme,
       myCustomDarkTheme,
