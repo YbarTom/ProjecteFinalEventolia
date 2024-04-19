@@ -1,5 +1,5 @@
 <template>
-  <div class="button-side-bar">
+  <div class="button-side-bar bg-warning">
     <!-- Usamos el componente Button con las rutas y textos pasados como atributos -->
     <ButtonSideBar type="home" buttonText="Home" />
     <ButtonSideBar type="lupa" buttonText="Search" />

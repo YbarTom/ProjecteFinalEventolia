@@ -21,7 +21,7 @@ const myCustomLightTheme = {
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FB8C00',
-    image: '#fcecfd',
+    image: '#000000',
   },
 
 }
@@ -34,6 +34,7 @@ const myCustomDarkTheme = {
     info: '#2196F3', // Color de información
     success: '#4CAF50', // Color de éxito
     warning: '#FFC107', // Color de advertencia
+    image: '#FFFFFF', // Color de imagen
   },
 }
 
@@ -41,7 +42,7 @@ export{myCustomDarkTheme, myCustomLightTheme}
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'myCustomLightTheme',
+    defaultTheme: 'myCustomDarkTheme',
     themes: {
       myCustomLightTheme,
       myCustomDarkTheme,
