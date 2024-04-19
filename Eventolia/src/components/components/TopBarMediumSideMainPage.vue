@@ -1,15 +1,26 @@
 <template>
   <div class="topBar">
     <div class="text-container">
-      <h3>For You</h3>
-      <h3>Following</h3>
+      <h3 @click="emitForYouClicked">For You</h3>
+      <h3 @click="emitFollowingClicked">Following</h3>
     </div>
     <div class="horizontal-bar bg-text"></div>
   </div>
 </template>
 
 <script setup>
-//
+import {  defineEmits } from 'vue';
+
+
+const emits = defineEmits(['forYouClicked', 'followingClicked']);
+
+function emitForYouClicked() {
+  emits('forYouClicked');
+}
+
+function emitFollowingClicked() {
+  emits('followingClicked');
+}
 </script>
 
 <style scoped>
@@ -30,6 +41,7 @@
 .text-container h3 {
   margin: 0;
   margin-right: 20px; /* Espacio entre los textos */
+  cursor: pointer; /* Cambiamos el cursor para indicar que es interactivo */
 }
 
 .horizontal-bar {
