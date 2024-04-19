@@ -75,6 +75,30 @@ function createUser(user) {
     });
 }
 
+function login(user) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                usersCollection.findOne({ email: user.email, password: user.password })
+                    .then((foundUser) => {
+                        if (foundUser) {
+                            resolve(true)
+                        } else {
+                            resolve(false)
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error finding user: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 function getUserById(idUser) {
     return new Promise((resolve, reject) => {
         client
@@ -165,5 +189,6 @@ module.exports = {
     getUsers,
     createUser,
     getUserById,
-    followUser
+    followUser,
+    login
 }

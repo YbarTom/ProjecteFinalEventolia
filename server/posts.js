@@ -12,6 +12,8 @@ const client = new MongoClient(DBurl, {
     }
 });
 
+const generalFunctions = require("./generalFunctions.js")
+
 const database = client.db(DBname);
 postsCollection = database.collection("Posts")
 
@@ -43,13 +45,26 @@ function createPost(post) {
         client
             .connect()
             .then(() => {
-                postsCollection
-                    .insertOne(post)
-                    .then((result) => {
-                        resolve(result)
+                const uniqueId = generalFunctions.generateUniqueId();
+                generalFunctions.checkDuplicateId(uniqueId, postsCollection)
+                    .then((isDuplicate) => {
+                        if (isDuplicate) {
+                            const newUniqueId = generalFunctions.generateUniqueId();
+                            post.id = newUniqueId;
+                        } else {
+                            post.id = uniqueId;
+                        }
+                        postsCollection.insertOne(post)
+                            .then((result) => {
+                                resolve(result);
+                            })
+                            .catch((error) => {
+                                console.error("Error creating post: ", error);
+                                reject(error);
+                            });
                     })
                     .catch((error) => {
-                        console.error("Error adding post: ", error)
+                        console.error("Error checking for duplicate ID: ", error);
                         reject(error);
                     });
             })
@@ -65,10 +80,10 @@ function getPostById(idPost) {
         client
             .connect()
             .then(() => {
-                usersCollection
+                postsCollection
                     .findOne({ id: idPost })
-                    .then((user) => {
-                        resolve(user);
+                    .then((post) => {
+                        resolve(post);
                     })
                     .catch((error) => {
                         console.error("Error getting post: ", error);
@@ -107,9 +122,31 @@ function likePost(idUser, idPost) {
     });
 }
 
+function getPostByIdUser(idUser) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                postsCollection.find({ idUser: idUser }).toArray()
+                    .then((posts) => {
+                        resolve(posts);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting posts: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+
 module.exports = {
     likePost,
     getPosts,
     createPost,
-    getPostById
+    getPostById,
+    getPostByIdUser
 }

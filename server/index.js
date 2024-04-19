@@ -23,11 +23,12 @@ app.listen(PORT, () => {
     console.log("Server running on port: ", PORT)
 });
 
+//#region USERS
+
 app.get("/getUsers", async (req, res) => {
     try {
         const users = await usersDB.getUsers()
-        console.log(users)
-        res.send(users)
+        res.json(users)
     } catch (error) {
         console.error("Error getting users", error)
     }
@@ -68,6 +69,32 @@ app.post("/followUser", async (req, res) => {
     }
 })
 
+app.post("/login", async (req, res) => {
+    try {
+        const data = req.body;
+        const loggedIn = await usersDB.login(data);
+        if (loggedIn) {
+            res.status(200).send("Login successful");
+        } else {
+            res.status(401).send("Invalid email or password");
+        }
+    } catch (error) {
+        console.error("Error login", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+//#region POSTS:
+
+app.get("/getPosts", async (req, res) => {
+    try {
+        const posts = await postsDB.getPosts()
+        res.json(posts)
+    } catch (error) {
+        console.error("Error getting posts", error)
+    }
+})
+
 app.post("/likePost", async (req, res) => {
     try {
         const data = req.body
@@ -77,6 +104,58 @@ app.post("/likePost", async (req, res) => {
     }
 })
 
+app.post("/createPost", async (req, res) => {
+    try {
+        const post = req.body
+
+        post.likes = []
+        post.comments = []
+
+        await postsDB.createPost(post)
+    } catch (error) {
+        console.error("Error creating post", error)
+    }
+})
+
+app.post("/getPostById", async (req, res) => {
+    try {
+        const idPost = req.body
+        const post = await postsDB.getPostById(idPost)
+        res.json(post)
+    } catch (error) {
+        console.error("Error creating post", error)
+    }
+})
+
+app.post("/getPostByIdUser", async (req, res) => {
+    try {
+        const idUser = req.body
+        const post = await postsDB.getPostByIdUser(idUser)
+        res.json(post)
+    } catch (error) {
+        console.error("Error creating post", error)
+    }
+})
+
+//#region EVENTS:
+
+app.post("/createEvent", async (req, res) => {
+    try {
+        const data = req.body
+
+        data.assistants = []
+        data.posts = []
+        data.likes = []
+
+        await evenstDB.createEvent(data)
+    } catch (error) {
+        console.error("Error creating event", error)
+    }
+})
+
+
+//#region COMMENTS:
+
 app.post("/createComment", async (req, res) => {
     try {
         const data = req.body
@@ -85,4 +164,9 @@ app.post("/createComment", async (req, res) => {
         console.error("Error adding comment", error)
     }
 })
+
+
+
+
+
 

@@ -12,8 +12,46 @@ const client = new MongoClient(DBurl, {
     }
 });
 
+const generalFunctions = require("./generalFunctions.js")
+
 const database = client.db(DBname);
-usersCollection = database.collection("Events")
+eventsCollection = database.collection("Events")
+
+function createEvent(event) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                const uniqueId = generalFunctions.generateUniqueId();
+                generalFunctions.checkDuplicateId(uniqueId, eventsCollection)
+                    .then((isDuplicate) => {
+                        if (isDuplicate) {
+                            const newUniqueId = generalFunctions.generateUniqueId();
+                            event.id = newUniqueId;
+                        } else {
+                            event.id = uniqueId;
+                        }
+                        eventsCollection.insertOne(event)
+                            .then((result) => {
+                                resolve(result);
+                            })
+                            .catch((error) => {
+                                console.error("Error creating event: ", error);
+                                reject(error);
+                            });
+                    })
+                    .catch((error) => {
+                        console.error("Error checking for duplicate ID: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error)
+                reject(error)
+            });
+    });
+}
 
 module.exports = {
+    createEvent
 }
