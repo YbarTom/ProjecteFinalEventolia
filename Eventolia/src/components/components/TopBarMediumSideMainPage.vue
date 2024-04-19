@@ -36,6 +36,7 @@ function emitFollowingClicked() {
   bottom: 0;
   left: 0;
   display: flex;
+  
 }
 
 .text-container h3 {
