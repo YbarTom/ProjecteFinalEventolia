@@ -16,7 +16,7 @@ const commentsDiv = ref(null);
 const adjustHeight = () => {
   if (image.value && commentsDiv.value && divExterior.value) {
     const totalHeight = image.value.offsetHeight + commentsDiv.value.offsetHeight;
-    const clampedHeight = Math.min(Math.max(totalHeight, 400), 750); // Limitar la altura entre 400 y 750 píxeles
+    const clampedHeight = Math.min(Math.max(totalHeight, 565), 915); // Limitar la altura entre 400 y 750 píxeles
     divExterior.value.style.height = `${clampedHeight}px`;
   }
 }
