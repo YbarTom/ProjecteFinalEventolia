@@ -44,7 +44,7 @@ export{myCustomDarkTheme, myCustomLightTheme}
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'myCustomLightTheme',
+    defaultTheme: 'myCustomDarkTheme',
     themes: {
       myCustomLightTheme,
       myCustomDarkTheme,
