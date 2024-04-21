@@ -6,17 +6,11 @@
 </template>
   
 <script setup>
-    import ThemeToggler from '@/components/components/ThemeToggler.vue'
-    import TextField from '@/components/components/Log_Reg/TextField.vue'
+
 </script>
 
 <script>
-  export default {
-    components: {
-      ThemeToggler,
-      TextField, // Asegúrate de incluir el componente TextField aquí
-    },
-  }
+
 </script>
 
   <style scoped>
