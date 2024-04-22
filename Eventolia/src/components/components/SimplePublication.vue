@@ -4,23 +4,41 @@
       <div class="perfil-img"></div>
       <p><b>tom.ybarguengoitia</b></p>
     </div>
-    <img ref="image" class="profile-img" src="../../assets/images/rascacielos.jpeg" alt="Imagen de perfil" @load="adjustHeight" />
-    <div ref="commentsDiv" class="comments-div bg-principal"></div>
+    <div>
+      <img ref="image" class="profile-img" src="../../assets/images/partyImage.jpg" alt="Imagen de perfil"
+        @load="adjustHeight" />
+    </div>
+    <div ref="commentsDiv" class="comments-div bg-principal">
+      <div class="commentsButtons">
+        <div class="left">
+          <buttonPublication type="heart" />
+          <buttonPublication type="chat" />
+          <buttonPublication type="send" />
+        </div>
+        <div class="right">
+          <buttonPublication type="save" />
+        </div>
+      </div>
+      <p class="likes text-text"><b>2.190 likes</b></p>
+      <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway. </p>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-
+import buttonPublication from './buttonPublication.vue';
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
 
 const adjustHeight = () => {
-  if (image.value && commentsDiv.value && divExterior.value) {
-    const totalHeight = image.value.offsetHeight + commentsDiv.value.offsetHeight;
-    const clampedHeight = Math.min(Math.max(totalHeight, 565), 915); // Limitar la altura entre 565 y 915 píxeles
-    divExterior.value.style.height = `${clampedHeight}px`;
+  if (divExterior.value && image.value && commentsDiv.value) {
+    const imageHeight = image.value.clientHeight;
+    const profileDivHeight = divExterior.value.querySelector('.profile-div').clientHeight;
+    const commentsDivHeight = commentsDiv.value.clientHeight;
+    const totalHeight = imageHeight + profileDivHeight + commentsDivHeight;
+    divExterior.value.style.height = `${totalHeight}px`;
   }
 }
 </script>
@@ -29,14 +47,25 @@ const adjustHeight = () => {
 .div-exterior {
   margin-top: 10px;
   border-radius: 8px;
+  max-height: 850px;
   width: 468px;
   position: relative;
   overflow: hidden;
 }
 
+.likes{
+  margin-left: 10px;
+
+}
+
+.userComments{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 .profile-div {
-  display: flex; /* Utilizar flexbox para el diseño */
-  align-items: center; /* Centrar verticalmente los elementos hijos */
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 65px;
   border-radius: 8px 8px 0 0;
@@ -44,30 +73,34 @@ const adjustHeight = () => {
 
 .perfil-img {
   margin-left: 10px;
-  width: 40px; /* Ancho de la imagen de perfil */
-  height: 40px; /* Altura de la imagen de perfil */
-  background-image: url("../../assets/images/profile.png"); /* Ruta de la imagen de perfil */
-  background-size: cover; /* Ajustar la imagen de perfil para cubrir completamente el contenedor */
-  border-radius: 50%; /* Borde circular para la imagen de perfil */
-  margin-right: 10px; /* Espacio entre la imagen de perfil y el texto */
+  width: 40px;
+  height: 40px;
+  background-image: url("../../assets/images/profile.png");
+  background-size: cover;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .comments-div {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 100px;
+  height: 180px;
   border-radius: 0 0 8px 8px;
 }
 
-.profile-img {
-  position: absolute;
-  top: 65px;
-  left: 0;
-  width: 100%;
-  height: auto;
-  bottom: 100px;
-  max-width: 100%;
-  object-fit: contain;
+.commentsButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centrado verticalmente */
 }
+
+.left,
+.right {
+  display: flex;
+  align-items: center; /* Centrado verticalmente */
+  padding: 10px;
+}
+
+
 </style>

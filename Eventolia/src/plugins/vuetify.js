@@ -23,6 +23,7 @@ const myCustomLightTheme = {
     success: '#4CAF50',
     warning: '#FB8C00',
     image: '#000000',
+    loginButton:'#0029FF',
   },
 
 }
@@ -37,6 +38,7 @@ const myCustomDarkTheme = {
     success: '#4CAF50', // Color de éxito
     warning: '#FFC107', // Color de advertencia
     image: '#FFFFFF', // Color de imagen
+    loginButton:'#0029FF',
   },
 }
 
