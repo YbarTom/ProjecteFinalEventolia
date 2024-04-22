@@ -1,6 +1,7 @@
 <template>
   <div class="svg-container">
-    <img :src="svgPath" alt="icon" />
+    <v-icon icon="mdi-heart" class="text-text" />
+
   </div>
 </template>
 
