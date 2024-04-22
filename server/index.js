@@ -187,6 +187,20 @@ app.post("/createEvent", async (req, res) => {
     }
 })
 
+app.post("/getAssistants", async (req, res) => {
+    try {
+        const data = req.body
+
+        data.assistants = []
+        data.posts = []
+        data.likes = []
+
+        await evenstDB.createEvent(data)
+    } catch (error) {
+        console.error("Error getting assistants", error)
+    }
+})
+
 
 //#region COMMENTS:
 
