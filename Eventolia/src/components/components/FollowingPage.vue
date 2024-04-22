@@ -1,10 +1,12 @@
 <template>
-  <div class="div"></div> <!-- Nuevo div con color azul -->
+  <div class="div">
+    <ToggleTheme />
+  </div> <!-- Nuevo div con color azul -->
 
 </template>
 
 <script setup>
-
+import ToggleTheme from './ToggleTheme.vue';
 </script>
 
 <style scoped>
@@ -15,7 +17,6 @@
   left: 0;
   width: 100%;
   height: calc(100% - 78px); /* Restamos la altura del topBar */
-  background-color: blue; /* Color azul */
 }
 
 /* Ajustamos la posición del div azul */
