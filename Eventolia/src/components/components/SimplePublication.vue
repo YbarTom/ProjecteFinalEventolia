@@ -5,7 +5,7 @@
       <p><b>tom.ybarguengoitia</b></p>
     </div>
     <div>
-      <img ref="image" class="profile-img" src="../../assets/images/torre.jpg" alt="Imagen de perfil"
+      <img ref="image" class="profile-img" src="../../assets/images/circ.jpg" alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
     <div ref="commentsDiv" class="comments-div bg-principal">
@@ -35,7 +35,7 @@ const commentsDiv = ref(null);
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {
     const imageElement = image.value;
-    const containerWidth = 468;
+    const containerWidth = 450;
     const containerHeight = 600;
 
     // Obtener las dimensiones originales de la imagen
@@ -74,7 +74,7 @@ const adjustHeight = () => {
   margin-top: 10px;
   border-radius: 8px;
   max-height: 850px;
-  width: 468px;
+  width: 450px;
   position: relative;
   overflow: hidden;
 }
