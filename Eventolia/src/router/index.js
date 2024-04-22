@@ -17,6 +17,11 @@ const routes = [
     name: 'LoginPage',
     component: () => import('@/pages/LoginPage.vue'),
   },
+  {
+    path: '/foto',
+    name: 'Foto',
+    component: () => import('@/pages/foto.vue'),
+  },
 ]
 
 const router = createRouter({
