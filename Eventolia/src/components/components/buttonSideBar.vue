@@ -2,31 +2,18 @@
   <div class="button">
     <div class="svg-container">
       <!-- Utilizamos la imagen de la lupa directamente -->
-      <img :src="svgPath" alt="SVG Icon" />
+      <v-icon :icon="icono" class="text-text" />
     </div>
     <h3 class="text-text">{{ buttonText }}</h3>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps,ref} from 'vue';
 
-// Importamos las imágenes
-import lupa from '../../assets/iconsImages/lupa.svg';
-import bell from '../../assets/iconsImages/bell.svg';
-import home from '../../assets/iconsImages/home.svg';
-import user from '../../assets/iconsImages/user.svg';
-import add from '../../assets/iconsImages/add.svg';
-import message from '../../assets/iconsImages/message.svg';
-import lupaWhite from '../../assets/iconsImages/lupaWhite.svg';
-import bellWhite from '../../assets/iconsImages/bellWhite.svg';
-import homeWhite from '../../assets/iconsImages/homeWhite.svg';
-import userWhite from '../../assets/iconsImages/userWhite.svg';
-import addWhite from '../../assets/iconsImages/addWhite.svg';
-import messageWhite from '../../assets/iconsImages/messageWhite.svg';
-import { useTheme } from "vuetify";
+const icono = ref('');
 
-const theme = useTheme();
+
 
 const props = defineProps({
   type: String,
@@ -34,22 +21,20 @@ const props = defineProps({
 });
 
 // Definimos la ruta del SVG basada en el tipo proporcionado y el tema actual
-let svgPath;
-if (theme.global.current._value.dark) {
-  if (props.type === 'lupa') svgPath = lupaWhite;
-  else if (props.type === 'bell') svgPath = bellWhite;
-  else if (props.type === 'home') svgPath = homeWhite;
-  else if (props.type === 'user') svgPath = userWhite;
-  else if (props.type === 'add') svgPath = addWhite;
-  else if (props.type === 'message') svgPath = messageWhite;
-} else {
-  if (props.type === 'lupa') svgPath = lupa;
-  else if (props.type === 'bell') svgPath = bell;
-  else if (props.type === 'home') svgPath = home;
-  else if (props.type === 'user') svgPath = user;
-  else if (props.type === 'add') svgPath = add;
-  else if (props.type === 'message') svgPath = message;
+if (props.type === 'home') {
+  icono.value = "mdi-home";
+}else if (props.type === 'lupa') {
+  icono.value = "mdi-magnify";
+}else if (props.type === 'add') {
+  icono.value = "mdi-plus";
+}else if (props.type === 'message') {
+  icono.value = "mdi-message";
+}else if (props.type === 'bell') {
+  icono.value = "mdi-bell";
+}else if (props.type === 'user') {
+  icono.value = "mdi-account";
 }
+
 </script>
 
 <style scoped>
