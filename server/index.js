@@ -84,6 +84,40 @@ app.post("/login", async (req, res) => {
     }
 });
 
+app.post("/getFollowers", async (req, res) => {
+    try {
+        const data = req.body
+        const user = await usersDB.getUserById(data.idUser)
+        const followers = [];
+
+        for (let i = 0; i < user.followers.length; i++) {
+            followers.push(await usersDB.getUserById(user.followers[i]))
+        }
+
+        res.json(followers)
+    } catch (error) {
+        console.error("Error getting followers", error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+app.post("/getFolloweds", async (req, res) => {
+    try {
+        const data = req.body
+        const user = await usersDB.getUserById(data.idUser)
+        const followed = [];
+
+        for (let i = 0; i < user.followed.length; i++) {
+            followed.push(await usersDB.getUserById(user.followed[i]))
+        }
+
+        res.json(followed)
+    } catch (error) {
+        console.error("Error getting followeds", error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 //#region POSTS:
 
 app.get("/getPosts", async (req, res) => {
