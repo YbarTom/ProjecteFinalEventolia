@@ -16,9 +16,14 @@ import SimplePublication from './SimplePublication.vue'; // Importamos el compon
   top: 78px; /* Altura del topBar */
   width: 100%;
   height: calc(100% - 78px);
-  display: flex; /* Convertimos el div en un contenedor flex */
   justify-content: center; /* Centramos horizontalmente el contenido */
   flex-direction: column;
-  align-items: center
+  overflow-y: auto; /* Habilitamos el desplazamiento vertical */
+
+}
+
+/* Ocultar la barra de desplazamiento */
+.div::-webkit-scrollbar {
+  display: none;
 }
 </style>
