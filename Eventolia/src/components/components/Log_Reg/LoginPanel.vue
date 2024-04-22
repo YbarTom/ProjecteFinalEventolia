@@ -12,7 +12,7 @@
     </div>  
 </template>
   
-<script setup>
+<script setup>3
     import ThemeToggler from '@/components/components/ThemeToggler.vue'
     import TextField from '@/components/components/Log_Reg/TextField.vue'
     import ButtonLogin from '@/components/components/Log_Reg/Button.vue'
