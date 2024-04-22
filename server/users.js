@@ -184,11 +184,10 @@ function followUser(idFollower, idFollowed) {
     });
 }*/
 
-
 module.exports = {
     getUsers,
     createUser,
     getUserById,
     followUser,
-    login
+    login,
 }
