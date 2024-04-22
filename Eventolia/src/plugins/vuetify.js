@@ -1,8 +1,4 @@
-/**
- * plugins/vuetify.js
- *
- * Framework documentation: https://vuetifyjs.com`
- */
+// plugins/vuetify.js
 
 // Styles
 import '@mdi/font/css/materialdesignicons.css'
@@ -11,7 +7,7 @@ import 'vuetify/styles'
 // Composables
 import { createVuetify } from 'vuetify'
 
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
+// Custom themes
 const myCustomLightTheme = {
   dark: false,
   colors: {
@@ -23,28 +19,28 @@ const myCustomLightTheme = {
     success: '#4CAF50',
     warning: '#FB8C00',
     image: '#000000',
-    loginButton:'#0029FF',
+    loginButton: '#0029FF',
   },
-
 }
+
 const myCustomDarkTheme = {
-  dark: true, // Establecer el modo oscuro en verdadero
+  dark: true,
   colors: {
-    background: '#3f0D44', // Color de fondo oscuro
+    background: '#3f0D44',
     principal: '#780F80',
-    text: '#fcecfd', // Color de texto
-    error: '#f44336', // Color de error
-    info: '#2196F3', // Color de información
-    success: '#4CAF50', // Color de éxito
-    warning: '#FFC107', // Color de advertencia
-    image: '#FFFFFF', // Color de imagen
-    loginButton:'#0029FF',
+    text: '#fcecfd',
+    error: '#f44336',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107',
+    image: '#FFFFFF',
+    loginButton: '#0029FF',
   },
 }
 
-export{myCustomDarkTheme, myCustomLightTheme}
+export { myCustomDarkTheme, myCustomLightTheme }
 
-export default createVuetify({
+let vuetify = createVuetify({
   theme: {
     defaultTheme: 'myCustomLightTheme',
     themes: {
@@ -53,3 +49,10 @@ export default createVuetify({
     },
   },
 })
+
+export default vuetify
+
+// Toggle Theme function
+export function toggleTheme(isDark) {
+  vuetify.framework.theme.dark = isDark
+}

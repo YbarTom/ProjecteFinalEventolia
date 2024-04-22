@@ -1,19 +1,31 @@
 <template>
-  <v-app>
-    <v-btn @click="toggleTheme">toggle theme</v-btn>
-  </v-app>
+  <v-btn @click="toggleDarkMode">Toggle Dark Mode</v-btn>
 </template>
 
-<script setup>
-import { useTheme } from 'vuetify'
 
-const theme = useTheme()
+<script>
+import vuetify from '@/plugins/vuetify.js'
 
-function toggleTheme () {
-  console.log(theme.global.name)
-  console.log(this.$vuetify.theme.dark)
-  theme.global.name = theme.global.current._value.dark ? 'light' : 'dark'
-  console.log(theme.global.name)
+export default {
+  methods: {
+    toggleDarkMode() {
+      console.log(vuetify.theme.current._value.dark)
+      if (vuetify.theme.current._value.dark) {
+        console.log('light')
+        console.log(vuetify.theme.themes._value.myCustomLightTheme)
+        vuetify.theme.current._value = vuetify.theme.themes._value.myCustomLightTheme
+        console.log(vuetify.theme.current)
+      } else {
+        console.log('dark')
+        console.log(vuetify.theme.themes._value.myCustomDarkTheme)
+        vuetify.theme.current._value = vuetify.theme.themes._value.myCustomDarkTheme
+        console.log(vuetify.theme.current)
 
+      }
+    },
+  },
+  // ...
 }
 </script>
+
+
