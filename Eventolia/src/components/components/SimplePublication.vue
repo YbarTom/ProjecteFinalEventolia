@@ -5,7 +5,7 @@
       <p><b>tom.ybarguengoitia</b></p>
     </div>
     <div>
-      <img ref="image" class="profile-img" src="../../assets/images/partyImage.jpg" alt="Imagen de perfil"
+      <img ref="image" class="profile-img" src="../../assets/images/torre.jpg" alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
     <div ref="commentsDiv" class="comments-div bg-principal">
@@ -34,14 +34,40 @@ const commentsDiv = ref(null);
 
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {
-    const imageHeight = image.value.clientHeight;
+    const imageElement = image.value;
+    const containerWidth = 468;
+    const containerHeight = 600;
+
+    // Obtener las dimensiones originales de la imagen
+    const originalWidth = imageElement.naturalWidth;
+    const originalHeight = imageElement.naturalHeight;
+
+    // Calcular la proporción de la imagen original
+    const aspectRatio = originalWidth / originalHeight;
+
+    // Determinar si la imagen es más ancha que alta
+    let newWidth, newHeight;
+    if (aspectRatio > 1) { // Imagen es más ancha que alta
+      newWidth = containerWidth;
+      newHeight = containerWidth / aspectRatio;
+    } else { // Imagen es más alta que ancha o es cuadrada
+      newHeight = containerHeight;
+      newWidth = containerHeight * aspectRatio;
+    }
+
+    // Redimensionar la imagen manteniendo la proporción
+    imageElement.style.width = `${newWidth}px`;
+    imageElement.style.height = `${newHeight}px`;
+
+    // Calcular la altura total y ajustarla
     const profileDivHeight = divExterior.value.querySelector('.profile-div').clientHeight;
     const commentsDivHeight = commentsDiv.value.clientHeight;
-    const totalHeight = imageHeight + profileDivHeight + commentsDivHeight;
+    const totalHeight = newHeight + profileDivHeight + commentsDivHeight;
     divExterior.value.style.height = `${totalHeight}px`;
   }
 }
 </script>
+
 
 <style scoped>
 .div-exterior {
