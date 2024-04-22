@@ -4,8 +4,8 @@
       <div class="perfil-img"></div>
       <p><b>tom.ybarguengoitia</b></p>
     </div>
-    <div>
-      <img ref="image" class="profile-img" src="../../assets/images/circ.jpg" alt="Imagen de perfil"
+    <div class="centerImage">
+      <img ref="image" class="profile-img" src="../../assets/images/torre5.jpg" alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
     <div ref="commentsDiv" class="comments-div bg-principal">
@@ -70,6 +70,13 @@ const adjustHeight = () => {
 
 
 <style scoped>
+.centerImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 600px;
+}
 .div-exterior {
   margin-top: 10px;
   border-radius: 8px;
