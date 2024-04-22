@@ -20,7 +20,7 @@
         </div>
       </div>
       <p class="likes text-text"><b>2.190 likes</b></p>
-      <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway. </p>
+      <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway.</p>
     </div>
   </div>
 </template>
@@ -55,7 +55,6 @@ const adjustHeight = () => {
 
 .likes{
   margin-left: 10px;
-
 }
 
 .userComments{
