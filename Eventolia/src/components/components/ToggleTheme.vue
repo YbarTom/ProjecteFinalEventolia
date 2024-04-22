@@ -1,31 +1,25 @@
 <template>
-  <v-btn @click="toggleDarkMode">Toggle Dark Mode</v-btn>
+  <div>
+    <button @click="toggleTheme">
+      {{ selectedTheme === 'customlight' ? 'Switch to Custom Dark' : 'Switch to Custom Light' }}
+    </button>
+  </div>
 </template>
 
+<script setup>
+import { ref } from "vue";
+import { useTheme } from "vuetify";
 
-<script>
-import vuetify from '@/plugins/vuetify.js'
+const theme = useTheme();
+const selectedTheme = ref("customlight");
 
-export default {
-  methods: {
-    toggleDarkMode() {
-      console.log(vuetify.theme.current._value.dark)
-      if (vuetify.theme.current._value.dark) {
-        console.log('light')
-        console.log(vuetify.theme.themes._value.myCustomLightTheme)
-        vuetify.theme.current._value = vuetify.theme.themes._value.myCustomLightTheme
-        console.log(vuetify.theme.current)
-      } else {
-        console.log('dark')
-        console.log(vuetify.theme.themes._value.myCustomDarkTheme)
-        vuetify.theme.current._value = vuetify.theme.themes._value.myCustomDarkTheme
-        console.log(vuetify.theme.current)
-
-      }
-    },
-  },
-  // ...
-}
+const toggleTheme = () => {
+  if (selectedTheme.value === 'customlight') {
+    selectedTheme.value = 'customdark';
+    theme.global.name.value = 'myCustomDarkTheme';
+  } else {
+    selectedTheme.value = 'customlight';
+    theme.global.name.value = 'myCustomLightTheme';
+  }
+};
 </script>
-
-
