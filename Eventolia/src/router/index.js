@@ -27,6 +27,11 @@ const routes = [
     name: 'SignUpPage',
     component: () => import('@/pages/SignUpPage.vue'),
   },
+  {
+    path: '/UserProfile',
+    name: 'UserProfile',
+    component: () => import('@/pages/UserProfilePage.vue'),
+  },
 ]
 
 const router = createRouter({
