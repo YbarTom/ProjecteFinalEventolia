@@ -27,6 +27,31 @@ const routes = [
     name: 'SignUpPage',
     component: () => import('@/pages/SignUpPage.vue'),
   },
+  {
+    path: '/ProfilePage',
+    name: 'ProfilePage',
+    component: () => import('@/pages/Profile.vue'),
+  },
+  {
+    path: '/CreatePage',
+    name: 'CreatePage',
+    component: () => import('@/pages/Create.vue'),
+  },
+  {
+    path: '/MessagesPage',
+    name: 'MessagesPage',
+    component: () => import('@/pages/Messages.vue'),
+  },
+  {
+    path: '/NotificationsPage',
+    name: 'NotificationsPage',
+    component: () => import('@/pages/Notifications.vue'),
+  },
+  {
+    path: '/SearchPage',
+    name: 'SearchPage',
+    component: () => import('@/pages/Search.vue'),
+  },
 ]
 
 const router = createRouter({

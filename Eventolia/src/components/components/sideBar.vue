@@ -1,20 +1,17 @@
 <template>
-  <div class="button-side-bar ">
-    <!-- Usamos el componente Button con las rutas y textos pasados como atributos -->
-    <ButtonSideBar type="home" buttonText="Home" />
-    <ButtonSideBar type="lupa" buttonText="Search" />
-    <ButtonSideBar type="add" buttonText="Create" />
-    <ButtonSideBar type="message" buttonText="Message" />
-    <ButtonSideBar type="bell" buttonText="Notification" />
-    <ButtonSideBar type="user" buttonText="Profile" />
-    
+  <div class="button-side-bar">
+    <!-- Pasando las rutas como propiedades -->
+    <ButtonSideBar type="home" buttonText="Home" :route="'/mainpage'" />
+    <ButtonSideBar type="lupa" buttonText="Search" :route="'/searchpage'" />
+    <ButtonSideBar type="add" buttonText="Create" :route="'/createpage'" />
+    <ButtonSideBar type="message" buttonText="Message" :route="'/messagespage'" />
+    <ButtonSideBar type="bell" buttonText="Notification" :route="'/notificationspage'" />
+    <ButtonSideBar type="user" buttonText="Profile" :route="'/profilepage'" />
   </div>
 </template>
 
 <script setup>
 import ButtonSideBar from './buttonSideBar.vue';
-
-// Aquí puedes añadir tu lógica JavaScript si es necesario
 </script>
 
 <style scoped>
