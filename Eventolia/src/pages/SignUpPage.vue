@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import MainPage from '@/components/ViewComponents/Desktop/';
+import MainPage from '@/components/ViewComponents/Desktop/DesktopSignUp.vue';
 
 
   //

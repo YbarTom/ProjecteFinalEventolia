@@ -5,9 +5,9 @@
 </template>
   
 <script setup>
-    import RightSideSingUpPage from '@/components/components/Log_Reg/SignUpPage/RightSideSingUpPage.vue'
-    import MidiumSideSignUpPage from '@/components/components/Log_Reg/MidiumSideSignUpPage.vue'
-    import LeftSideSignUpPage from '@/components/components/Log_Reg/LeftSideSignUpPage.vue'
+    import RightSideSingUpPage from '@/components/components/Log_Reg/SignUpPage/RightSideSignUpPage.vue'
+    import MidiumSideSignUpPage from '@/components/components/Log_Reg/SignUpPage/MidiumSideSignUpPage.vue'
+    import LeftSideSignUpPage from '@/components/components/Log_Reg/SignUpPage/LeftSideSignUpPage.vue';
 
 </script>
   
