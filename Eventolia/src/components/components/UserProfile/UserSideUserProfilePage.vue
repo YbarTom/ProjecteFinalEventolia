@@ -2,7 +2,6 @@
     <div><PanelProfile/></div>
     
 </template>
-perfilInfo
 <script setup>
     
 </script>
