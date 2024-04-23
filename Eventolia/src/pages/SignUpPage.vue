@@ -1,7 +1,10 @@
 <template>
-    <SingUp/>
-  </template>
-  
-  <script setup>
-  import SingUp from '@/components/ViewComponents/Desktop/DesktopSingUpPage.vue';
-  </script>
+  <MainPage/>
+</template>
+
+<script setup>
+import MainPage from '@/components/ViewComponents/Desktop/';
+
+
+  //
+</script>

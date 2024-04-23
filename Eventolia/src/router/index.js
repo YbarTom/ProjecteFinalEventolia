@@ -23,9 +23,9 @@ const routes = [
     component: () => import('@/pages/foto.vue'),
   },
   {
-    path: '/RegisPage',
-    name: 'RegisPage',
-    component: () => import('@/pages/foto.vue'),
+    path: '/SignUpPage',
+    name: 'SignUpPage',
+    component: () => import('@/pages/SignUpPage.vue'),
   },
 ]
 
