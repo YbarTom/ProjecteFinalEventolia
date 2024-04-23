@@ -1,7 +1,8 @@
 <template>
     <div class="panel">
         <div class="bg-warning">
-            <h1>SignUpPanel</h1>
+            <h3>SignUpPanel</h3>
+            <h1>Eventolia</h1>
             <div><TextField text="Nom y Cognom"/></div>
             <div><TextField text="email"/></div>
             <div><TextField text="nick"/></div>
