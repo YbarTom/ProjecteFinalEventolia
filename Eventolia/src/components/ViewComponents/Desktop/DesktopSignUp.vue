@@ -1,7 +1,10 @@
 <template>
+  <div class="container">
     <div class="right-panel"><RightSideSingUpPage/></div>
     <div class="midium-panel"><MidiumSideSignUpPage/></div>
     <div class="left-panel"><LeftSideSignUpPage/></div>
+  </div>
+
 </template>
   
 <script setup>
@@ -12,13 +15,13 @@
 </script>
   
   <style scoped>
-    .container {
-      display: flex;
-      height: 100vh;
-    }
-  
-    .left-panel, .middle-panel, .right-panel {
-      flex: 1;
-    }
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+
+  .left-panel, .middle-panel, .right-panel {
+    flex: 1;
+  }
   </style>
   
