@@ -22,6 +22,11 @@ const routes = [
     name: 'Foto',
     component: () => import('@/pages/foto.vue'),
   },
+  {
+    path: '/RegisPage',
+    name: 'RegisPage',
+    component: () => import('@/pages/foto.vue'),
+  },
 ]
 
 const router = createRouter({
