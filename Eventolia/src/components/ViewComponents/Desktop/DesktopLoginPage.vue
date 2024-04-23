@@ -7,7 +7,7 @@
 
 <script setup>
 
-  import LeftSideLoginPage from '@/components/components/Log_Reg/LeftSideLoginPage.vue'
+  import LeftSideLoginPage from '@/components/components/Log_Reg/'
   import RightSideLoginPage from '@/components/components/Log_Reg/RightSideLoginPage.vue'
 
 </script>
