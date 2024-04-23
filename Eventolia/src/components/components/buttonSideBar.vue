@@ -1,5 +1,5 @@
 <template>
-  <div class="button">
+  <div class="button" >
     <div class="svg-container">
       <!-- Utilizamos la imagen de la lupa directamente -->
       <v-icon :icon="icono" class="text-text" />
