@@ -6,7 +6,7 @@
                 <h1>Eventolia</h1>
                 <div><TextField text="email"/></div>
                 <div><TextField text="password"/></div>
-                <div><ButtonLogin/></div>
+                <div><Button/></div>
             </div>
         </div>
     </div>  
@@ -15,7 +15,7 @@
 <script setup>
     import ThemeToggler from '@/components/components/ThemeToggler.vue'
     import TextField from '@/components/components/Log_Reg/TextField.vue'
-    import ButtonLogin from '@/components/components/Log_Reg/Button.vue'
+    import Button from '@/components/components/Log_Reg/Button.vue'
 </script>
   
 <script>

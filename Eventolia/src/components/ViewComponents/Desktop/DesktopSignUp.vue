@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="right-panel"><RightSideSingUpPage/></div>
-    <div class="midium-panel"><MidiumSideSignUpPage/></div>
     <div class="left-panel"><LeftSideSignUpPage/></div>
+    <div class="middle-panel"><MidiumSideSignUpPage/></div>
+    <div class="right-panel"><RightSideSingUpPage/></div>
   </div>
-
 </template>
+
   
 <script setup>
     import RightSideSingUpPage from '@/components/components/Log_Reg/SignUpPage/RightSideSignUpPage.vue'

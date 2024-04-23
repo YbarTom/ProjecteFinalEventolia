@@ -1,9 +1,12 @@
 <template>
     <h1>Centro</h1>
+    <div><SignUpPanel/></div>
 </template>
   
   <script setup>
-    // Aquí iría tu código JavaScript si necesitas algún comportamiento especial
+
+    import SignUpPanel from '@/components/components/Log_Reg/SignUpPage/SignUpPanel.vue';
+
   </script>
   
   <style scoped>
