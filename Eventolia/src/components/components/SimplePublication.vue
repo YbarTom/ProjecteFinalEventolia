@@ -1,4 +1,6 @@
 <template>
+    <div class="width">
+
   <div ref="divExterior" class="div-exterior bg-principal">
     <div class="profile-div">
       <div class="perfil-img"></div>
@@ -23,6 +25,7 @@
       <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway.</p>
     </div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -70,6 +73,12 @@ const adjustHeight = () => {
 
 
 <style scoped>
+.width {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .centerImage {
   display: flex;
   justify-content: center;
