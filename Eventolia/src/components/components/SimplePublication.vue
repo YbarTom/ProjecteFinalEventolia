@@ -1,31 +1,31 @@
 <template>
-    <div class="width">
 
-  <div ref="divExterior" class="div-exterior bg-principal">
-    <div class="profile-div">
-      <div class="perfil-img"></div>
-      <p><b>tom.ybarguengoitia</b></p>
-    </div>
-    <div class="centerImage">
-      <img ref="image" class="profile-img" src="../../assets/images/torre5.jpg" alt="Imagen de perfil"
-        @load="adjustHeight" />
-    </div>
-    <div ref="commentsDiv" class="comments-div bg-principal">
-      <div class="commentsButtons">
-        <div class="left">
-          <buttonPublication type="heart" />
-          <buttonPublication type="chat" />
-          <buttonPublication type="send" />
-        </div>
-        <div class="right">
-          <buttonPublication type="save" />
-        </div>
+    <div ref="divExterior" class="div-exterior bg-principal">
+      <div class="profile-div">
+        <div class="perfil-img"></div>
+        <p><b>tom.ybarguengoitia</b></p>
       </div>
-      <p class="likes text-text"><b>2.190 likes</b></p>
-      <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway.</p>
+      <div class="centerImage">
+        <img ref="image" class="profile-img" src="../../assets/images/torre5.jpg" alt="Imagen de perfil"
+          @load="adjustHeight" />
+      </div>
+      <div ref="commentsDiv" class="comments-div bg-principal">
+        <div class="commentsButtons">
+          <div class="left">
+            <buttonPublication type="heart" />
+            <buttonPublication type="chat" />
+            <buttonPublication type="send" />
+          </div>
+          <div class="right">
+            <buttonPublication type="save" />
+          </div>
+        </div>
+        <p class="likes text-text"><b>2.190 likes</b></p>
+        <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our
+          awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are
+          gone, they are gone... for a good few months anyway.</p>
+      </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script setup>
@@ -73,12 +73,7 @@ const adjustHeight = () => {
 
 
 <style scoped>
-.width {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .centerImage {
   display: flex;
   justify-content: center;
@@ -86,6 +81,7 @@ const adjustHeight = () => {
   background-color: black;
   height: 600px;
 }
+
 .div-exterior {
   margin-top: 10px;
   border-radius: 8px;
@@ -95,15 +91,16 @@ const adjustHeight = () => {
   overflow: hidden;
 }
 
-.likes{
+.likes {
   margin-left: 10px;
 }
 
-.userComments{
+.userComments {
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .profile-div {
   display: flex;
   align-items: center;
@@ -133,15 +130,14 @@ const adjustHeight = () => {
 .commentsButtons {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Centrado verticalmente */
+  align-items: center;
+  /* Centrado verticalmente */
 }
 
 .left,
 .right {
   display: flex;
-  align-items: center; /* Centrado verticalmente */
+  align-items: center;
+  /* Centrado verticalmente */
   padding: 10px;
-}
-
-
-</style>
+}</style>

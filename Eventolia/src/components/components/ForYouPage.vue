@@ -1,15 +1,14 @@
 <template>
   <div class="div">
-    <SimplePublication />
-    <SimplePublication />
 
-    <SimplePublication />
+    <Publication />
+    <Publication />
 
   </div>
 </template>
 
 <script setup>
-import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
+import Publication from './Publication.vue';
 </script>
 
 <style scoped>
