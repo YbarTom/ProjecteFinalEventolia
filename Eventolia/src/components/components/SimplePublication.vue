@@ -83,7 +83,7 @@ const adjustHeight = () => {
 }
 
 .div-exterior {
-  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 8px;
   max-height: 850px;
   width: 450px;

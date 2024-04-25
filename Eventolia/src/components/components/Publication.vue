@@ -1,10 +1,12 @@
 <template>
   <div class="width">
-    <SimplePublication />
+    <PublicationEvent />
+    
   </div>
 </template>
 
 <script setup>
+import PublicationEvent from './PublicationEvent.vue';
 import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
 </script>
 
