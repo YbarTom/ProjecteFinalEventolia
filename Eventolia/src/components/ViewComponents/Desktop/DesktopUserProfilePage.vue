@@ -17,21 +17,14 @@
   }
 
   .left-panel {
-    flex: 1;
-    overflow: auto; /* para el manejo de desbordamientos de contenido */
-    min-width: 635px; /* No tocar es para que tenga el mismo tamaño que en la barra de la pagina Main*/
-  }
+  flex: 1;  
+}
 
-  .resizer {
-    cursor: ew-resize;
-    background-color: #ccc;
-    width: 5px;
-  }
+.user-side {
+  flex: 2;  
+}
 
-  .user-side {
-    flex: 3;
-    overflow: auto;
-  }
+
 </style>
 
   
