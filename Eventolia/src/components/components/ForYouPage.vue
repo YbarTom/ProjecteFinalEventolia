@@ -1,12 +1,9 @@
 <template>
   <div class="div">
 
-    <Publication />
-    <Publication />
-
-    <Publication />
-
-    <Publication />
+    <Publication type="simplePublication"/>
+    <Publication type="eventPublication"/>
+    <Publication type="publicationEvent"/>
 
   </div>
 </template>

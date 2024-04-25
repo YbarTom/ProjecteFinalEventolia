@@ -26,6 +26,7 @@
           gone, they are gone... for a good few months anyway.</p>
       </div>
     </div>
+    
 </template>
 
 <script setup>
