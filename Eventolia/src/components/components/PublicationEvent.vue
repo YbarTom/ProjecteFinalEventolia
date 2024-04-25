@@ -61,5 +61,6 @@ import SimplePublication from './SimplePublication.vue'; // Importamos el compon
 .right{
   display: flex;
   align-items: center;
+  margin-right: 10px;
 }
 </style>
