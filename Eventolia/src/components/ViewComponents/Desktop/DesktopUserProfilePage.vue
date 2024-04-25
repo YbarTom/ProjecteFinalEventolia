@@ -4,12 +4,12 @@
       <div class="user-side"><UserSideUserProfilePage/></div>
     </div>
   </template>
-  
+
   <script setup>
   import LeftSideMainPage from "@/components/components/LeftSideMainPage.vue";
   import UserSideUserProfilePage from '@/components/components/UserProfile/UserSideUserProfilePage.vue'
   </script>
-  
+
 <style scoped>
   .container {
     display: flex;
@@ -17,14 +17,13 @@
   }
 
   .left-panel {
-  flex: 1;  
+  flex: 1;
 }
 
 .user-side {
-  flex: 2;  
+  flex: 2;
 }
 
 
 </style>
 
-  

@@ -20,7 +20,7 @@ import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUser
     text-align: center;
     background-color: #ffc107; /* Color de fondo amarillo de Bootstrap para advertencia */
     padding: 20px;
-    width: 82%;
+    width: 79%;
     min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
 }
 </style>
