@@ -16,10 +16,11 @@
             <h3>439</h3>
         </div>
     </div>
+    <div class="btn-seguir"><BtnSeguir/></div>
 </template>
 
 <script setup>
-
+ import BtnSeguir from '@/components/components/UserProfile/btnSeguir.vue'
 </script>
 
 <style scoped>
