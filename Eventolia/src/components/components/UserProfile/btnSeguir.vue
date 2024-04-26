@@ -10,7 +10,7 @@ const buttonText = ref('Seguir');
 const buttonClass = ref('follow-button');
 
 const toggleFollow = () => {
-    buttonText.value = buttonText.value === 'Seguir' ? 'Dejar de seguir' : 'Seguir';
+    º.value = buttonText.value === 'Seguir' ? 'Dejar de seguir' : 'Seguir';
     buttonClass.value = buttonClass.value === 'follow-button' ? 'follow-button-clicked' : 'follow-button';
 };
 </script>
