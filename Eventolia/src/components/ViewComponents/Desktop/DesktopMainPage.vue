@@ -17,11 +17,16 @@ import RightSideMainPage from "@/components/components/RightSideMainPage.vue";
   .container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
+
   }
 
   .left-panel, .middle-panel, .right-panel {
     flex: 1;
   }
 
+  ::-webkit-scrollbar {
+  display: none;
+}
 
 </style>
