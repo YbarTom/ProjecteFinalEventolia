@@ -1,21 +1,30 @@
 <template>
   <div class="div">
-    <SimplePublication />
+
+    <Publication type="simplePublication"/>
+    <Publication type="eventPublication"/>
+    <Publication type="publicationEvent"/>
+
   </div>
 </template>
 
 <script setup>
-import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
+import Publication from './Publication.vue';
 </script>
 
 <style scoped>
 .div {
   position: absolute; /* Posicionamos el div absolutamente dentro del contenedor */
   top: 78px; /* Altura del topBar */
-  left: 0;
   width: 100%;
-  height: calc(100% - 78px); /* Restamos la altura del topBar */
-  display: flex; /* Convertimos el div en un contenedor flex */
+  height: calc(100% - 78px);
   justify-content: center; /* Centramos horizontalmente el contenido */
+  flex-direction: column;
+  overflow-y: auto; /* Habilitamos el desplazamiento vertical */
+
+}
+/* Ocultar la barra de desplazamiento */
+.div::-webkit-scrollbar {
+  display: none;
 }
 </style>

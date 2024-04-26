@@ -1,28 +1,32 @@
 <template>
-  <div ref="divExterior" class="div-exterior bg-principal">
-    <div class="profile-div">
-      <div class="perfil-img"></div>
-      <p><b>tom.ybarguengoitia</b></p>
-    </div>
-    <div class="centerImage">
-      <img ref="image" class="profile-img" src="../../assets/images/torre5.jpg" alt="Imagen de perfil"
-        @load="adjustHeight" />
-    </div>
-    <div ref="commentsDiv" class="comments-div bg-principal">
-      <div class="commentsButtons">
-        <div class="left">
-          <buttonPublication type="heart" />
-          <buttonPublication type="chat" />
-          <buttonPublication type="send" />
-        </div>
-        <div class="right">
-          <buttonPublication type="save" />
-        </div>
+
+    <div ref="divExterior" class="div-exterior bg-principal">
+      <div class="profile-div">
+        <div class="perfil-img"></div>
+        <p><b>tom.ybarguengoitia</b></p>
       </div>
-      <p class="likes text-text"><b>2.190 likes</b></p>
-      <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway.</p>
+      <div class="centerImage">
+        <img ref="image" class="profile-img" src="../../assets/images/bici.jpg" alt="Imagen de perfil"
+          @load="adjustHeight" />
+      </div>
+      <div ref="commentsDiv" class="comments-div bg-principal">
+        <div class="commentsButtons">
+          <div class="left">
+            <buttonPublication type="heart" />
+            <buttonPublication type="chat" />
+            <buttonPublication type="send" />
+          </div>
+          <div class="right">
+            <buttonPublication type="save" />
+          </div>
+        </div>
+        <p class="likes text-text"><b>2.190 likes</b></p>
+        <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our
+          awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are
+          gone, they are gone... for a good few months anyway.</p>
+      </div>
     </div>
-  </div>
+
 </template>
 
 <script setup>
@@ -36,51 +40,44 @@ const commentsDiv = ref(null);
 
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {
-    const imageElement = image.value;
-    const containerWidth = 450;
-    const containerHeight = 600;
+  const imageElement = image.value;
+  const containerWidth = divExterior.value.clientWidth;
 
-    // Obtener las dimensiones originales de la imagen
-    const originalWidth = imageElement.naturalWidth;
-    const originalHeight = imageElement.naturalHeight;
+  // Obtener las dimensiones originales de la imagen
+  const originalWidth = imageElement.naturalWidth;
+  const originalHeight = imageElement.naturalHeight;
 
-    // Calcular la proporción de la imagen original
-    const aspectRatio = originalWidth / originalHeight;
+  // Calcular la proporción de la imagen original
+  const aspectRatio = originalWidth / originalHeight;
 
-    // Determinar si la imagen es más ancha que alta
-    let newWidth, newHeight;
-    if (aspectRatio > 1) { // Imagen es más ancha que alta
-      newWidth = containerWidth;
-      newHeight = containerWidth / aspectRatio;
-    } else { // Imagen es más alta que ancha o es cuadrada
-      newHeight = containerHeight;
-      newWidth = containerHeight * aspectRatio;
-    }
+  // Calcular la nueva altura basada en el ancho del contenedor y la proporción de la imagen
+  const newHeight = containerWidth / aspectRatio;
 
-    // Redimensionar la imagen manteniendo la proporción
-    imageElement.style.width = `${newWidth}px`;
-    imageElement.style.height = `${newHeight}px`;
+  // Redimensionar la imagen manteniendo la proporción
+  imageElement.style.width = `${containerWidth}px`;
+  imageElement.style.height = `${newHeight}px`;
 
-    // Calcular la altura total y ajustarla
-    const profileDivHeight = divExterior.value.querySelector('.profile-div').clientHeight;
-    const commentsDivHeight = commentsDiv.value.clientHeight;
-    const totalHeight = newHeight + profileDivHeight + commentsDivHeight;
-    divExterior.value.style.height = `${totalHeight}px`;
+  // Calcular la altura total y ajustarla
+  const profileDivHeight = divExterior.value.querySelector('.profile-div').clientHeight;
+  const commentsDivHeight = commentsDiv.value.clientHeight;
+  const totalHeight = newHeight + profileDivHeight + commentsDivHeight;
+  divExterior.value.style.height = `${totalHeight}px`;
   }
 }
 </script>
 
 
 <style scoped>
+
 .centerImage {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: black;
-  height: 600px;
 }
+
 .div-exterior {
-  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 8px;
   max-height: 850px;
   width: 450px;
@@ -88,15 +85,16 @@ const adjustHeight = () => {
   overflow: hidden;
 }
 
-.likes{
+.likes {
   margin-left: 10px;
 }
 
-.userComments{
+.userComments {
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .profile-div {
   display: flex;
   align-items: center;
@@ -126,15 +124,14 @@ const adjustHeight = () => {
 .commentsButtons {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Centrado verticalmente */
+  align-items: center;
+  /* Centrado verticalmente */
 }
 
 .left,
 .right {
   display: flex;
-  align-items: center; /* Centrado verticalmente */
+  align-items: center;
+  /* Centrado verticalmente */
   padding: 10px;
-}
-
-
-</style>
+}</style>

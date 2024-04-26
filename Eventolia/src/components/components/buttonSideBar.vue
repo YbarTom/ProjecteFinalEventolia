@@ -1,7 +1,6 @@
 <template>
-  <div class="button">
+  <div class="button" @click="navigateToRoute">
     <div class="svg-container">
-      <!-- Utilizamos la imagen de la lupa directamente -->
       <v-icon :icon="icono" class="text-text" />
     </div>
     <h3 class="text-text">{{ buttonText }}</h3>
@@ -9,33 +8,32 @@
 </template>
 
 <script setup>
-import { defineProps,ref} from 'vue';
-
-const icono = ref('');
-
-
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   type: String,
-  buttonText: String
+  buttonText: String,
+  route: String // Nueva prop para la ruta
 });
 
-// Definimos la ruta del SVG basada en el tipo proporcionado y el tema actual
-if (props.type === 'home') {
-  icono.value = "mdi-home";
-}else if (props.type === 'lupa') {
-  icono.value = "mdi-magnify";
-}else if (props.type === 'add') {
-  icono.value = "mdi-plus";
-}else if (props.type === 'message') {
-  icono.value = "mdi-message";
-}else if (props.type === 'bell') {
-  icono.value = "mdi-bell";
-}else if (props.type === 'user') {
-  icono.value = "mdi-account";
-}
+const router = useRouter();
 
+const icono = (() => {
+  if (props.type === 'home') return "mdi-home";
+  else if (props.type === 'lupa') return "mdi-magnify";
+  else if (props.type === 'add') return "mdi-plus";
+  else if (props.type === 'message') return "mdi-message";
+  else if (props.type === 'bell') return "mdi-bell";
+  else if (props.type === 'user') return "mdi-account";
+})();
+
+// Función para navegar a la ruta proporcionada
+const navigateToRoute = () => {
+  router.push(props.route);
+};
 </script>
+
 
 <style scoped>
 .button {
