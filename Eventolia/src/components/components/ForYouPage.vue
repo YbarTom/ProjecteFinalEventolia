@@ -1,15 +1,25 @@
 <template>
   <div class="div">
-
-    <Publication type="simplePublication"/>
-    <Publication type="eventPublication"/>
-    <Publication type="publicationEvent"/>
-
+    <SimplePublication v-for="post in posts" :key="post.id" :post="post"/>
   </div>
 </template>
 
 <script setup>
 import Publication from './Publication.vue';
+import { onMounted } from 'vue';
+import SimplePublication from './SimplePublication.vue'
+import * as funcionsCM from '../../../communicationsManager.js'
+
+const posts = ref([]);
+
+onMounted(async () => {
+  try {
+    const data = await funcionsCM.getPosts()
+    posts.value = data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
 </script>
 
 <style scoped>

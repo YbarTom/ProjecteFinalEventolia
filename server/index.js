@@ -27,12 +27,14 @@ app.listen(PORT, () => {
 
 app.get("/getUsers", async (req, res) => {
     try {
-        const users = await usersDB.getUsers()
-        res.json(users)
+        const users = await usersDB.getUsers();
+        res.status(200).json(users); // Set status and send response in correct order
     } catch (error) {
-        console.error("Error getting users", error)
+        console.error("Error getting users", error);
+        res.status(500).json({ error: "Internal Server Error" }); // Send an error response with status code 500
     }
-})
+});
+
 
 app.post("/createUser", async (req, res) => {
     try {
@@ -46,17 +48,19 @@ app.post("/createUser", async (req, res) => {
         user.privacity = false
 
         await usersDB.createUser(user)
+        res.status(200).json({ message: "User created successfully" });
     } catch (error) {
-        console.error("Error creating user", error)
+        res.status(500).json({ error: "Error creating user" });
     }
 })
 
 app.post("/getUserById", async (req, res) => {
     try {
         const idUser = req.body
-        await usersDB.getUserById(idUser)
+        const user = await usersDB.getUserById(idUser)
+        res.status(200).json(user);
     } catch (error) {
-        console.error("Error getting user", error)
+        res.status(500).json({ error: "Error getting user" });
     }
 })
 
@@ -64,8 +68,9 @@ app.post("/followUser", async (req, res) => {
     try {
         const data = req.body
         await usersDB.followUser(data.idFollower, data.idFollowed)
+        res.status(200).json({ message: "User followed successfully" });
     } catch (error) {
-        console.error("Error following user", error)
+        res.status(500).json({ error: "Error following user" });
     }
 })
 
@@ -94,10 +99,9 @@ app.post("/getFollowers", async (req, res) => {
             followers.push(await usersDB.getUserById(user.followers[i]))
         }
 
-        res.json(followers)
+        res.status(200).json(followers);
     } catch (error) {
-        console.error("Error getting followers", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({ error: "Error getting followers" });
     }
 })
 
@@ -111,10 +115,9 @@ app.post("/getFolloweds", async (req, res) => {
             followed.push(await usersDB.getUserById(user.followed[i]))
         }
 
-        res.json(followed)
+        res.status(200).json(followed);
     } catch (error) {
-        console.error("Error getting followeds", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({ error: "Error getting followed" });
     }
 })
 
@@ -123,9 +126,10 @@ app.post("/getFolloweds", async (req, res) => {
 app.get("/getPosts", async (req, res) => {
     try {
         const posts = await postsDB.getPosts()
-        res.json(posts)
+        console.log(posts)
+        res.status(200).json(posts);
     } catch (error) {
-        console.error("Error getting posts", error)
+        res.status(500).json({ error: "Error getting posts" });
     }
 })
 
@@ -133,41 +137,45 @@ app.post("/likePost", async (req, res) => {
     try {
         const data = req.body
         await postsDB.likePost(data.idUser, data.idPost)
+        res.status(200).json({ message: "Post liked successfully" });
     } catch (error) {
-        console.error("Error liking post", error)
+        res.status(500).json({ error: "Error liking post" });
     }
 })
 
 app.post("/createPost", async (req, res) => {
     try {
-        const post = req.body
+        const post = {}
 
         post.likes = []
         post.comments = []
-
+        post.userName = "tom.ybarguengoitia"
+        post.caption = "Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway. "
+        
         await postsDB.createPost(post)
+        res.status(200).json({ message: "POst created successfully" });
     } catch (error) {
-        console.error("Error creating post", error)
+        res.status(500).json({ error: "Error creating post" });
     }
 })
 
 app.post("/getPostById", async (req, res) => {
     try {
         const idPost = req.body
-        const post = await postsDB.getPostsById(idPost)
-        res.json(post)
+        const post = await postsDB.getPostById(idPost)
+        res.status(200).json(post);
     } catch (error) {
-        console.error("Error creating post", error)
+        res.status(500).json({ error: "Error getting post" });
     }
 })
 
 app.post("/getPostsByIdUser", async (req, res) => {
     try {
         const idUser = req.body
-        const post = await postsDB.getPostsByIdUser(idUser)
-        res.json(post)
+        const post = await postsDB.getPostByIdUser(idUser)
+        res.status(200).json(post);
     } catch (error) {
-        console.error("Error creating post", error)
+        res.status(500).json({ error: "Error getting post" });
     }
 })
 
@@ -182,8 +190,9 @@ app.post("/createEvent", async (req, res) => {
         data.likes = []
 
         await eventsDB.createEvent(data)
+        res.status(200).json({ message: "Event created successfully" });
     } catch (error) {
-        console.error("Error creating event", error)
+        res.status(500).json({ error: "Error creating event" });
     }
 })
 
@@ -214,8 +223,9 @@ app.post("/createComment", async (req, res) => {
     try {
         const data = req.body
         await commentsDB.createComment(data)
+        res.status(200).json({ message: "Comment created successfully" });
     } catch (error) {
-        console.error("Error adding comment", error)
+        res.status(500).json({ error: "Error creating comment" });
     }
 })
 
