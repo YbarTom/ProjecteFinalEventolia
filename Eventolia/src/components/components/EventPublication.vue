@@ -23,7 +23,7 @@
         gone, they are gone... for a good few months anyway.</p>
     </div>
     <div class="centerImage">
-      <img ref="image" src="../../assets/images/torre5.jpg" alt="Imagen de perfil"
+      <img ref="image" src="../../assets/images/caida.jpg" alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
   </div>
