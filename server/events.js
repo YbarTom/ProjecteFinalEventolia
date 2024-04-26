@@ -52,6 +52,50 @@ function createEvent(event) {
     });
 }
 
+function getEventsByIdUser(idUser) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.find({ idUser: idUser }).toArray()
+                    .then((events) => {
+                        resolve(events);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting events: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+function getAssistants(idEvent) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.findOne({ id: idEvent })
+                    .then((event) => {
+                        resolve(event);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting assistants from events: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+
+
 module.exports = {
-    createEvent
+    createEvent,
+    getEventsByIdUser,
+    getAssistants
 }

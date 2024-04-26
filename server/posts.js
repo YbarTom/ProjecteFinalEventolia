@@ -75,7 +75,7 @@ function createPost(post) {
     });
 }
 
-function getPostById(idPost) {
+function getPostsById(idPost) {
     return new Promise((resolve, reject) => {
         client
             .connect()
@@ -122,7 +122,7 @@ function likePost(idUser, idPost) {
     });
 }
 
-function getPostByIdUser(idUser) {
+function getPostsByIdUser(idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
@@ -147,6 +147,6 @@ module.exports = {
     likePost,
     getPosts,
     createPost,
-    getPostById,
-    getPostByIdUser
+    getPostsById,
+    getPostsByIdUser
 }
