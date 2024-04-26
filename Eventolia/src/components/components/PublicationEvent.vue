@@ -4,7 +4,7 @@
       <div class="left">
         <div class="perfil-img"></div>
         <div>
-          <p class="first-text"><b>tom.ybarguengoitia</b></p>
+          <p class="first-text" @click="navigateToRoute"><b>tom.ybarguengoitia</b></p>
           <p class="second-text">El Dirty</p>
         </div>
       </div>
@@ -23,12 +23,18 @@
 <script setup>
 import { ref } from 'vue';
 import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
+import { useRouter } from 'vue-router';
 
 const showText = ref(false); // Inicializamos showText como false
+const router = useRouter();
 
 const props = defineProps({
   post: Object
 })
+
+const navigateToRoute = () => {
+  router.push(props.route);
+};
 </script>
 
 
