@@ -6,7 +6,7 @@
         <p><b>tom.ybarguengoitia</b></p>
       </div>
       <div class="centerImage">
-        <img ref="image" class="profile-img" src="../../assets/images/torre5.jpg" alt="Imagen de perfil"
+        <img ref="image" class="profile-img" src="../../assets/images/bici.jpg" alt="Imagen de perfil"
           @load="adjustHeight" />
       </div>
       <div ref="commentsDiv" class="comments-div bg-principal">
@@ -26,7 +26,7 @@
           gone, they are gone... for a good few months anyway.</p>
       </div>
     </div>
-    
+
 </template>
 
 <script setup>
