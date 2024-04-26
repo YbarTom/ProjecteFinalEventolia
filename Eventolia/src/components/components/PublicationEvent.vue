@@ -24,8 +24,10 @@
 import { ref } from 'vue';
 import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
 import * as funcionsCM from '../../../communicationsManager.js'
+import { useRouter } from 'vue-router';
 
 const showText = ref(false); // Inicializamos showText como false
+const router = useRouter();
 
 const props = defineProps({
   post: Object
@@ -41,6 +43,9 @@ onMounted(async () => {
     console.error('Error fetching data:', error);
   }
 });
+const navigateToRoute = () => {
+  router.push("/ProfilePage");
+};
 </script>
 
 
@@ -68,7 +73,6 @@ onMounted(async () => {
 }
 
 .adminEvent {
-  width: 450px;
   height: 65px;
   display: flex;
   justify-content: space-between;
