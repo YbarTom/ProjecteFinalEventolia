@@ -52,6 +52,23 @@ function createComment(comment) {
     });
 }
 
+function getCommentsById(idPost) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                commentsCollection.find({ idPost: idPost }).toArray()
+                    .then((comments) => {
+                        resolve(comments)
+                    })
+                    .catch((error) => {
+                        console.error("Error getting comments: ", error)
+                        reject(error)
+                    })
+            })
+    })
+}
+
 module.exports = {
-    createComment
+    createComment,
+    getCommentsById
 }

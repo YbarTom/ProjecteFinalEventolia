@@ -151,38 +151,25 @@ function followUser(idFollower, idFollowed) {
     });
 }
 
-/*function followUser(idFollower, idFollowed) {
+function getAssistants(assistants) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
-                // Update the follower
-                usersCollection.findOneAndUpdate(
-                    { id: idFollower },
-                    { $push: { followed: idFollowed } },
-                    { returnOriginal: false }
-                )
-                    .then(() => {
-                        // Update the followed
-                        return usersCollection.findOneAndUpdate(
-                            { id: idFollowed },
-                            { $push: { followers: idFollower } },
-                            { returnOriginal: false }
-                        );
-                    })
-                    .then((updatedFollowedUser) => {
-                        resolve(updatedFollowedUser);
+                usersCollection.find({ id: { $in: assistants } }).toArray()
+                    .then((assistants) => {
+                        resolve(assistants)
                     })
                     .catch((error) => {
-                        console.error("Error updating followed user: ", error);
-                        reject(error);
+                        console.error("Error finding assistants: ", error)
+                        reject(error)
                     });
             })
             .catch((error) => {
-                console.error("Error connecting to database: ", error);
-                reject(error);
+                console.error("Error connecting to database: ", error)
+                reject(error)
             });
     });
-}*/
+}
 
 module.exports = {
     getUsers,
@@ -190,4 +177,5 @@ module.exports = {
     getUserById,
     followUser,
     login,
+    getAssistants
 }
