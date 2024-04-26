@@ -63,6 +63,7 @@ const adjustHeight = () => {
   divExterior.value.style.height = `${totalHeight}px`;
   }
 }
+
 </script>
 
 

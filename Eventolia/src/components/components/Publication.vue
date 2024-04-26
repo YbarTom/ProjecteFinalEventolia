@@ -1,14 +1,14 @@
 <template>
-  <div class="width" v-if="props.type === 'simplePublication'">
-    <SimplePublication />
-    
-  </div>
-  <div class="width" v-if="props.type === 'publicationEvent'">
-    <PublicationEvent />
+  <div class="width" v-if="props.post.type === 'simplePublication'">
+    <SimplePublication :key="post.id" :post="post" />
 
   </div>
-  <div class="width" v-else-if="props.type === 'eventPublication'">
-    <EventPublication />
+  <div class="width" v-if="props.post.type === 'publicationEvent'">
+    <PublicationEvent :key="post.id" :post="post" />
+
+  </div>
+  <div class="width" v-else-if="props.post.type === 'eventPublication'">
+    <EventPublication :key="post.id" :post="post" />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ import EventPublication from './EventPublication.vue';
 import PublicationEvent from './PublicationEvent.vue';
 
 const props = defineProps({
-  type: String
+  post: Object
 });
 </script>
 
@@ -30,6 +30,7 @@ const props = defineProps({
   bottom: 0;
   height: 1px;
 }
+
 .width {
   width: 100%;
   display: flex;

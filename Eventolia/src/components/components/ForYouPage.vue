@@ -1,11 +1,6 @@
 <template>
-  <div class="div">
-
-    <Publication type="simplePublication"/>
-    <Publication type="eventPublication"/>
-    <Publication type="publicationEvent"/>
-    
-    <SimplePublication v-for="post in posts" :key="post.id" :post="post"/>
+  <div class="div">    
+    <Publication v-for="post in posts" :key="post.id" :post="post"/>
   </div>
 </template>
 
