@@ -33,7 +33,7 @@ const props = defineProps({
 })
 
 const navigateToRoute = () => {
-  router.push(props.route);
+  router.push("/ProfilePage");
 };
 </script>
 
