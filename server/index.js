@@ -145,15 +145,13 @@ app.post("/likePost", async (req, res) => {
 
 app.post("/createPost", async (req, res) => {
     try {
-        const post = {}
+        const post = req.body
 
         post.likes = []
         post.comments = []
-        post.userName = "tom.ybarguengoitia"
-        post.caption = "Good news! We are now taking pre-orders for our awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are gone, they are gone... for a good few months anyway. "
-        
+
         await postsDB.createPost(post)
-        res.status(200).json({ message: "POst created successfully" });
+        res.status(200).json({ message: "Post created successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error creating post" });
     }
@@ -209,11 +207,22 @@ app.post("/getEventsByIdUser", async (req, res) => {
 app.post("/getAssistants", async (req, res) => {
     try {
         const idEvent = req.body
-        const event = await eventsDB.getAssistants(idEvent)
+        const event = await eventsDB.getEventById(idEvent)
         const assistants = await usersDB.getAssistants(event.assistants)
         res.json(assistants)
     } catch (error) {
         console.error("Error getting assistants", error)
+    }
+})
+
+app.post("/getEventById", async (req, res) => {
+    try {
+        const idEvent = req.body
+        console.log("dgfssagfgasfd", idEvent)
+        const event = await eventsDB.getEventById(idEvent)
+        res.status(200).json(event)
+    } catch (error) {
+        console.error("Error getting event", error)
     }
 })
 

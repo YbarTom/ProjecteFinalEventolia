@@ -72,7 +72,7 @@ function getEventsByIdUser(idUser) {
     });
 }
 
-function getAssistants(idEvent) {
+function getEventById(idEvent) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
@@ -94,8 +94,9 @@ function getAssistants(idEvent) {
 
 
 
+
 module.exports = {
     createEvent,
     getEventsByIdUser,
-    getAssistants
+    getEventById
 }

@@ -4,17 +4,17 @@
       <div class="left">
         <div class="perfil-img"></div>
         <div>
-          <p class="first-text"><b>tom.ybarguengoitia</b></p>
-          <p class="second-text">El Dirty</p>
+          <p class="first-text"><b>{{ event.organizer }}</b></p>
+          <p class="second-text">{{ event.title }}</p>
         </div>
       </div>
       <div class="right">
-        <p><b>5.000</b></p>
+        <p><b>{{ event.assistants }}</b></p>
         <v-icon icon="mdi-account-multiple" class="text-text" />
       </div>
     </div>
     <div v-if="showText">
-      <p class="definition">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      <p class="definition">{{ event.description }}</p>
     </div>
     <SimplePublication :key="post.id" :post="post"/>
   </div>
@@ -23,12 +23,24 @@
 <script setup>
 import { ref } from 'vue';
 import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
+import * as funcionsCM from '../../../communicationsManager.js'
 
 const showText = ref(false); // Inicializamos showText como false
 
 const props = defineProps({
   post: Object
 })
+
+const event = ref({});
+
+onMounted(async () => {
+  try {
+    const data = await funcionsCM.getEventInfo(post.idEvent)
+    event.value = data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
 </script>
 
 
