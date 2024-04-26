@@ -56,7 +56,6 @@ const props = defineProps({
 }
 
 .adminEvent {
-  width: 450px;
   height: 65px;
   display: flex;
   justify-content: space-between;
