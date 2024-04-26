@@ -38,36 +38,28 @@ const commentsDiv = ref(null);
 
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {
-    const imageElement = image.value;
-    const containerWidth = 450;
-    const containerHeight = 600;
+  const imageElement = image.value;
+  const containerWidth = divExterior.value.clientWidth;
 
-    // Obtener las dimensiones originales de la imagen
-    const originalWidth = imageElement.naturalWidth;
-    const originalHeight = imageElement.naturalHeight;
+  // Obtener las dimensiones originales de la imagen
+  const originalWidth = imageElement.naturalWidth;
+  const originalHeight = imageElement.naturalHeight;
 
-    // Calcular la proporción de la imagen original
-    const aspectRatio = originalWidth / originalHeight;
+  // Calcular la proporción de la imagen original
+  const aspectRatio = originalWidth / originalHeight;
 
-    // Determinar si la imagen es más ancha que alta
-    let newWidth, newHeight;
-    if (aspectRatio > 1) { // Imagen es más ancha que alta
-      newWidth = containerWidth;
-      newHeight = containerWidth / aspectRatio;
-    } else { // Imagen es más alta que ancha o es cuadrada
-      newHeight = containerHeight;
-      newWidth = containerHeight * aspectRatio;
-    }
+  // Calcular la nueva altura basada en el ancho del contenedor y la proporción de la imagen
+  const newHeight = containerWidth / aspectRatio;
 
-    // Redimensionar la imagen manteniendo la proporción
-    imageElement.style.width = `${newWidth}px`;
-    imageElement.style.height = `${newHeight}px`;
+  // Redimensionar la imagen manteniendo la proporción
+  imageElement.style.width = `${containerWidth}px`;
+  imageElement.style.height = `${newHeight}px`;
 
-    // Calcular la altura total y ajustarla
-    const profileDivHeight = divExterior.value.querySelector('.profile-div').clientHeight;
-    const commentsDivHeight = commentsDiv.value.clientHeight;
-    const totalHeight = newHeight + profileDivHeight + commentsDivHeight;
-    divExterior.value.style.height = `${totalHeight}px`;
+  // Calcular la altura total y ajustarla
+  const profileDivHeight = divExterior.value.querySelector('.profile-div').clientHeight;
+  const commentsDivHeight = commentsDiv.value.clientHeight;
+  const totalHeight = newHeight + profileDivHeight + commentsDivHeight;
+  divExterior.value.style.height = `${totalHeight}px`;
   }
 }
 </script>
@@ -80,7 +72,6 @@ const adjustHeight = () => {
   justify-content: center;
   align-items: center;
   background-color: black;
-  height: 600px;
 }
 
 .div-exterior {
