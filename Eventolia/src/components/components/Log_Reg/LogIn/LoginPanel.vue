@@ -1,7 +1,6 @@
 <template>
     <div class="loginPanel">
-        <div class="bg-success">
-            <h2>LoginPanel</h2>
+        <div>
             <div class="TituloLoginPanel">
                 <h1>Eventolia</h1>
                 <div><TextField text="email"/></div>
