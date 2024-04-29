@@ -12,7 +12,6 @@
       </div>
     </div>
     <div class="post bg-principal" v-if="imagePreview" ref="post">
-
       <div class="left-side">
         <div class="margin">
           <img :src="imagePreview" ref="image" alt="Image Preview" />
@@ -22,14 +21,11 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref } from 'vue';
-
 const imagePreview = ref('');
 const image = ref(null);
 const post = ref(null);
-
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -41,11 +37,9 @@ const handleImageUpload = (event) => {
   }
 };
 </script>
-
 <style scoped>
 .margin {
   margin: 20px;
-  margin-bottom: 20px;
 }
 .left-side {
   height: 100%;
@@ -53,7 +47,6 @@ const handleImageUpload = (event) => {
   justify-content: center;
   align-items: center;
   border-radius: 16px 0 0 16px;
-  overflow: hidden; /* Añadir esto para recortar la imagen si excede el tamaño */
 }
 
 .div-button {
@@ -65,7 +58,6 @@ const handleImageUpload = (event) => {
   padding: 20px 0;
   /* Añadir espacio alrededor del botón */
 }
-
 .container {
   display: flex;
   justify-content: center;
@@ -73,12 +65,10 @@ const handleImageUpload = (event) => {
   height: 100vh;
   width: 79%;
 }
-
 .title {
   font-size: 18px;
   margin-top: 20px;
 }
-
 .post {
   width: 80%;
   text-align: center;
@@ -89,25 +79,19 @@ const handleImageUpload = (event) => {
   flex-direction: column;
   /* Añadir esto para que los elementos internos se apilen verticalmente */
 }
-
 .horizontal-bar-create {
   width: 100%;
   height: 1px;
   margin-top: 20px;
 }
-
 .upload-button {
   font-weight: bold;
   border-radius: 16px;
   padding: 10px 20px;
 }
-
-.post img.preview-image {
+.post img {
   max-width: 100%;
-  max-height: calc(100% - 40px); /* Establecer el máximo al 100% menos 20px */
   height: auto;
+  /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-</style>
+}</style>
