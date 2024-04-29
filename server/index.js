@@ -159,7 +159,7 @@ app.post("/createPost", async (req, res) => {
 app.post("/getPostById", async (req, res) => {
     try {
         const idPost = req.body
-        const post = await postsDB.getPostById(idPost)
+        const post = await postsDB.getPostsById(idPost)
         res.status(200).json(post);
     } catch (error) {
         res.status(500).json({ error: "Error getting post" });
@@ -169,10 +169,24 @@ app.post("/getPostById", async (req, res) => {
 app.post("/getPostsByIdUser", async (req, res) => {
     try {
         const idUser = req.body
-        const post = await postsDB.getPostByIdUser(idUser)
+        const post = await postsDB.getPostsByIdUser(idUser)
         res.status(200).json(post);
     } catch (error) {
         res.status(500).json({ error: "Error getting post" });
+    }
+})
+
+app.post("/getFollowingPage", async (req, res) => {
+    try {
+        const data = req.body
+        const user = await usersDB.getUserById(data.idUser)
+        var posts = []
+        for (let i = 0; i < user.followed.length; i++) {
+            posts.push(await postsDB.getPostsByIdUser(user.followed[i]))
+        }
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting following page" })
     }
 })
 

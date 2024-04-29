@@ -27,3 +27,18 @@ export async function getEventInfo(idEvent) {
     throw error;
   }
 }
+
+export async function getFollowingPage(idUser) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getFollowingPage`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idUser: idUser })
+      });
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.log("Error al recuperar following page CM");
+    throw error;
+  }
+}
