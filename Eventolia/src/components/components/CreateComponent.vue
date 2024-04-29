@@ -1,3 +1,4 @@
+
 <template>
   <div class="container">
     <div class="post bg-principal" v-if="!imagePreview">
@@ -12,12 +13,14 @@
       </div>
     </div>
     <div class="post bg-principal" v-if="imagePreview" ref="post">
-      <div class="left-side">
-        <div class="margin">
-          <img :src="imagePreview" ref="image" alt="Image Preview" />
+      <div class="grid-container">
+        <div class="left-side">
+          <div class="margin">
+            <img :src="imagePreview" ref="image" alt="Image Preview" />
+          </div>
         </div>
+        <div class="right-side"></div>
       </div>
-      <div class="right-side"></div>
     </div>
   </div>
 </template>
@@ -38,6 +41,10 @@ const handleImageUpload = (event) => {
 };
 </script>
 <style scoped>
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+}
 .margin {
   margin: 20px;
 }
@@ -48,7 +55,11 @@ const handleImageUpload = (event) => {
   align-items: center;
   border-radius: 16px 0 0 16px;
 }
-
+.right-side {
+  height: 100%;
+  border-radius: 0 16px 16px 0;
+  background-color: red;
+}
 .div-button {
   display: flex;
   justify-content: center;
