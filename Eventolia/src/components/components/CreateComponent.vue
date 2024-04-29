@@ -12,8 +12,11 @@
       </div>
     </div>
     <div class="post bg-principal" v-if="imagePreview" ref="post">
+
       <div class="left-side">
-        <img :src="imagePreview" ref="image" alt="Image Preview" />
+        <div class="margin">
+          <img :src="imagePreview" ref="image" alt="Image Preview" />
+        </div>
       </div>
       <div class="right-side"></div>
     </div>
@@ -40,18 +43,24 @@ const handleImageUpload = (event) => {
 </script>
 
 <style scoped>
-.left-side{
+.margin {
+  margin: 20px;
+}
+.left-side {
   height: 100%;
   width: 450px;
   background-color: red;
   border-radius: 16px 0 0 16px;
 }
+
 .div-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: auto; /* Esto colocará el botón en la parte inferior del contenedor */
-  padding: 20px 0; /* Añadir espacio alrededor del botón */
+  margin-top: auto;
+  /* Esto colocará el botón en la parte inferior del contenedor */
+  padding: 20px 0;
+  /* Añadir espacio alrededor del botón */
 }
 
 .container {
@@ -72,8 +81,10 @@ const handleImageUpload = (event) => {
   text-align: center;
   border-radius: 16px;
   height: 80vh;
-  display: flex; /* Añadir esto para permitir el posicionamiento flex */
-  flex-direction: column; /* Añadir esto para que los elementos internos se apilen verticalmente */
+  display: flex;
+  /* Añadir esto para permitir el posicionamiento flex */
+  flex-direction: column;
+  /* Añadir esto para que los elementos internos se apilen verticalmente */
 }
 
 .horizontal-bar-create {
@@ -90,7 +101,7 @@ const handleImageUpload = (event) => {
 
 .post img {
   max-width: 100%;
-  height: auto; /* Hacer que la altura se ajuste automáticamente */
+  height: auto;
+  /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
-}
-</style>
+}</style>
