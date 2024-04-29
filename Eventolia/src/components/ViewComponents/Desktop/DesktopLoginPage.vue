@@ -2,7 +2,6 @@
   <div class="container">
     <div class="left-panel"><LeftSideLoginPage/></div>
     <div class="right-panel"><RightSideLoginPage/></div>
-    <div class="imagen"><imagen/></div>
   </div>
 </template>
 
@@ -10,8 +9,6 @@
 
   import LeftSideLoginPage from '@/components/components/Log_Reg/LogIn/LeftSideLoginPage.vue'
   import RightSideLoginPage from '@/components/components/Log_Reg/LogIn/RightSideLoginPage.vue'
-
-  import imagen from '@/components/components/foto.vue'
 </script>
 
 <style scoped>
