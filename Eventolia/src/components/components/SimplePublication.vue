@@ -28,6 +28,8 @@
 </template>
 
 <script setup>
+import Foto from "@/components/components/foto.vue";
+
 import { ref } from 'vue';
 import buttonPublication from './buttonPublication.vue';
 const divExterior = ref(null);

@@ -5,10 +5,18 @@
   </template>
   
   <script setup>
-  function handleClick() {
-    console.log('El botón fue clickeado!');
-  }
+    import { defineProps, defineEmits } from 'vue';
+
+    defineProps([]);
+    const emit = defineEmits(['click']);
+
+    function handleClick() {
+        emit('click');
+        console.log('El botón fue clickeado!');
+
+    }
   </script>
+
   
   <style scoped>
   button {
@@ -20,7 +28,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 18px 2px;
     cursor: pointer;
   }
   

@@ -10,7 +10,7 @@
 import LeftSideMainPage from "@/components/components/LeftSideMainPage.vue";
 import MediumSideMainPage from "@/components/components/MediumSideMainPage.vue";
 import RightSideMainPage from "@/components/components/RightSideMainPage.vue";
-  //
+
 </script>
 
 <style scoped>
