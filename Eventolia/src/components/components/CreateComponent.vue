@@ -45,6 +45,7 @@ const handleImageUpload = (event) => {
 <style scoped>
 .margin {
   margin: 20px;
+  margin-bottom: 20px;
 }
 .left-side {
   height: 100%;
@@ -52,6 +53,7 @@ const handleImageUpload = (event) => {
   justify-content: center;
   align-items: center;
   border-radius: 16px 0 0 16px;
+  overflow: hidden; /* Añadir esto para recortar la imagen si excede el tamaño */
 }
 
 .div-button {
@@ -100,9 +102,12 @@ const handleImageUpload = (event) => {
   padding: 10px 20px;
 }
 
-.post img {
+.post img.preview-image {
   max-width: 100%;
+  max-height: calc(100% - 40px); /* Establecer el máximo al 100% menos 20px */
   height: auto;
-  /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
-}</style>
+  margin-bottom: 20px;
+}
+
+</style>
