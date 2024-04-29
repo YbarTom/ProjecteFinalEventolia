@@ -2,8 +2,8 @@
   <div class="loginPanel">
       <div class="TituloLoginPanel">
           <h1>Eventolia</h1>
-          <div><TextField text="email"/></div>
-          <div><TextField text="password"/></div>
+          <div class="input-container"><TextField text="email"/></div>
+          <div class="input-container"><TextField text="password"/></div>
           <div><Button /></div>
       </div>
   </div>  
@@ -38,5 +38,11 @@ export default {
       align-items: center;
       margin-bottom: 20px;     
   }
+
+  .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
 </style>
-  

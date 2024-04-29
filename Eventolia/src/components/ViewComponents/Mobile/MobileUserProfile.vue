@@ -5,7 +5,6 @@
   </template>
 
   <script setup>
-    import LeftSideMainPage from "@/components/components/LeftSideMainPage.vue";
     import UserSideUserProfilePage from '@/components/components/UserProfile/UserSideUserProfilePage.vue'
   </script>
 
