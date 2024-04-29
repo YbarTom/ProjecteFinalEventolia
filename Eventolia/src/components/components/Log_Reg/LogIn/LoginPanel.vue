@@ -1,54 +1,42 @@
 <template>
-    <div class="loginPanel">
-        <div>
-            <div class="TituloLoginPanel">
-                <h1>Eventolia</h1>
-                <div><TextField text="email"/></div>
-                <div><TextField text="password"/></div>
-                <div><Button /></div>
-            </div>
-        </div>
-    </div>  
+  <div class="loginPanel">
+      <div class="TituloLoginPanel">
+          <h1>Eventolia</h1>
+          <div><TextField text="email"/></div>
+          <div><TextField text="password"/></div>
+          <div><Button /></div>
+      </div>
+  </div>  
 </template>
-  
-<script setup>3
-    import ThemeToggler from '@/components/components/ThemeToggler.vue'
-    import TextField from '@/components/components/Log_Reg/TextField.vue'
-    import Button from '@/components/components/Log_Reg/Button.vue'
+
+<script setup>
+  import ThemeToggler from '@/components/components/ThemeToggler.vue'
+  import TextField from '@/components/components/Log_Reg/TextField.vue'
+  import Button from '@/components/components/Log_Reg/Button.vue'
 </script>
-  
+
 <script>
-  export default {
-    components: {
-      ThemeToggler,
-      TextField,
-    },
-  }
+export default {
+  components: {
+    ThemeToggler,
+    TextField,
+  },
+}
 </script>
-  
+
 <style scoped>
-    .container {
+  .loginPanel {
       display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
-      transition: background-color 0.5s ease;
-    }
+  }
 
-    .loginPanel {
-        margin-top: 150px;
-        margin-left: 100px;
-        width: 400px;
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;  
-    }
-
-    .TituloLoginPanel{
-        display: flex;             
-        flex-direction: column;   
-        align-items: center;
-        margin-bottom: 20px;     
-    }
+  .TituloLoginPanel{
+      display: flex;             
+      flex-direction: column;   
+      align-items: center;
+      margin-bottom: 20px;     
+  }
 </style>
   

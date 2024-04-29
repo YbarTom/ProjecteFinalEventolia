@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-      <div class="left-panel"><LeftSideMainPage/></div>
       <div class="user-side"><UserSideUserProfilePage/></div>
     </div>
   </template>
