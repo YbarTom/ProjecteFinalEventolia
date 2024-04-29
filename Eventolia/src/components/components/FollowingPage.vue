@@ -1,24 +1,40 @@
 <template>
   <div class="div">
     <ToggleTheme />
+    <Publication v-for="post in posts" :key="post.id" :post="post" />
   </div> <!-- Nuevo div con color azul -->
 
 </template>
 
 <script setup>
 import ToggleTheme from './ToggleTheme.vue';
+import Publication from './Publication.vue';
+import { onMounted } from 'vue';
+import * as funcionsCM from '../../communicationsManager.js';
+
+const posts = ref([])
+
+onMounted(async () => {
+  try {
+    const data = await funcionsCM.getFollowingPage("lzwdgq3cibtlvalpwa0")
+    posts.value = data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
 </script>
 
 <style scoped>
-
 .div {
-  position: absolute; /* Posicionamos el div absolutamente dentro del contenedor */
-  top: 78px; /* Altura del topBar */
+  position: absolute;
+  /* Posicionamos el div absolutamente dentro del contenedor */
+  top: 78px;
+  /* Altura del topBar */
   left: 0;
   width: 100%;
-  height: calc(100% - 78px); /* Restamos la altura del topBar */
+  height: calc(100% - 78px);
+  /* Restamos la altura del topBar */
 }
 
 /* Ajustamos la posición del div azul */
-
 </style>
