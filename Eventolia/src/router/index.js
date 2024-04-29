@@ -18,7 +18,7 @@ const routes = [
     component: () => import('@/pages/LoginPage.vue'),
   },
   {
-    path: '/foto',
+    path: '/Foto',
     name: 'Foto',
     component: () => import('@/pages/foto.vue'),
   },

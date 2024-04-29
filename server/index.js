@@ -126,7 +126,6 @@ app.post("/getFolloweds", async (req, res) => {
 app.get("/getPosts", async (req, res) => {
     try {
         const posts = await postsDB.getPosts()
-        console.log(posts)
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error: "Error getting posts" });
@@ -217,9 +216,8 @@ app.post("/getAssistants", async (req, res) => {
 
 app.post("/getEventById", async (req, res) => {
     try {
-        const idEvent = req.body
-        console.log("dgfssagfgasfd", idEvent)
-        const event = await eventsDB.getEventById(idEvent)
+        const data = req.body
+        const event = await eventsDB.getEventById(data.idEvent)
         res.status(200).json(event)
     } catch (error) {
         console.error("Error getting event", error)

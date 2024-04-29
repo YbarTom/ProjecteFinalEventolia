@@ -1,5 +1,5 @@
 <template>
-  <div class="exterior">
+  <div class="exterior" v-if="event">
     <div class="adminEvent" @click="showText = !showText">
       <div class="left">
         <div class="perfil-img"></div>
@@ -9,40 +9,41 @@
         </div>
       </div>
       <div class="right">
-        <p><b>{{ event.assistants }}</b></p>
+        <p><b>{{ event.assistants.length }}</b></p>
         <v-icon icon="mdi-account-multiple" class="text-text" />
       </div>
     </div>
     <div v-if="showText">
       <p class="definition">{{ event.description }}</p>
     </div>
-    <SimplePublication :key="post.id" :post="post"/>
+    <SimplePublication :key="post.id" :post="post" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import SimplePublication from './SimplePublication.vue'; // Importamos el componente SimplePublication
-import * as funcionsCM from '../../../communicationsManager.js'
+import { ref, onMounted } from 'vue';
+import SimplePublication from './SimplePublication.vue';
+import * as funcionsCM from '../../communicationsManager.js';
 import { useRouter } from 'vue-router';
 
-const showText = ref(false); // Inicializamos showText como false
+const showText = ref(false);
 const router = useRouter();
 
 const props = defineProps({
   post: Object
-})
+});
 
-const event = ref({});
+const event = ref(null);
 
 onMounted(async () => {
   try {
-    const data = await funcionsCM.getEventInfo(post.idEvent)
+    const data = await funcionsCM.getEventInfo(props.post.idEvent);
     event.value = data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 });
+
 const navigateToRoute = () => {
   router.push("/ProfilePage");
 };
@@ -50,16 +51,18 @@ const navigateToRoute = () => {
 
 
 <style scoped>
-.definition{
+.definition {
   margin-left: 10px;
   margin-right: 10px;
 }
+
 .exterior {
   border-radius: 8px;
   width: 450px;
   position: relative;
   overflow: hidden;
 }
+
 .first-text {
   margin-bottom: 0;
   /* Reduce el espacio debajo del primer párrafo */
@@ -89,12 +92,12 @@ const navigateToRoute = () => {
   margin-right: 10px;
 }
 
-.left{
+.left {
   display: flex;
   align-items: center;
 }
 
-.right{
+.right {
   display: flex;
   align-items: center;
   margin-right: 10px;
