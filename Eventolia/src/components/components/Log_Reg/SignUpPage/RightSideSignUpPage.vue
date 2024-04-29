@@ -1,16 +1,14 @@
 <template>
-    <h1>Lado Derecho</h1>
-    <div class="bg-info">
+    <div class="derecha">
       <img data-v-1ed81890="" class="profile-img" src="/src/assets/images/rascacielos.jpeg" alt="Imagen de perfil">
     </div>
   </template>
   
   <script setup>
-    // Aquí iría tu código JavaScript si necesitas algún comportamiento especial
   </script>
   
   <style scoped>
-    .bg-info {
+    .derecha {
     display: flex; /* Utiliza flexbox para alinear el contenido */
     justify-content: center; /* Centra el contenido horizontalmente */
   }

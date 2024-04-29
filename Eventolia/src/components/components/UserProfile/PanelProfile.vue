@@ -1,6 +1,5 @@
 <template>
-    <div class="bg-warning">
-        <h1>Panel Profile</h1>
+    <div class="Profile">
         <div class="perfil"><InfoUserProfile/></div>
         <div class="imagen"><EstructFoto/></div>
     </div>
@@ -12,15 +11,35 @@ import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUser
 </script>
 
 <style scoped>
-.bg-warning {
+.Profile {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: #ffc107; /* Color de fondo amarillo de Bootstrap para advertencia */
     padding: 20px;
-    width: 79%;
+    width: 100%;
     min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
+}
+
+/* Consulta de medios para pantallas medianas */
+@media (max-width: 1024px) {
+  .Profile {
+    width: 90%;
+  }
+}
+
+/* Consulta de medios para pantallas pequeñas */
+@media (max-width: 768px) {
+  .Profile {
+    width: 95%;
+  }
+}
+
+/* Consulta de medios para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .Profile {
+    width: 100%;
+  }
 }
 </style>

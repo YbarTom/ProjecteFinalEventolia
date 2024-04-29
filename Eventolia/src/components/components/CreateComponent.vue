@@ -49,7 +49,8 @@ const handleImageUpload = (event) => {
 .left-side {
   height: 100%;
   width: 450px;
-  background-color: red;
+  justify-content: center;
+  align-items: center;
   border-radius: 16px 0 0 16px;
 }
 
