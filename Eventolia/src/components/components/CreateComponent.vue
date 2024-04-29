@@ -11,8 +11,11 @@
         <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
       </div>
     </div>
-    <div class="post bg-principal" v-if="imagePreview">
-      <img :src="imagePreview" alt="Image Preview" />
+    <div class="post bg-principal" v-if="imagePreview" ref="post">
+      <div class="left-side">
+        <img :src="imagePreview" ref="image" alt="Image Preview" />
+      </div>
+      <div class="right-side"></div>
     </div>
   </div>
 </template>
@@ -21,6 +24,8 @@
 import { ref } from 'vue';
 
 const imagePreview = ref('');
+const image = ref(null);
+const post = ref(null);
 
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -35,6 +40,12 @@ const handleImageUpload = (event) => {
 </script>
 
 <style scoped>
+.left-side{
+  height: 100%;
+  width: 450px;
+  background-color: red;
+  border-radius: 16px 0 0 16px;
+}
 .div-button {
   display: flex;
   justify-content: center;
@@ -79,7 +90,7 @@ const handleImageUpload = (event) => {
 
 .post img {
   max-width: 100%;
-  max-height: 300px;
+  height: auto; /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
 }
 </style>
