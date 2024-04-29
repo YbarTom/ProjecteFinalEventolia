@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="post bg-principal">
+    <div class="post bg-principal" v-if="!imagePreview">
       <div>
         <p class="title text-text"><b>Create new post</b></p>
         <div class="horizontal-bar-create bg-background"></div>
@@ -10,6 +10,9 @@
         <label for="image-upload" class="upload-button bg-background">Select Image From Computer</label>
         <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
       </div>
+    </div>
+    <div class="post bg-principal" v-if="imagePreview">
+      <img :src="imagePreview" alt="Image Preview" />
     </div>
   </div>
 </template>
