@@ -28,6 +28,11 @@ const routes = [
     component: () => import('@/pages/SignUpPage.vue'),
   },
   {
+    path: '/UserProfile',
+    name: 'UserProfile',
+    component: () => import('@/pages/UserProfilePage.vue'),
+  },
+  {
     path: '/ProfilePage',
     name: 'ProfilePage',
     component: () => import('@/pages/Profile.vue'),
