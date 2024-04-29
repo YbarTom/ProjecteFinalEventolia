@@ -32,6 +32,7 @@ const updateValue = (event) => {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
   transition: all 0.3s ease; /* Transición suave para interacción */
   outline: none; /* Quita el borde de enfoque predeterminado */
+  margin: 18px ; /* Ajusta el margen según tus necesidades */
 }
 
 .text-field:focus {

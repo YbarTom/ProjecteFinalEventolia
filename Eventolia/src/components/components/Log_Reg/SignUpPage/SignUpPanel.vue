@@ -47,8 +47,8 @@ const showValues = () => {
   padding: 20px;
 }
 
-/* Agrega esta regla para los campos de texto */
 .bg input[type="text"] {
   margin-bottom: 10px; /* Ajusta este valor según tus necesidades */
 }
+
 </style>
