@@ -15,9 +15,11 @@ export async function getPosts() {
 
 export async function getEventInfo(idEvent) {
   try {
-    console.log("getEventInfo")
     const response = await fetch(`${SERVER_URL}/getEventById`,
-      { method: 'POST', mode: 'cors', body: JSON.stringify({ id: idEvent }) });
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idEvent: idEvent })
+      });
     const event = await response.json();
     return event;
   } catch (error) {

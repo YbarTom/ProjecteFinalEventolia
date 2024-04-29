@@ -1,6 +1,5 @@
 <template>
-    <h1>Lado Derecho</h1>
-    <div class="bg-warning">
+    <div>
         <div class="login-panel"><LoginPanel/></div>
     </div>
 </template>

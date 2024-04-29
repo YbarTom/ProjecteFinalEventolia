@@ -23,21 +23,33 @@ const updateValue = (event) => {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+}
+
 .text-field {
   padding: 10px 20px;
-  border-radius: 8px; /* Más redondeado */
+  border-radius: 8px;
   font-size: 16px;
-  width: 350px; /* ajustable según tus necesidades */
-  border: 2px solid #ccc; /* Borde más definido */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
-  transition: all 0.3s ease; /* Transición suave para interacción */
-  outline: none; /* Quita el borde de enfoque predeterminado */
-  margin: 18px ; /* Ajusta el margen según tus necesidades */
+  width: 150%;
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  outline: none;
+  margin-top: 18px;
 }
 
 .text-field:focus {
-  border-color: #0056b3; /* Cambia el color del borde al enfocar */
-  box-shadow: 0 0 8px rgba(0,86,179,0.25); /* Sombra más destacada al enfocar */
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0,86,179,0.25);
+}
+
+@media (max-width: 600px) {
+  .text-field {
+    width: 100%;
+  }
 }
 </style>
-

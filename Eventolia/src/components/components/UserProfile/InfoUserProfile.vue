@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-info">
-        <h1>Info User Profile</h1>
+    <div class="info-user-profile">
+
         <div class="ususrio">
             <div class="img-usuario"><ImagenUsuario/></div>
             <div class="datos-usuario"><InfoUserProfile/></div>
@@ -33,7 +33,7 @@
     max-width: 150px; /* Limita el tamaño máximo de la imagen */
 }
 
-.bg-info {
+.info-user-profile {
     padding: 20px; /* Añade algo de padding alrededor del contenido para mejor visualización */
 }
 </style>

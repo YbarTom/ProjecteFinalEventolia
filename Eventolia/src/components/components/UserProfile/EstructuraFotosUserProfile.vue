@@ -1,14 +1,13 @@
 <template>
-    <div class="bg-success">
-        <h1>Estructura Fotos</h1>
+    <div class="imagenes">
         <div class="estrucImg">
-            <div class="bg-info">
+            <div class="foto">
                 <img data-v-1ed81890="" class="profile-img" src="/src/assets/images/rascacielos.jpeg" alt="Imagen de perfil">
             </div>
-            <div class="bg-info">
+            <div class="foto">
                 <img data-v-1ed81890="" class="profile-img" src="/src/assets/images/rascacielos.jpeg" alt="Imagen de perfil">
             </div>
-            <div class="bg-info">
+            <div class="foto">
                 <img data-v-1ed81890="" class="profile-img" src="/src/assets/images/rascacielos.jpeg" alt="Imagen de perfil">
             </div>
         </div>
@@ -16,9 +15,8 @@
 </template>
 
 <style scoped>
-.bg-success {
+.imagenes {
     padding: 20px;
-    background-color: #28a745; /* Color de fondo verde de Bootstrap */
 }
 
 .estrucImg {
@@ -26,10 +24,9 @@
     justify-content: space-around; /* Distribución con espacio alrededor */
 }
 
-.bg-info {
+.foto {
     flex: 1; /* Cada elemento hijo de 'estrucImg' toma el mismo espacio */
     padding: 10px; /* Espacio dentro de cada contenedor de imagen */
-    background-color: #17a2b8; /* Color de fondo azul claro de Bootstrap */
     display: flex; /* Flexbox para centrar la imagen */
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */

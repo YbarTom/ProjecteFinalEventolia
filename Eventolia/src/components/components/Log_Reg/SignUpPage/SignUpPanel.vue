@@ -2,11 +2,11 @@
   <div class="panel">
       <div class="bg">
           <h1>Eventolia</h1>
-          <div><TextField v-model="name" text="Nom y Cognom"/></div>
-          <div><TextField v-model="email" text="email"/></div>
-          <div><TextField v-model="nick" text="nick"/></div>
-          <div><TextField v-model="password1" text="password"/></div>
-          <div><TextField v-model="password2" text="password"/></div>
+          <div class="input-container"><TextField v-model="name" text="Nom y Cognom"/></div>
+          <div class="input-container"><TextField v-model="email" text="email"/></div>
+          <div class="input-container"><TextField v-model="nick" text="nick"/></div>
+          <div class="input-container"><TextField v-model="password1" text="password"/></div>
+          <div class="input-container"><TextField v-model="password2" text="password"/></div>
           <div><Button @click="showValues"/></div>
       </div>
   </div>
@@ -45,6 +45,13 @@ const showValues = () => {
   width: 100%;
   max-width: 600px;
   padding: 20px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .bg input[type="text"] {

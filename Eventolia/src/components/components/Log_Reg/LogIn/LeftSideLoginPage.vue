@@ -1,6 +1,5 @@
 <template>
-  <h1>Lado Izquierdo</h1>
-  <div class="bg-info">
+  <div class="lado-izquierda">
     <img data-v-1ed81890="" class="profile-img" src="/src/assets/images/rascacielos.jpeg" alt="Imagen de perfil">
   </div>
 </template>
@@ -10,7 +9,7 @@
 </script>
 
 <style scoped>
-  .bg-info {
+  .lado-izquierda {
   display: flex; /* Utiliza flexbox para alinear el contenido */
   justify-content: center; /* Centra el contenido horizontalmente */
 }

@@ -7,8 +7,7 @@
 <script setup>
 import Publication from './Publication.vue';
 import { onMounted } from 'vue';
-import SimplePublication from './SimplePublication.vue'
-import * as funcionsCM from '../../../communicationsManager.js'
+import * as funcionsCM from '../../communicationsManager.js'
 
 const posts = ref([]);
 
@@ -16,7 +15,6 @@ onMounted(async () => {
   try {
     const data = await funcionsCM.getPosts()
     posts.value = data;
-    console.log(data)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
