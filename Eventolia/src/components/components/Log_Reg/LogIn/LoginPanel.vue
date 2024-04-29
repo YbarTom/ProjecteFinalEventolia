@@ -6,7 +6,7 @@
                 <h1>Eventolia</h1>
                 <div><TextField text="email"/></div>
                 <div><TextField text="password"/></div>
-                <div><Button/></div>
+                <div><Button /></div>
             </div>
         </div>
     </div>  
