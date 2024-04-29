@@ -1,5 +1,4 @@
 <template>
-    <h1>Centro</h1>
     <div><SignUpPanel/></div>
 </template>
   

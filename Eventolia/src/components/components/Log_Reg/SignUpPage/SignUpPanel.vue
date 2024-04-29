@@ -1,21 +1,31 @@
 <template>
-    <div class="panel">
-        <div class="bg-warning">
-            <h3>SignUpPanel</h3>
-            <h1>Eventolia</h1>
-            <div><TextField text="Nom y Cognom"/></div>
-            <div><TextField text="email"/></div>
-            <div><TextField text="nick"/></div>
-            <div><TextField text="password"/></div>
-            <div><TextField text="password"/></div>
-            <div><Button/></div>
-        </div>
-    </div>
+  <div class="panel">
+      <div class="bg">
+          <h1>Eventolia</h1>
+          <div><TextField v-model="name" text="Nom y Cognom"/></div>
+          <div><TextField v-model="email" text="email"/></div>
+          <div><TextField v-model="nick" text="nick"/></div>
+          <div><TextField v-model="password1" text="password"/></div>
+          <div><TextField v-model="password2" text="password"/></div>
+          <div><Button @click="showValues"/></div>
+      </div>
+  </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import TextField from '../TextField.vue';
 import Button from '../Button.vue';
+
+const name = ref('');
+const email = ref('');
+const nick = ref('');
+const password1 = ref('');
+const password2 = ref('');
+
+const showValues = () => {
+  console.log(`Name:${name.value}, email:${email.value},Nick: ${nick.value}, Password1: ${password1.value}, Password2: ${password2.value}`);
+};
 </script>
 
 <style scoped>
@@ -27,7 +37,7 @@ import Button from '../Button.vue';
   flex-direction: column;
 }
 
-.bg-warning {
+.bg{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,5 +45,10 @@ import Button from '../Button.vue';
   width: 100%;
   max-width: 600px;
   padding: 20px;
+}
+
+/* Agrega esta regla para los campos de texto */
+.bg input[type="text"] {
+  margin-bottom: 10px; /* Ajusta este valor según tus necesidades */
 }
 </style>
