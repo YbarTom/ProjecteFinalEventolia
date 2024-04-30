@@ -3,7 +3,7 @@
   <div class="container">
     <div class="post bg-principal" v-if="!imagePreview">
       <div>
-        <p class="title text-text"><b>Create new post</b></p>
+        <p class="title text-text"><b>Create new Event</b></p>
         <div class="horizontal-bar-create bg-background"></div>
         <!-- Mover el bloque del botón aquí -->
       </div>
@@ -23,7 +23,11 @@
           <div class="margin-25">
             <v-textarea label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
             <v-textarea label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
-            <input type="number" class="numberinput" v-model="maxNumber">
+
+            <div class="input-container">
+              <label for="max-number-input">Maximum Assistants:</label>
+              <input id="max-number-input" type="number" class="numberinput" v-model="maxNumber">
+            </div>
           </div>
         </div>
       </div>
@@ -53,12 +57,20 @@ const handleImageUpload = (event) => {
 };
 </script>
 <style scoped>
+.input-container {
+  display: flex;
+  align-items: center;
+}
+.input-container label {
+  margin-right: 10px;
+}
 .numberinput {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
   border: 1px solid #525151;
 }
+
 .grid-container {
   display: grid;
   height: 80vh;
