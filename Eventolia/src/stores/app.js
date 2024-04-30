@@ -15,38 +15,6 @@ export const useAppStore = defineStore('app', {
       privacity: false
     }
   }),
-  getters: {
-    getUserId() {
-      return this.user.id;
-    },
-    getUserName() {
-      return this.user.userName;
-    },
-    getUserEmail() {
-      return this.user.email;
-    },
-    getUserPassword() {
-      return this.user.password;
-    },
-    getUserFollowers() {
-      return this.user.followers;
-    },
-    getUserFollowed() {
-      return this.user.followed;
-    },
-    getUserPosts() {
-      return this.user.posts;
-    },
-    getUserEvents() {
-      return this.user.events;
-    },
-    getUserProfilePic() {
-      return this.user.profilePic;
-    },
-    getUserPrivacy() {
-      return this.user.privacity;
-    }
-  },
   actions: {
     setUser(id, userName, email, password, followers, followed, posts, events, profilePic, privacity) {
       this.user.id = id;
@@ -89,6 +57,39 @@ export const useAppStore = defineStore('app', {
     },
     setUserPrivacy(privacity) {
       this.user.privacity = privacity;
+    },
+    getUser() {
+      return this.user
+    },
+    getUserId() {
+      return this.user.id;
+    },
+    getUserName() {
+      return this.user.userName;
+    },
+    getUserEmail() {
+      return this.user.email;
+    },
+    getUserPassword() {
+      return this.user.password;
+    },
+    getUserFollowers() {
+      return this.user.followers;
+    },
+    getUserFollowed() {
+      return this.user.followed;
+    },
+    getUserPosts() {
+      return this.user.posts;
+    },
+    getUserEvents() {
+      return this.user.events;
+    },
+    getUserProfilePic() {
+      return this.user.profilePic;
+    },
+    getUserPrivacy() {
+      return this.user.privacity;
     }
   }
 })

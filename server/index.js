@@ -270,5 +270,3 @@ app.post("getCommentsByIdPost", async (req, res) => {
         console.error("Error getting comments", error)
     }
 })
-
-const post = {}

@@ -28,7 +28,7 @@
             <v-textarea v-model="Address" label="Address" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
             <v-text-field v-model="startDate" label="Start Date" type="date" ></v-text-field>
             <v-text-field v-model="endDate" label="End Date" type="date" ></v-text-field>
-            <v-btn @click="post" class="bg-background text-text">Post</v-btn>
+            <v-btn @click="createPost" class="bg-background text-text">Post</v-btn>
 
           </div>
         </div>
@@ -37,7 +37,9 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import * as funcionsCM from '../../communicationsManager.js'
+import { useAppStore } from '@/stores/app.js';
 
 const imagePreview = ref('');
 const image = ref(null);
@@ -61,6 +63,31 @@ const handleImageUpload = (event) => {
     reader.readAsDataURL(file);
   }
 };
+
+const createPost = async () => {
+  try {
+    const appStore = useAppStore()
+    appStore.setUser("zi0s21h26zlvm89j9d", "user1", "user1@gmail.com", "password1", [], [], [], [], "",false)
+    const user = appStore.getUser()
+
+    const post = {
+      idUser: user.id,
+      title: Title.value, 
+      description: Description.value,
+      assistantsMax: AssistantsMax.value,
+      organizer: user.userName,
+      image: imagePreview.value,
+      startDate: startDate.value,
+      endDate: endDate.value,
+      categories: [],
+      location: Address.value
+    }
+
+  } catch (error) {
+    console.error('Error creating post: ', error)
+  }
+}
+
 </script>
 <style scoped>
 .input-container {

@@ -16,7 +16,7 @@ onMounted(async () => {
     const data = await funcionsCM.getPosts()
     posts.value = data;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error fetching data: ', error);
   }
 });
 </script>
