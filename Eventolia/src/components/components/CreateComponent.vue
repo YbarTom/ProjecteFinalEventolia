@@ -21,13 +21,15 @@
         </div>
         <div class="right-side">
           <div class="margin-25">
-            <v-textarea label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
-            <v-textarea label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
+            <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
+            <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants" :hideInput="false"
+              :inset="false" variant="outlined"></v-number-input>
+            <v-textarea v-model="Address" label="Address" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-text-field v-model="startDate" label="Start Date" type="date" ></v-text-field>
+            <v-text-field v-model="endDate" label="End Date" type="date" ></v-text-field>
+            <v-btn @click="post" class="bg-background text-text">Post</v-btn>
 
-            <div class="input-container">
-              <label for="max-number-input">Maximum Assistants:</label>
-              <input id="max-number-input" type="number" class="numberinput" v-model="maxNumber">
-            </div>
           </div>
         </div>
       </div>
@@ -36,14 +38,18 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+
 const imagePreview = ref('');
 const image = ref(null);
 const post = ref(null);
 const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
 const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
-const maxNumber = ref(0); // O cualquier valor predeterminado que desees
-
-
+const startDate = ref('');
+const endDate = ref('');
+const Title = ref('');
+const Description = ref('');
+const AssistantsMax = ref('');
+const Address = ref('');
 
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -61,9 +67,11 @@ const handleImageUpload = (event) => {
   display: flex;
   align-items: center;
 }
+
 .input-container label {
   margin-right: 10px;
 }
+
 .numberinput {
   width: 100%;
   padding: 10px;
