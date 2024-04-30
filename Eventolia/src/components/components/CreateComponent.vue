@@ -157,7 +157,7 @@ const handleImageUpload = (event) => {
 .post img {
   max-width: 100%;
   height: auto;
-  max-height: 500px;
+  max-height: 700px;
   /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
 }
