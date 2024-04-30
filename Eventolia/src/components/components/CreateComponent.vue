@@ -23,7 +23,7 @@
           <div class="margin-25">
             <v-textarea label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
             <v-textarea label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
-
+            <input type="number" class="numberinput" v-model="maxNumber">
           </div>
         </div>
       </div>
@@ -37,6 +37,7 @@ const image = ref(null);
 const post = ref(null);
 const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
 const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
+const maxNumber = ref(0); // O cualquier valor predeterminado que desees
 
 
 
@@ -52,6 +53,12 @@ const handleImageUpload = (event) => {
 };
 </script>
 <style scoped>
+.numberinput {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #525151;
+}
 .grid-container {
   display: grid;
   height: 80vh;
