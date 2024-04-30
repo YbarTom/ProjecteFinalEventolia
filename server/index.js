@@ -178,17 +178,27 @@ app.post("/getPostsByIdUser", async (req, res) => {
 
 app.post("/getFollowingPage", async (req, res) => {
     try {
-        const data = req.body
-        const user = await usersDB.getUserById(data.idUser)
-        var posts = []
-        for (let i = 0; i < user.followed.length; i++) {
-            posts.push(await postsDB.getPostsByIdUser(user.followed[i]))
-        }
-        res.status(200).json(posts);
+        const data = req.body;
+        const user = await usersDB.getUserById(data.idUser);
+
+        const [posts, events] = await Promise.all([
+            postsDB.getPostsByIdUsers(user.followed),
+            eventsDB.getEventsByIdUsers(user.followed)
+        ]);
+
+        const followingPage = [...posts, ...events];
+
+        followingPage.sort((a, b) => {
+            const dateA = new Date(a.publicationDate);
+            const dateB = new Date(b.publicationDate);
+            return dateB - dateA;
+        });
+
+        res.status(200).json(followingPage);
     } catch (error) {
-        res.status(500).json({ error: "Error getting following page" })
+        res.status(500).json({ error: "Error getting following page" });
     }
-})
+});
 
 //#region EVENTS:
 
