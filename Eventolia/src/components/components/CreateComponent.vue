@@ -43,6 +43,8 @@ const handleImageUpload = (event) => {
 <style scoped>
 .grid-container {
   display: grid;
+  height: 80vh;
+
   grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
 }
 .margin {
