@@ -3,7 +3,7 @@
   <div class="container">
     <div class="post bg-principal" v-if="!imagePreview">
       <div>
-        <p class="title text-text"><b>Create new post</b></p>
+        <p class="title text-text"><b>Create new Event</b></p>
         <div class="horizontal-bar-create bg-background"></div>
         <!-- Mover el bloque del botón aquí -->
       </div>
@@ -21,8 +21,14 @@
         </div>
         <div class="right-side">
           <div class="margin-25">
-            <v-textarea label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
-            <v-textarea label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
+            <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
+            <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants" :hideInput="false"
+              :inset="false" variant="outlined"></v-number-input>
+            <v-textarea v-model="Address" label="Address" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-text-field v-model="startDate" label="Start Date" type="date" ></v-text-field>
+            <v-text-field v-model="endDate" label="End Date" type="date" ></v-text-field>
+            <v-btn @click="post" class="bg-background text-text">Post</v-btn>
 
           </div>
         </div>
@@ -32,13 +38,18 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+
 const imagePreview = ref('');
 const image = ref(null);
 const post = ref(null);
 const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
 const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
-
-
+const startDate = ref('');
+const endDate = ref('');
+const Title = ref('');
+const Description = ref('');
+const AssistantsMax = ref('');
+const Address = ref('');
 
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -52,6 +63,22 @@ const handleImageUpload = (event) => {
 };
 </script>
 <style scoped>
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-container label {
+  margin-right: 10px;
+}
+
+.numberinput {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #525151;
+}
+
 .grid-container {
   display: grid;
   height: 80vh;
