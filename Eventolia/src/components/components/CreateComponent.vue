@@ -19,7 +19,13 @@
             <img :src="imagePreview" ref="image" alt="Image Preview" />
           </div>
         </div>
-        <div class="right-side"></div>
+        <div class="right-side">
+          <div class="margin-25">
+            <v-textarea label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-textarea label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -29,6 +35,11 @@ import { ref } from 'vue';
 const imagePreview = ref('');
 const image = ref(null);
 const post = ref(null);
+const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
+const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
+
+
+
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -45,11 +56,18 @@ const handleImageUpload = (event) => {
   display: grid;
   height: 80vh;
 
-  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas de igual tamaño */
 }
+
+.margin-25 {
+  margin: 28px;
+}
+
 .margin {
   margin: 20px;
 }
+
 .left-side {
   height: 100%;
   width: 450px;
@@ -57,11 +75,12 @@ const handleImageUpload = (event) => {
   align-items: center;
   border-radius: 16px 0 0 16px;
 }
+
 .right-side {
   height: 100%;
   border-radius: 0 16px 16px 0;
-  background-color: red;
 }
+
 .div-button {
   display: flex;
   justify-content: center;
@@ -71,6 +90,7 @@ const handleImageUpload = (event) => {
   padding: 20px 0;
   /* Añadir espacio alrededor del botón */
 }
+
 .container {
   display: flex;
   justify-content: center;
@@ -78,10 +98,12 @@ const handleImageUpload = (event) => {
   height: 100vh;
   width: 79%;
 }
+
 .title {
   font-size: 18px;
   margin-top: 20px;
 }
+
 .post {
   width: 80%;
   text-align: center;
@@ -92,19 +114,23 @@ const handleImageUpload = (event) => {
   flex-direction: column;
   /* Añadir esto para que los elementos internos se apilen verticalmente */
 }
+
 .horizontal-bar-create {
   width: 100%;
   height: 1px;
   margin-top: 20px;
 }
+
 .upload-button {
   font-weight: bold;
   border-radius: 16px;
   padding: 10px 20px;
 }
+
 .post img {
   max-width: 100%;
   height: auto;
   /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
-}</style>
+}
+</style>
