@@ -12,6 +12,7 @@ const client = new MongoClient(DBurl, {
     }
 });
 
+const usersDB = require("./users.js")
 const generalFunctions = require("./generalFunctions.js")
 
 const database = client.db(DBname);
@@ -53,6 +54,7 @@ function createPost(post) {
                             post.id = newUniqueId;
                         } else {
                             post.id = uniqueId;
+                            usersDB.addPost(post.id, post.idUser)
                         }
                         postsCollection.insertOne(post)
                             .then((result) => {
@@ -147,7 +149,7 @@ function getPostsByIdUsers(arrayId) {
         client.connect()
             .then(() => {
                 const promises = arrayId.map(id => {
-                    return postsCollection.find({ idUser: id }).sort({publicationDate: -1}).limit(3).toArray();
+                    return postsCollection.find({ idUser: id }).sort({ publicationDate: -1 }).limit(3).toArray();
                 });
                 Promise.all(promises)
                     .then((results) => {

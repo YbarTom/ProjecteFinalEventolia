@@ -30,6 +30,7 @@ function createEvent(event) {
                             event.id = newUniqueId;
                         } else {
                             event.id = uniqueId;
+                            usersDB.addEvent(event.id, event.idUser)
                         }
                         eventsCollection.insertOne(event)
                             .then((result) => {
