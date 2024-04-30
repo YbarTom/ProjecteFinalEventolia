@@ -15,7 +15,7 @@
     <div class="post bg-principal" v-if="imagePreview" ref="post">
       <div class="grid-container">
         <div class="left-side">
-          <div class="margin">
+          <div class="margin" style="max-height: 500px;">
             <img :src="imagePreview" ref="image" alt="Image Preview" />
           </div>
         </div>
@@ -123,7 +123,7 @@ const createPost = async () => {
 }
 
 .left-side {
-  height: 100%;
+  height: 500px;
   width: 450px;
   justify-content: center;
   align-items: center;
@@ -184,6 +184,7 @@ const createPost = async () => {
 .post img {
   max-width: 100%;
   height: auto;
+  max-height: 700px;
   /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
 }
