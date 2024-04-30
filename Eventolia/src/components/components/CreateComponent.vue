@@ -1,3 +1,4 @@
+
 <template>
   <div class="container">
     <div class="post bg-principal" v-if="!imagePreview">
@@ -12,23 +13,32 @@
       </div>
     </div>
     <div class="post bg-principal" v-if="imagePreview" ref="post">
+      <div class="grid-container">
+        <div class="left-side">
+          <div class="margin">
+            <img :src="imagePreview" ref="image" alt="Image Preview" />
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="margin-25">
+            <v-textarea label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-textarea label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
 
-      <div class="left-side">
-        <div class="margin">
-          <img :src="imagePreview" ref="image" alt="Image Preview" />
+          </div>
         </div>
       </div>
-      <div class="right-side"></div>
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref } from 'vue';
-
 const imagePreview = ref('');
 const image = ref(null);
 const post = ref(null);
+const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
+const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
+
+
 
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -41,17 +51,34 @@ const handleImageUpload = (event) => {
   }
 };
 </script>
-
 <style scoped>
+.grid-container {
+  display: grid;
+  height: 80vh;
+
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas de igual tamaño */
+}
+
+.margin-25 {
+  margin: 28px;
+}
+
 .margin {
   margin: 20px;
 }
+
 .left-side {
   height: 100%;
   width: 450px;
   justify-content: center;
   align-items: center;
   border-radius: 16px 0 0 16px;
+}
+
+.right-side {
+  height: 100%;
+  border-radius: 0 16px 16px 0;
 }
 
 .div-button {
@@ -105,4 +132,5 @@ const handleImageUpload = (event) => {
   height: auto;
   /* Hacer que la altura se ajuste automáticamente */
   margin-top: 10px;
-}</style>
+}
+</style>

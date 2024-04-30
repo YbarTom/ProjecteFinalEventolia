@@ -52,7 +52,7 @@ function createComment(comment) {
     });
 }
 
-function getCommentsById(idPost) {
+function getCommentsByIdPost(idPost) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
@@ -70,5 +70,5 @@ function getCommentsById(idPost) {
 
 module.exports = {
     createComment,
-    getCommentsById
+    getCommentsByIdPost
 }
