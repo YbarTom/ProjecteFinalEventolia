@@ -148,6 +148,7 @@ app.post("/createPost", async (req, res) => {
 
         post.likes = []
         post.comments = []
+        post.publicationDate = new Date()
 
         await postsDB.createPost(post)
         res.status(200).json({ message: "Post created successfully" });
@@ -269,3 +270,5 @@ app.post("getCommentsByIdPost", async (req, res) => {
         console.error("Error getting comments", error)
     }
 })
+
+const post = {}

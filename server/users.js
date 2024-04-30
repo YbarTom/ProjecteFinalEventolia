@@ -171,11 +171,54 @@ function getAssistants(assistants) {
     });
 }
 
+function addPost(idPost, idUser){
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return usersCollection.findOneAndUpdate(
+                    { id: idUser },
+                    { $addToSet: { posts: idPost } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedUser) => {
+                resolve(updatedUser);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
+
+function addEvent(idEvent, idUser){
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return usersCollection.findOneAndUpdate(
+                    { id: idUser },
+                    { $addToSet: { events: idEvent } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedUser) => {
+                resolve(updatedUser);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
+
+
 module.exports = {
     getUsers,
     createUser,
     getUserById,
     followUser,
     login,
-    getAssistants
+    getAssistants,
+    addPost,
+    addEvent
 }
