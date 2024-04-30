@@ -142,11 +142,35 @@ function getPostsByIdUser(idUser) {
     });
 }
 
+function getPostsByIdUsers(arrayId) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                const promises = arrayId.map(id => {
+                    return postsCollection.find({ idUser: id }).sort({publicationDate: -1}).limit(3).toArray();
+                });
+                Promise.all(promises)
+                    .then((results) => {
+                        const combinedPosts = [].concat(...results);
+                        resolve(combinedPosts);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting posts: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 
 module.exports = {
     likePost,
     getPosts,
     createPost,
     getPostsById,
-    getPostsByIdUser
+    getPostsByIdUser,
+    getPostsByIdUsers
 }

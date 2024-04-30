@@ -92,11 +92,34 @@ function getEventById(idEvent) {
     });
 }
 
-
+function getEventsByIdUsers(arrayId) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                const promises = arrayId.map(id => {
+                    return eventsCollection.find({ idUser: id }).sort({ publicationDate: -1 }).limit(3).toArray();
+                });
+                Promise.all(promises)
+                    .then((results) => {
+                        const combinedEvents = [].concat(...results);
+                        resolve(combinedEvents);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting events: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 
 
 module.exports = {
     createEvent,
     getEventsByIdUser,
-    getEventById
+    getEventById,
+    getEventsByIdUsers
 }
