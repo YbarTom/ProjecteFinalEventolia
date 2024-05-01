@@ -30,22 +30,9 @@
 
     <v-dialog
       v-model="boolean"
-      width="auto"
+      width="79%"
     >
-      <v-card
-        max-width="400"
-        prepend-icon="mdi-update"
-        text="Your application will relaunch automatically after the update is complete."
-        title="Update in progress"
-      >
-        <template v-slot:actions>
-          <v-btn
-            class="ms-auto"
-            text="Ok"
-            @click="boolean = !boolean"
-          ></v-btn>
-        </template>
-      </v-card>
+      <addPost />
     </v-dialog>
   </div>
 
@@ -54,6 +41,7 @@
 <script setup>
 import { ref } from 'vue';
 import buttonPublication from './buttonPublication.vue';
+import addPost from './addPost.vue';
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
