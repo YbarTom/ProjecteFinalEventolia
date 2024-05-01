@@ -11,7 +11,7 @@
         <div class="left">
           <buttonPublication type="heart" />
           <buttonPublication type="chat" />
-          <buttonPublication type="send" v-if="!boolean"/>
+          <buttonPublication type="send"/>
           <buttonPublication type="add" :onClick="onClick" />
         </div>
         <div class="right">
