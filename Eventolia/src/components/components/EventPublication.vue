@@ -31,6 +31,7 @@
     <v-dialog
       v-model="boolean"
       width="79%"
+      
     >
       <addPost />
     </v-dialog>
