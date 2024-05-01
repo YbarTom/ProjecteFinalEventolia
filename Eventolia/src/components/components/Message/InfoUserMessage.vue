@@ -1,7 +1,17 @@
 <template>
-    <Image src="https://media.es.wired.com/photos/6501e7429fa9000811a95fe8/16:9/w_2560%2Cc_limit/Adobe%2520Firefly.jpeg" alt="Image" width="250" />
+    <div>
+        <img class="round-image" src="https://primefaces.org/cdn/primevue/images/galleria/galleria10.jpg" alt="Descripción de la imagen">
+    </div>
 </template>
 
 <script>
 
 </script>
+
+<style scoped>
+.round-image {
+    border-radius: 50%;
+    width: 100px; 
+    height: 100px;
+}
+</style>
