@@ -12,6 +12,7 @@
           <buttonPublication type="heart" />
           <buttonPublication type="chat" />
           <buttonPublication type="send" />
+          <buttonPublication type="add" />
         </div>
         <div class="right">
           <buttonPublication type="save" />

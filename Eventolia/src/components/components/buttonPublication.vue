@@ -22,6 +22,8 @@ if (props.type === 'heart') {
   icono.value = "mdi-send";
 }else if (props.type === 'save') {
   icono.value = "mdi-bookmark-outline";
+}else if (props.type === 'add') {
+  icono.value = "mdi-plus-box-outline";
 }
 </script>
 
