@@ -27,6 +27,26 @@
       <img ref="image" src="../../assets/images/caida.jpg" alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
+
+    <v-dialog
+      v-model="boolean"
+      width="auto"
+    >
+      <v-card
+        max-width="400"
+        prepend-icon="mdi-update"
+        text="Your application will relaunch automatically after the update is complete."
+        title="Update in progress"
+      >
+        <template v-slot:actions>
+          <v-btn
+            class="ms-auto"
+            text="Ok"
+            @click="boolean = !boolean"
+          ></v-btn>
+        </template>
+      </v-card>
+    </v-dialog>
   </div>
 
 </template>
@@ -41,7 +61,6 @@ const boolean = ref(false);
 
 const onClick = () => {
   boolean.value = !boolean.value;
-  console.log(boolean.value);
 }
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {

@@ -31,7 +31,6 @@ const handleClick = () => {
   if (props.onClick) {
     props.onClick();
   }
-  console.log("hola");;
 };
 </script>
 
