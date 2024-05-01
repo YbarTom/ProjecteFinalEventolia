@@ -11,8 +11,8 @@
         <div class="left">
           <buttonPublication type="heart" />
           <buttonPublication type="chat" />
-          <buttonPublication type="send" />
-          <buttonPublication type="add" />
+          <buttonPublication type="send" v-if="!boolean"/>
+          <buttonPublication type="add" :onClick="onClick" />
         </div>
         <div class="right">
           <buttonPublication type="save" />
@@ -37,7 +37,12 @@ import buttonPublication from './buttonPublication.vue';
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
+const boolean = ref(false);
 
+const onClick = () => {
+  boolean.value = !boolean.value;
+  console.log(boolean.value);
+}
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {
   const imageElement = image.value;
