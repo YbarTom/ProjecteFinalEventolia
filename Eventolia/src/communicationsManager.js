@@ -42,3 +42,16 @@ export async function getFollowingPage(idUser) {
     throw error;
   }
 }
+
+export async function createEvent(event) {
+  try {
+    const response = await fetch(`${SERVER_URL}/createEvent`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event })
+      });
+  } catch (error) {
+    console.log("Error al crear event CM");
+    throw error;
+  }
+}
