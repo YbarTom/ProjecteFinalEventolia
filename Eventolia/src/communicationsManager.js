@@ -26,12 +26,12 @@ export async function getEventInfo(idEvent) {
   }
 }
 
-export async function getFollowingPage(idUser) {
+export async function getFollowingPage(user) {
   try {
     const response = await fetch(`${SERVER_URL}/getFollowingPage`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idUser: idUser })
+        body: JSON.stringify({ user })
       });
     const posts = await response.json();
     return posts;

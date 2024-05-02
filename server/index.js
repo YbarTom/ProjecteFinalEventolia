@@ -181,7 +181,9 @@ app.post("/getPostsByIdUser", async (req, res) => {
 app.post("/getFollowingPage", async (req, res) => {
     try {
         const data = req.body;
-        const user = await usersDB.getUserById(data.idUser);
+        const user = data.user
+
+        console.log(data)
 
         const [posts, events] = await Promise.all([
             postsDB.getPostsByIdUsers(user.followed),

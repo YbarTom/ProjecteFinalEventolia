@@ -19,6 +19,7 @@ import TextField from '@/components/components/Log_Reg/TextField.vue'
 import Button from '@/components/components/Log_Reg/Button.vue'
 import * as funcionsCM from '../../../../communicationsManager.js'
 import { useAppStore } from '@/stores/app.js'
+import { useRouter } from 'vue-router'
 
 let email = ""
 let password = ""
@@ -26,6 +27,7 @@ let password = ""
 const login = async() => {
   try {
     const appStore = useAppStore()
+    const router = useRouter()
     var userInfo = {
       email: email,
       password: password
@@ -34,7 +36,7 @@ const login = async() => {
 
     if(response.id){
       appStore.setUser(response)
-      console.log(appStore.getUser())
+      router.push('/MainPage')
     }
     else {
       console.log("AAAA")
