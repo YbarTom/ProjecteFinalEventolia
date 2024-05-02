@@ -171,7 +171,7 @@ function getAssistants(assistants) {
     });
 }
 
-function addPost(idPost, idUser){
+function addPost(idPost, idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
@@ -191,7 +191,7 @@ function addPost(idPost, idUser){
     });
 }
 
-function addEvent(idEvent, idUser){
+function addEvent(idEvent, idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {

@@ -13,8 +13,9 @@ const posts = ref([]);
 
 onMounted(async () => {
   try {
-    const data = await funcionsCM.getPosts()
-    posts.value = data;
+    const dataPosts = await funcionsCM.getPosts()
+    //const dataEvents = await funcionsCM.getEvents()
+    posts.value = dataPosts;
   } catch (error) {
     console.error('Error fetching data: ', error);
   }

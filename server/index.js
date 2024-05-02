@@ -77,15 +77,15 @@ app.post("/followUser", async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const data = req.body;
-        const loggedIn = await usersDB.login(data);
+        const loggedIn = await usersDB.login(data.userInfo);
         if (loggedIn) {
-            res.status(200).send("Login successful");
+            res.status(200).json("ok");
         } else {
-            res.status(401).send("Invalid email or password");
+            res.status(401).json("not ok");
         }
     } catch (error) {
         console.error("Error login", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json("Internal Server Error");
     }
 });
 
@@ -207,11 +207,14 @@ app.post("/createEvent", async (req, res) => {
     try {
         const data = req.body
 
-        data.assistants = []
-        data.posts = []
-        data.likes = []
+        const event = data.event
 
-        await eventsDB.createEvent(data)
+        event.assistants = []
+        event.posts = []
+        event.likes = []
+        event.publicationDate = new Date()
+
+        await eventsDB.createEvent(event)
         res.status(200).json({ message: "Event created successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error creating event" });

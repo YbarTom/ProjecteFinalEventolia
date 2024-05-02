@@ -153,6 +153,18 @@
   </template>
   
   <script setup>
-    //
+    import { onMounted } from 'vue';
+    import { useAppStore } from '@/stores/app.js';
+
+    const user = {}
+
+    onMounted(async () => {
+      try {
+        const appStore = useAppStore()
+        user = appStore.getUser()
+      } catch(error) {
+        console.error('Error getting profile', error)
+      }
+    })
   </script>
   

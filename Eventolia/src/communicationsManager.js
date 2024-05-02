@@ -1,7 +1,5 @@
 export const SERVER_URL = "http://localhost:3001"
 
-//#region POSTS
-
 export async function getPosts() {
   try {
     const response = await fetch(`${SERVER_URL}/getPosts`, { method: 'GET', mode: 'cors' });
@@ -52,6 +50,21 @@ export async function createEvent(event) {
       });
   } catch (error) {
     console.log("Error al crear event CM");
+    throw error;
+  }
+}
+
+export async function logIn(userInfo) {
+  try {
+    const response = await fetch(`${SERVER_URL}/login`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userInfo })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Login Error CM");
     throw error;
   }
 }

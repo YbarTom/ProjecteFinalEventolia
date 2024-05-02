@@ -12,6 +12,8 @@ const client = new MongoClient(DBurl, {
     }
 });
 
+const usersDB = require("./users.js")
+
 const generalFunctions = require("./generalFunctions.js")
 
 const database = client.db(DBname);

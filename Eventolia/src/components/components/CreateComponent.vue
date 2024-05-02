@@ -80,10 +80,8 @@ const createEvent = async () => {
       startDate: startDate.value,
       endDate: endDate.value,
       categories: [],
-      location: Address.value
+      location: Address.value      
     }
-
-    console.log(event)
 
     funcionsCM.createEvent(event)
 
