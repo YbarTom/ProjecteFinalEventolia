@@ -3,12 +3,12 @@
     <div class="TituloLoginPanel">
       <h1>Eventolia</h1>
       <div class="input-container">
-        <TextField text="email" v-model="email"/>
+        <TextField text="email" v-model="email" />
       </div>
       <div class="input-container">
-        <TextField text="password" v-model="password" type="password"/>
+        <TextField text="password" v-model="password" type="password" />
       </div>
-      <div><Button @click="login" text="Log In"/></div>
+      <div><Button @click="login" text="Log In" /></div>
     </div>
   </div>
 </template>
@@ -24,17 +24,18 @@ import { useRouter } from 'vue-router'
 let email = ""
 let password = ""
 
-const login = async() => {
+const login = async () => {
   try {
     const appStore = useAppStore()
     const router = useRouter()
+
     var userInfo = {
       email: email,
       password: password
     }
     const response = await funcionsCM.logIn(userInfo)
 
-    if(response.id){
+    if (response.id) {
       appStore.setUser(response)
       router.push('/MainPage')
     }
@@ -42,7 +43,7 @@ const login = async() => {
       console.log("AAAA")
     }
   }
-  catch(error) {
+  catch (error) {
     console.error('Login Error: ', error)
   }
 }
