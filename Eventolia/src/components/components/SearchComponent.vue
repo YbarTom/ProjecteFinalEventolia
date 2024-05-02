@@ -1,14 +1,13 @@
 <template>
     <div class="container bg-warning">
+        <!--para el icono al final de la barra de busquedea append-inner-icon="mdi-microphone"-->
         <v-autocomplete
             :items="items"
-            append-inner-icon="mdi-microphone"
             class="mx-auto"
             density="comfortable"
             menu-icon=""
             placeholder="Search Google or type a URL"
             prepend-inner-icon="mdi-magnify"
-            style="max-width: 350px;"
             theme="light"
             variant="solo"
             auto-select-first
