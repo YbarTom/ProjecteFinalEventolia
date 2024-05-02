@@ -28,7 +28,7 @@
             <v-textarea v-model="Address" label="Address" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
             <v-text-field v-model="startDate" label="Start Date" type="date" ></v-text-field>
             <v-text-field v-model="endDate" label="End Date" type="date" ></v-text-field>
-            <v-btn @click="createPost" class="bg-background text-text">Post</v-btn>
+            <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
 
           </div>
         </div>
@@ -64,13 +64,13 @@ const handleImageUpload = (event) => {
   }
 };
 
-const createPost = async () => {
+const createEvent = async () => {
   try {
     const appStore = useAppStore()
     appStore.setUser("zi0s21h26zlvm89j9d", "user1", "user1@gmail.com", "password1", [], [], [], [], "",false)
     const user = appStore.getUser()
 
-    const post = {
+    const event = {
       idUser: user.id,
       title: Title.value, 
       description: Description.value,
@@ -83,8 +83,12 @@ const createPost = async () => {
       location: Address.value
     }
 
+    console.log(event)
+
+    funcionsCM.createEvent(event)
+
   } catch (error) {
-    console.error('Error creating post: ', error)
+    console.error('Error creating event: ', error)
   }
 }
 
