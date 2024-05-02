@@ -79,7 +79,8 @@ app.post("/login", async (req, res) => {
         const data = req.body;
         const loggedIn = await usersDB.login(data.userInfo);
         if (loggedIn) {
-            res.status(200).json("ok");
+            const user = await usersDB.getUserByEmail(data.userInfo.email)
+            res.status(200).json(user)
         } else {
             res.status(401).json("not ok");
         }

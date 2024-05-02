@@ -121,6 +121,28 @@ function getUserById(idUser) {
     });
 }
 
+function getUserByEmail(email) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                usersCollection
+                    .findOne({ email: email })
+                    .then((user) => {
+                        resolve(user);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting user: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 function followUser(idFollower, idFollowed) {
     return new Promise((resolve, reject) => {
         client
@@ -220,5 +242,6 @@ module.exports = {
     login,
     getAssistants,
     addPost,
-    addEvent
+    addEvent,
+    getUserByEmail
 }
