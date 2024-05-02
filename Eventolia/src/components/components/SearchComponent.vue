@@ -7,6 +7,15 @@
     </div>
     <div class="grid">
       <!-- Aquí puedes agregar el contenido de las columnas -->
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
     </div>
   </div>
 </template>
@@ -59,5 +68,13 @@ const items = ref([
   margin-top: 20px; /* Agregado margen superior */
   height: 100vh;
   width: 100%;
+}
+.grid-item {
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: center;
+  width: 100%; /* Ajuste del ancho */
+  height: 100%; /* Altura fija */
 }
 </style>
