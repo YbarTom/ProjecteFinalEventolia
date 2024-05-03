@@ -93,14 +93,13 @@ const adjustGridItemHeight = () => {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-gap: 5px;
   width: 100%;
   max-height: calc(100vh - 150px); /* Altura máxima del grid, ajustada por la altura de los botones */
   overflow-y: auto; /* Añadir barra de desplazamiento vertical si es necesario */
 }
 
 .grid-item {
-  border: 1px solid black;
   text-align: center;
   background-image: url('../../assets/images/bici.jpg');
   /* Ajustar el tamaño de la imagen */
