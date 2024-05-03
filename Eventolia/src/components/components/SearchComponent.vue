@@ -64,14 +64,19 @@ const adjustGridItemHeight = () => {
 
 onMounted(async () => {
   try {
-    const dataPosts = await funcionsCM.getPostsEvents()
-    //const dataEvents = await funcionsCM.getEvents()
+    const dataPosts = await funcionsCM.getPostsEvents();
+    //const dataEvents = await funcionsCM.getEvents();
     publicacions.value = dataPosts;
     console.log(publicacions.value);
+
+    // Esperar a que todas las imágenes se carguen antes de ajustar la altura de los elementos
+    await Promise.all(Array.from(document.querySelectorAll('.grid-item img')).map(img => img.complete ? Promise.resolve() : new Promise(resolve => img.addEventListener('load', resolve))));
+    adjustGridItemHeight();
   } catch (error) {
     console.error('Error fetching data: ', error);
   }
 });
+
 </script>
 
 <style scoped>
