@@ -45,26 +45,34 @@ function createUser(user) {
         client
             .connect()
             .then(() => {
-                const uniqueId = generalFunctions.generateUniqueId();
-                generalFunctions.checkDuplicateId(uniqueId, usersCollection)
-                    .then((isDuplicate) => {
-                        if (isDuplicate) {
-                            const newUniqueId = generalFunctions.generateUniqueId();
-                            user.id = newUniqueId;
+                // Check if user with same email or userName exists
+                const query = {
+                    $or: [
+                        { email: user.email },
+                        { userName: user.userName }
+                    ]
+                };
+                usersCollection.findOne(query)
+                    .then((existingUser) => {
+                        if (existingUser) {
+                            // User with same email or userName already exists
+                            reject("User with the same email or userName already exists.");
                         } else {
+                            // Generate unique ID and insert user
+                            const uniqueId = generalFunctions.generateUniqueId();
                             user.id = uniqueId;
+                            usersCollection.insertOne(user)
+                                .then((result) => {
+                                    resolve(result);
+                                })
+                                .catch((error) => {
+                                    console.error("Error creating user: ", error);
+                                    reject(error);
+                                });
                         }
-                        usersCollection.insertOne(user)
-                            .then((result) => {
-                                resolve(result);
-                            })
-                            .catch((error) => {
-                                console.error("Error creating user: ", error);
-                                reject(error);
-                            });
                     })
                     .catch((error) => {
-                        console.error("Error checking for duplicate ID: ", error);
+                        console.error("Error checking for existing user: ", error);
                         reject(error);
                     });
             })
@@ -74,6 +82,7 @@ function createUser(user) {
             });
     });
 }
+
 
 function login(user) {
     return new Promise((resolve, reject) => {
