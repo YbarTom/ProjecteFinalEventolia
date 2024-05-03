@@ -28,11 +28,6 @@ const routes = [
     component: () => import('@/pages/UserProfilePage.vue'),
   },
   {
-    path: '/CreatePage',
-    name: 'CreatePage',
-    component: () => import('@/pages/Create.vue'),
-  },
-  {
     path: '/MessagesPage',
     name: 'MessagesPage',
     component: () => import('@/pages/Messages.vue'),

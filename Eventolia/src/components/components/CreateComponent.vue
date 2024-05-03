@@ -25,7 +25,7 @@
             <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
             <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants" :hideInput="false"
               :inset="false" variant="outlined"></v-number-input>
-            <v-textarea v-model="Address" label="Address" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
+            <v-textarea v-model="Address" label="Address" variant="outlined" counter  no-resize rows="1"></v-textarea>
             <v-text-field v-model="startDate" label="Start Date" type="date" ></v-text-field>
             <v-text-field v-model="endDate" label="End Date" type="date" ></v-text-field>
             <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>

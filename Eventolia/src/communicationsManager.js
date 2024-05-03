@@ -48,6 +48,8 @@ export async function createEvent(event) {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ event })
       });
+    const resposta = await response.json();
+    return resposta;
   } catch (error) {
     console.log("Error al crear event CM");
     throw error;
