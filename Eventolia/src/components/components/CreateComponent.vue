@@ -72,7 +72,7 @@ const createEvent = async () => {
 
     const event = {
       idUser: user.id,
-      title: Title.value, 
+      title: Title.value,
       description: Description.value,
       assistantsMax: AssistantsMax.value,
       organizer: user.userName,
@@ -80,7 +80,7 @@ const createEvent = async () => {
       startDate: startDate.value,
       endDate: endDate.value,
       categories: [],
-      location: Address.value      
+      location: Address.value
     }
 
     funcionsCM.createEvent(event)
@@ -152,7 +152,7 @@ const createEvent = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 79%;
+  width:100%;
 }
 
 .title {
