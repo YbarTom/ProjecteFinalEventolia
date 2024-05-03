@@ -70,3 +70,25 @@ export async function logIn(userInfo) {
     throw error;
   }
 }
+
+export async function searchLocation(addressQuery) {
+  const apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+    addressQuery
+  )}&format=json&addressdetails=1&limit=1&polygon_svg=1`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    if (data.length > 0) {
+      const location = data[0];
+      const latitude = location.lat;
+      const longitude = location.lon;
+      return { latitude, longitude };
+    } else {
+      throw new Error("No se encontró la ubicación.");
+    }
+  } catch (error) {
+    throw new Error("Error al obtener la ubicación: " + error.message);
+  }
+}

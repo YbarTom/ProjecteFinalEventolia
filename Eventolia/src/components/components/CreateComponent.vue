@@ -82,7 +82,9 @@ const createEvent = async () => {
       categories: [],
       location: Address.value
     }
-
+    const coordinates = await funcionsCM.searchLocation(Address.value);
+    event.latitude = coordinates.latitude;
+    event.longitude = coordinates.longitude;
     funcionsCM.createEvent(event)
 
   } catch (error) {
