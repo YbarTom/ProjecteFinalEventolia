@@ -48,6 +48,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
 .div-top {
   width: 100%;
   align-self: flex-start;
@@ -70,6 +71,9 @@ onMounted(() => {
   overflow-y: auto; /* Añadir barra de desplazamiento vertical si es necesario */
 }
 
+.grid::-webkit-scrollbar {
+  display: none;
+}
 .grid-item {
   background-color: white;
   border: 1px solid black;
