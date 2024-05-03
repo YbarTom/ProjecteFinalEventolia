@@ -6,19 +6,19 @@
         item-props rounded></v-autocomplete>
     </div>
     <div class="buttons-container">
-      <button class="button">Botón 1</button>
-      <button class="button">Botón 2</button>
+      <button class="button" @click="map = !map">Botón 1</button>
     </div>
-    <div class="grid" ref="grid">
+    <div class="grid" ref="grid" v-if="map">
       <!-- Aquí puedes agregar el contenido de las columnas -->
       <div class="grid-item" v-for="index in 20" :key="index"></div>
     </div>
+    <div class="map bg-warning" v-else></div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-
+import { ref, onMounted, watch,nextTick } from 'vue';
+const map = ref(true);
 const items = ref([
   {
     prependIcon: 'mdi-clock-outline',
@@ -43,15 +43,27 @@ const items = ref([
 ]);
 
 onMounted(() => {
-  // Calcula la altura para hacer coincidir con el ancho
+  adjustGridItemHeight();
+});
+
+
+watch(map, () => {
+  nextTick(adjustGridItemHeight);
+});
+
+const adjustGridItemHeight = () => {
   const gridItems = document.querySelectorAll('.grid-item');
   gridItems.forEach(item => {
     item.style.height = `${item.offsetWidth}px`;
   });
-});
+};
 </script>
 
 <style scoped>
+.map {
+  width: 100%;
+  height: 100%;
+}
 .div-top {
   width: 100%;
   align-self: flex-start;
