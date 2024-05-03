@@ -5,17 +5,9 @@
         placeholder="Search Google or type a URL" prepend-inner-icon="mdi-magnify" variant="solo" auto-select-first
         item-props rounded></v-autocomplete>
     </div>
-    <div class="grid">
+    <div class="grid" ref="grid">
       <!-- Aquí puedes agregar el contenido de las columnas -->
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
-      <div class="grid-item"></div>
+      <div class="grid-item" v-for="index in 20" :key="index"></div>
     </div>
   </div>
 </template>
@@ -45,6 +37,14 @@ const items = ref([
     title: 'latest fashion trends',
   },
 ]);
+
+onMounted(() => {
+  // Calcula la altura para hacer coincidir con el ancho
+  const gridItems = document.querySelectorAll('.grid-item');
+  gridItems.forEach(item => {
+    item.style.height = `${item.offsetWidth}px`;
+  });
+});
 </script>
 
 <style scoped>
@@ -55,7 +55,7 @@ const items = ref([
 }
 .container {
   display: flex;
-  flex-direction: column; /* Cambiado de row a column */
+  flex-direction: column;
   align-items: center;
   height: 100vh;
   width: 79%;
@@ -64,17 +64,15 @@ const items = ref([
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-  background-color: red;
-  margin-top: 20px; /* Agregado margen superior */
-  height: 100vh;
+  margin-top: 20px;
+  max-height: 90vh; /* Altura máxima del contenedor */
   width: 100%;
+  overflow-y: auto; /* Añadir barra de desplazamiento vertical si es necesario */
 }
+
 .grid-item {
   background-color: white;
   border: 1px solid black;
-  padding: 20px;
   text-align: center;
-  width: 100%; /* Ajuste del ancho */
-  height: 100%; /* Altura fija */
 }
 </style>
