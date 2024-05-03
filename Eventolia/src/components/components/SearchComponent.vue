@@ -5,6 +5,10 @@
         placeholder="Search Google or type a URL" prepend-inner-icon="mdi-magnify" variant="solo" auto-select-first
         item-props rounded></v-autocomplete>
     </div>
+    <div class="buttons-container">
+      <button class="button">Botón 1</button>
+      <button class="button">Botón 2</button>
+    </div>
     <div class="grid" ref="grid">
       <!-- Aquí puedes agregar el contenido de las columnas -->
       <div class="grid-item" v-for="index in 20" :key="index"></div>
@@ -48,7 +52,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .div-top {
   width: 100%;
   align-self: flex-start;
@@ -61,22 +64,36 @@ onMounted(() => {
   height: 100vh;
   width: 79%;
 }
+.buttons-container {
+  display: flex-start;
+  justify-content: space-around;
+  margin-top: 20px;
+  width: 100%;
+}
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-  margin-top: 20px;
-  max-height: 90vh; /* Altura máxima del contenedor */
   width: 100%;
+  max-height: calc(100vh - 150px); /* Altura máxima del grid, ajustada por la altura de los botones */
   overflow-y: auto; /* Añadir barra de desplazamiento vertical si es necesario */
 }
 
-.grid::-webkit-scrollbar {
-  display: none;
-}
 .grid-item {
   background-color: white;
   border: 1px solid black;
   text-align: center;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
 }
 </style>
