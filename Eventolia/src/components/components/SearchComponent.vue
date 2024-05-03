@@ -10,7 +10,7 @@
     </div>
     <div class="grid" ref="grid" v-if="map">
       <!-- Aquí puedes agregar el contenido de las columnas -->
-      <div class="grid-item" v-for="index in 20" :key="index"></div>
+      <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
     </div>
     <div class="map bg-warning" v-else></div>
   </div>
@@ -18,7 +18,11 @@
 
 <script setup>
 import { ref, onMounted, watch,nextTick } from 'vue';
+import * as funcionsCM from '../../communicationsManager.js'
+
 const map = ref(true);
+const publicacions = ref([]);
+
 const items = ref([
   {
     prependIcon: 'mdi-clock-outline',
@@ -57,6 +61,17 @@ const adjustGridItemHeight = () => {
     item.style.height = `${item.offsetWidth}px`;
   });
 };
+
+onMounted(async () => {
+  try {
+    const dataPosts = await funcionsCM.getPostsEvents()
+    //const dataEvents = await funcionsCM.getEvents()
+    publicacions.value = dataPosts;
+    console.log(publicacions.value);
+  } catch (error) {
+    console.error('Error fetching data: ', error);
+  }
+});
 </script>
 
 <style scoped>

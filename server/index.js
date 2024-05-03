@@ -125,6 +125,31 @@ app.post("/getFolloweds", async (req, res) => {
         res.status(500).json({ error: "Error getting followed" });
     }
 })
+//#region POSTEVENT:
+
+app.post("/getPostsEvents", async (req, res) => {
+    try {
+        const data = req.body
+        const posts = await postsDB.getPostsByIdUser(data.idUser)
+        const events = await eventsDB.getEventsByIdUser(data.idUser)
+        const postsEvents = [...posts, ...events]
+
+        postsEvents.sort((a, b) => {
+            const dateA = new Date(a.publicationDate);
+            const dateB = new Date(b.publicationDate);
+            return dateB - dateA;
+        });
+
+        res.status(200).json(postsEvents);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting posts and events" });
+    }
+
+});
+    
+
+
+
 
 //#region POSTS:
 

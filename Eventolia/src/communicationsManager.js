@@ -11,6 +11,18 @@ export async function getPosts() {
   }
 }
 
+export async function getPostsEvents(){
+  try {
+    const response = await fetch(`${SERVER_URL}/getPostsEvents`, { method: 'POST', mode: 'cors' });
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.log("Error al recuperar posts CM");
+    throw error;
+  }
+
+}
+
 export async function getEventInfo(idEvent) {
   try {
     const response = await fetch(`${SERVER_URL}/getEventById`,
