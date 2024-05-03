@@ -6,6 +6,7 @@ import 'vuetify/styles'
 
 // Composables
 import { createVuetify } from 'vuetify'
+import { VNumberInput } from 'vuetify/labs/VNumberInput'
 
 // Custom themes
 const myCustomLightTheme = {
@@ -41,6 +42,9 @@ const myCustomDarkTheme = {
 export { myCustomDarkTheme, myCustomLightTheme }
 
 let vuetify = createVuetify({
+  components: {
+    VNumberInput,
+  },
   theme: {
     defaultTheme: 'myCustomLightTheme',
     themes: {
@@ -49,6 +53,7 @@ let vuetify = createVuetify({
     },
   },
 })
+
 
 export default vuetify
 

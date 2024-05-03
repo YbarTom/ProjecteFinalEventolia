@@ -7,11 +7,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import TopBarMediumSideMainPage from './TopBarMediumSideMainPage.vue';
-import ForYouPage from './ForYouPage.vue'; // Importamos el componente ForYouPage
-import FollowingPage from './FollowingPage.vue'; // Importamos el componente FollowingPage
-const showRed = ref(true); // Mostrar el color rojo por defecto
+import ForYouPage from './ForYouPage.vue';
+import FollowingPage from './FollowingPage.vue';
+
+const showRed = ref(true);
 const showBlue = ref(false);
 
 function handleForYouClicked() {
@@ -23,15 +24,26 @@ function handleFollowingClicked() {
   showRed.value = false;
   showBlue.value = true;
 }
+
+function muestraPosicion(position) {
+  console.log('Latitude:', position.coords.latitude);
+  console.log('Longitude:', position.coords.longitude);
+}
+
+function errorPosicion(error) {
+  console.error('Geolocation error:', error);
+}
+
+onMounted(() => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(muestraPosicion, errorPosicion);
+  }
+});
 </script>
 
 <style scoped>
 .container {
   height: 100vh;
   position: relative;
-  /* Aseguramos que los elementos posicionados absolutamente se basen en este contenedor */
 }
-
-
-
-/* Ajustamos la posición del div azul */</style>
+</style>

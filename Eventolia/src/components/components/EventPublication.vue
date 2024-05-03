@@ -11,7 +11,8 @@
         <div class="left">
           <buttonPublication type="heart" />
           <buttonPublication type="chat" />
-          <buttonPublication type="send" />
+          <buttonPublication type="send"/>
+          <buttonPublication type="add" :onClick="onClick" />
         </div>
         <div class="right">
           <buttonPublication type="save" />
@@ -26,6 +27,14 @@
       <img ref="image" src="../../assets/images/caida.jpg" alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
+
+    <v-dialog
+      v-model="boolean"
+      width="79%"
+      
+    >
+      <addPost />
+    </v-dialog>
   </div>
 
 </template>
@@ -33,10 +42,15 @@
 <script setup>
 import { ref } from 'vue';
 import buttonPublication from './buttonPublication.vue';
+import addPost from './addPost.vue';
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
+const boolean = ref(false);
 
+const onClick = () => {
+  boolean.value = !boolean.value;
+}
 const adjustHeight = () => {
   if (divExterior.value && image.value && commentsDiv.value) {
   const imageElement = image.value;

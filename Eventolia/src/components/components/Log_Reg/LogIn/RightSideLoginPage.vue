@@ -1,18 +1,13 @@
 <template>
     <div>
-        <div class="login-panel"><LoginPanel/></div>
+        <div class="login-panel">
+            <LoginPanel />
+        </div>
     </div>
 </template>
-  
+
 <script setup>
-
+import LoginPanel from './LoginPanel.vue';
 </script>
 
-<script>
-
-</script>
-
-  <style scoped>
-    
-  </style>
-  
+<style scoped></style>

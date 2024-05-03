@@ -5,11 +5,21 @@
     </div>
     <h3 class="text-text">{{ buttonText }}</h3>
   </div>
+  <v-dialog
+      v-model="createEvent"
+      width="79%"
+
+    >
+      <CreateComponent />
+    </v-dialog>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+
+import { ref,defineProps } from 'vue';
 import { useRouter } from 'vue-router';
+import CreateComponent from './CreateComponent.vue';
+const createEvent = ref(false);
 
 const props = defineProps({
   type: String,
@@ -30,7 +40,11 @@ const icono = (() => {
 
 // Función para navegar a la ruta proporcionada
 const navigateToRoute = () => {
-  router.push(props.route);
+  if(props.type==="add"){
+    createEvent.value = !createEvent.value;
+  }else{
+    router.push(props.route);
+  }
 };
 </script>
 

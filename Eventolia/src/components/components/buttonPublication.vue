@@ -1,6 +1,6 @@
 <template>
   <div class="svg-container">
-    <v-icon :icon="icono" class="text-text" />
+    <v-icon :icon="icono" class="text-text" @click="handleClick" />
   </div>
 </template>
 
@@ -9,7 +9,8 @@ import { defineProps, ref } from 'vue';
 
 const props = defineProps({
   type: String,
-  buttonText: String
+  buttonText: String,
+  onClick: Function
 });
 
 const icono = ref('');
@@ -22,7 +23,15 @@ if (props.type === 'heart') {
   icono.value = "mdi-send";
 }else if (props.type === 'save') {
   icono.value = "mdi-bookmark-outline";
+}else if (props.type === 'add') {
+  icono.value = "mdi-plus-box-outline";
 }
+
+const handleClick = () => {
+  if (props.onClick) {
+    props.onClick();
+  }
+};
 </script>
 
 <style scoped>

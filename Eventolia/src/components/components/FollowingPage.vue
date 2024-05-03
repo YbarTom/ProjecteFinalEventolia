@@ -11,12 +11,15 @@ import ToggleTheme from './ToggleTheme.vue';
 import Publication from './Publication.vue';
 import { onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js';
+import { useAppStore } from '@/stores/app.js'
 
 const posts = ref([])
 
 onMounted(async () => {
   try {
-    const data = await funcionsCM.getFollowingPage("lzwdgq3cibtlvalpwa0")
+    const appStore = useAppStore()
+    const user = appStore.getUser()
+    const data = await funcionsCM.getFollowingPage(user)
     posts.value = data;
   } catch (error) {
     console.error('Error fetching data:', error);
