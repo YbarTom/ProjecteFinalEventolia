@@ -100,9 +100,12 @@ const adjustGridItemHeight = () => {
 }
 
 .grid-item {
-  background-color: white;
   border: 1px solid black;
   text-align: center;
+  background-image: url('../../assets/images/bici.jpg');
+  /* Ajustar el tamaño de la imagen */
+  background-size: cover;
+  background-position: center;
 }
 
 .grid::-webkit-scrollbar {
