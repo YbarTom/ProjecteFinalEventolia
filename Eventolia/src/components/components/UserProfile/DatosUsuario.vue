@@ -36,13 +36,14 @@
 
 .numeros-usu {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; /* Distribuye los elementos con espacio equitativo */
 }
 
 .numeros-usu > div {
   margin: 10px;
 }
 </style>
+
 
 <script setup>
 import ImagenUsuario from '@/components/components/foto.vue'
