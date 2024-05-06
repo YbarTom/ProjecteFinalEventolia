@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="userProfile">
     <DesktopUserProfilePage v-if="isDesktop" :userProfile="userProfile" :ownProfile="ownProfile" />
     <MobileUserProfilePage v-else :userProfile="userProfile" :ownProfile="ownProfile" />
   </div>
@@ -16,7 +16,7 @@ import { useRoute } from 'vue-router';
 const isDesktop = ref(window.innerWidth > 800);
 const userName = ref('')
 const ownProfile = ref(false)
-const userProfile = ref({})
+const userProfile = ref(null)
 
 const updateWidth = () => {
   isDesktop.value = window.innerWidth > 800;
@@ -49,7 +49,7 @@ onMounted(async () => {
 
     if (data.id == user.id) {
       ownProfile.value = true
-      userProfile.value = user
+      userProfile.value = data
     } else {
       userProfile.value = data
     }

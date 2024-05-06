@@ -1,7 +1,7 @@
 <template>
   <div class="Profile">
     <div class="perfil">
-      <InfoUserProfile />
+      <InfoUserProfile :userProfile="props.userProfile" :ownProfile="props.ownProfile"/>
     </div>
     <div class="imagen">
       <grid />
@@ -12,6 +12,12 @@
 <script setup>
 import InfoUserProfile from '@/components/components/UserProfile/InfoUserProfile.vue'
 import grid from '@/components/components/UserProfile/grid.vue'
+import { defineProps } from "vue";
+
+const props = defineProps({
+    userProfile: Object,
+    ownProfile: Boolean
+})
 </script>
 
 <style scoped>

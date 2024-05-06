@@ -4,7 +4,7 @@
       <LeftSideMainPage />
     </div>
     <div class="user-side">
-      <UserSideUserProfilePage :userProfile="userProfile" :ownProfile="ownProfile"/>
+      <UserSideUserProfilePage :userProfile="props.userProfile" :ownProfile="props.ownProfile"/>
     </div>
   </div>
 </template>
@@ -18,6 +18,7 @@ const props = defineProps({
   userProfile: Object,
   ownProfile: Boolean
 })
+
 </script>
 
 <style scoped>
