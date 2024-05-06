@@ -1,9 +1,14 @@
 <template>
   <div class="container">
-    <ul>
-      <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
-    </ul>
-    <input type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
+    <div class="list-container">
+      <div>Listado de chats</div>
+      <ul>
+        <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
+      </ul>
+    </div>
+    <div class="input-container">
+      <input type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
+    </div>
   </div>
 </template>
 
@@ -35,9 +40,16 @@ onMounted(() => {
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   height: 100vh;
   width: 79%;
+}
+
+.list-container {
+  flex: 1; /* Toma todo el espacio disponible */
+}
+
+.input-container {
+  width: 200px; /* Ancho fijo para el área de entrada de texto */
+  margin-left: 20px; /* Margen para separar el área de entrada de texto */
 }
 </style>
