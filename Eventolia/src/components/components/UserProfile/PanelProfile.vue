@@ -1,13 +1,17 @@
 <template>
   <div class="Profile">
-      <div class="perfil"><InfoUserProfile/></div>
-      <div class="imagen"><EstructFoto/></div>
+    <div class="perfil">
+      <InfoUserProfile />
+    </div>
+    <div class="imagen">
+      <grid />
+    </div>
   </div>
 </template>
 
 <script setup>
 import InfoUserProfile from '@/components/components/UserProfile/InfoUserProfile.vue'
-import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUserProfile.vue'
+import grid from '@/components/components/UserProfile/grid.vue'
 </script>
 
 <style scoped>
@@ -19,11 +23,13 @@ import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUser
   text-align: center;
   padding: 20px;
   width: 79%;
-  min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
+  min-height: 100vh;
+  /* Altura mínima para ocupar toda la altura de la ventana */
 }
 
 .perfil,
 .imagen {
-  flex: 1; /* Ambos elementos ocupan la misma fracción del espacio disponible */
-}
-</style>
+  width:79%;
+  flex: 1;
+  /* Ambos elementos ocupan la misma fracción del espacio disponible */
+}</style>

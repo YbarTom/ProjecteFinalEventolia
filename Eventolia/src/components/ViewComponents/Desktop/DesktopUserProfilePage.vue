@@ -22,6 +22,7 @@
 
 .user-side {
   flex: 2;
+  width: 100%;
 }
 
 

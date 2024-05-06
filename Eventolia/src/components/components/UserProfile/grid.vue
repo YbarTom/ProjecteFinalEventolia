@@ -1,19 +1,19 @@
 <template>
-
-  <div class="grid" ref="grid">
-    <!-- Aquí puedes agregar el contenido de las columnas -->
-    <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index"
-      :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
+  <div class="ancho">
+    <div class="grid" ref="grid" v-if="map">
+      <!-- Aquí puedes agregar el contenido de las columnas -->
+      <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
+    </div>
   </div>
+
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, watch,nextTick } from 'vue';
 import * as funcionsCM from '../../../communicationsManager.js'
 
 const map = ref(true);
 const publicacions = ref([]);
-
 
 
 onMounted(() => {
@@ -56,10 +56,8 @@ onMounted(async () => {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
   width: 100%;
-  max-height: calc(100vh - 150px);
-  /* Altura máxima del grid, ajustada por la altura de los botones */
-  overflow-y: auto;
-  /* Añadir barra de desplazamiento vertical si es necesario */
+  max-height: calc(100vh - 150px); /* Altura máxima del grid, ajustada por la altura de los botones */
+  overflow-y: auto; /* Añadir barra de desplazamiento vertical si es necesario */
 }
 
 .grid-item {
@@ -72,4 +70,5 @@ onMounted(async () => {
 
 .grid::-webkit-scrollbar {
   display: none;
-}</style>
+}
+</style>
