@@ -18,7 +18,7 @@ import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUser
     justify-content: center;
     text-align: center;
     padding: 20px;
-    width: 100%;
+    width: 79%;
     min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
 }
 

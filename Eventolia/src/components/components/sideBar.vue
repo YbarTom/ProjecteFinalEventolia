@@ -6,7 +6,7 @@
     <ButtonSideBar type="add" buttonText="Create Event" :route="'/createpage'" />
     <ButtonSideBar type="message" buttonText="Message" :route="'/messagespage'" />
     <ButtonSideBar type="bell" buttonText="Notification" :route="'/notificationspage'" />
-    <ButtonSideBar type="user" buttonText="Profile" :route="'/profilepage'" />
+    <ButtonSideBar type="user" buttonText="Profile" :route="'/userprofile'" />
   </div>
 </template>
 
