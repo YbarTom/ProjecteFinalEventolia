@@ -1,7 +1,10 @@
 const express = require("express");
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const app = express();
 
 const usersDB = require("./users.js")
 const postsDB = require("./posts.js")
@@ -23,7 +26,7 @@ app.use(
 );
 
 const PORT = 3001;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log("Server running on port: ", PORT)
 });
 
