@@ -10,15 +10,15 @@ const buttonText = ref('Seguir');
 const buttonClass = ref('follow-button');
 
 const toggleFollow = () => {
-    º.value = buttonText.value === 'Seguir' ? 'Dejar de seguir' : 'Seguir';
-    buttonClass.value = buttonClass.value === 'follow-button' ? 'follow-button-clicked' : 'follow-button';
+  buttonText.value = buttonText.value === 'Seguir' ? 'Siguiendo' : 'Seguir';
+  buttonClass.value = buttonClass.value === 'follow-button' ? 'follow-button-clicked' : 'follow-button';
 };
 </script>
 
 <style scoped>
 .follow-button {
     width: 600px;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(143, 0, 143);
 }
 
 .follow-button-clicked {
