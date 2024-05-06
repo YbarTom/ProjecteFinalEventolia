@@ -39,6 +39,5 @@ onMounted(() => {
   align-items: center;
   height: 100vh;
   width: 79%;
-  background-color: red;
 }
 </style>
