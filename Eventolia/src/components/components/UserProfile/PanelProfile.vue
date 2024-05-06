@@ -1,8 +1,8 @@
 <template>
-    <div class="Profile">
-        <div class="perfil"><InfoUserProfile/></div>
-        <div class="imagen"><EstructFoto/></div>
-    </div>
+  <div class="Profile">
+      <div class="perfil"><InfoUserProfile/></div>
+      <div class="imagen"><EstructFoto/></div>
+  </div>
 </template>
 
 <script setup>
@@ -12,14 +12,18 @@ import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUser
 
 <style scoped>
 .Profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    width: 79%;
-    min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  width: 79%;
+  min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
 }
 
+.perfil,
+.imagen {
+  flex: 1; /* Ambos elementos ocupan la misma fracción del espacio disponible */
+}
 </style>
