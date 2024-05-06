@@ -22,24 +22,4 @@ import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUser
     min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
 }
 
-/* Consulta de medios para pantallas medianas */
-@media (max-width: 1024px) {
-  .Profile {
-    width: 90%;
-  }
-}
-
-/* Consulta de medios para pantallas pequeñas */
-@media (max-width: 768px) {
-  .Profile {
-    width: 95%;
-  }
-}
-
-/* Consulta de medios para pantallas muy pequeñas */
-@media (max-width: 480px) {
-  .Profile {
-    width: 100%;
-  }
-}
 </style>

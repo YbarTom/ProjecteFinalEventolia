@@ -15,7 +15,6 @@
 
 <style>
 .ususrio {
-    display: flex; /* Activa Flexbox */
     align-items: center; /* Alinea verticalmente los elementos al centro */
     justify-content: space-between; /* Distribuye el espacio entre los elementos */
 }
@@ -33,7 +32,5 @@
     max-width: 150px; /* Limita el tamaño máximo de la imagen */
 }
 
-.info-user-profile {
-    padding: 20px; /* Añade algo de padding alrededor del contenido para mejor visualización */
-}
+
 </style>
