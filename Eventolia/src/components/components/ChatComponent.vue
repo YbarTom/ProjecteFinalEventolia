@@ -11,7 +11,7 @@
         <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
       </ul>
     </div>
-    <div class="input-container">
+    <div class="input-container" :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
       <input type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
     </div>
   </div>
@@ -45,11 +45,15 @@ export default {
     });
 
     const selectUser = (user) => {
-      selectedUser.value = user;
+      if (selectedUser.value === user) {
+        selectedUser.value = null; // Deseleccionar si ya está seleccionado
+      } else {
+        selectedUser.value = user; // Seleccionar el usuario
+      }
     };
 
     onMounted(() => {
-      // Puedes agregar cualquier lógica adicional que necesites cuando se monta el componente
+      // Lógica adicional al montar el componente
     });
 
     return {
@@ -78,6 +82,21 @@ export default {
 
 .input-container {
   width: 70%;
+}
+
+.background-color-1 {
+  background-color: red;
+}
+
+.background-color-2 {
+  background-color: green;
+}
+
+.background-color-3 {
   background-color: blue;
+}
+
+.background-color-4 {
+  background-color: yellow;
 }
 </style>
