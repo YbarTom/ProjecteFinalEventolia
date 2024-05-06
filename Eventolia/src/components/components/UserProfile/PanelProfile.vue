@@ -27,7 +27,11 @@ import grid from '@/components/components/UserProfile/grid.vue'
   /* Altura mínima para ocupar toda la altura de la ventana */
 }
 
-.perfil,
+.perfil{
+  flex: 1;
+  /* Ambos elementos ocupan la misma fracción del espacio disponible */
+
+}
 .imagen {
   width:79%;
   flex: 1;
