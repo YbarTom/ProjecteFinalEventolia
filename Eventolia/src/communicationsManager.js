@@ -78,7 +78,37 @@ export async function getUserByName(userName) {
     const resposta = await response.json();
     return resposta;
   } catch (error) {
-    console.log("Error al revuperar user CM");
+    console.log("Error al recuperar user CM");
+    throw error;
+  }
+}
+
+export async function getPostsByIdUser(idUser) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getPostsByIdUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idUser })
+      });
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.log("Error al recuperar posts CM");
+    throw error;
+  }
+}
+
+export async function getEventsByIdUser(idUser) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getEventsByIdUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idUser })
+      });
+    const events = await response.json();
+    return events;
+  } catch (error) {
+    console.log("Error al recuperar events CM");
     throw error;
   }
 }

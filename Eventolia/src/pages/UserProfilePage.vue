@@ -17,6 +17,8 @@ const isDesktop = ref(window.innerWidth > 800);
 const userName = ref('')
 const ownProfile = ref(false)
 const userProfile = ref(null)
+const events = ref({})
+const posts = ref({})
 
 const updateWidth = () => {
   isDesktop.value = window.innerWidth > 800;
@@ -30,6 +32,11 @@ onMounted(async () => {
     userName.value = route.params.userName
     const data = await funcionsCM.getUserByName(userName.value)
     const appStore = useAppStore()
+
+    posts.value = await funcionsCM.getPostsByIdUser(data.id)
+    console.log(posts.value)
+    events.value = await funcionsCM.getEventsByIdUser(data.id)
+    console.log(events.value)
 
     //setUser no farà falta al final, si es vol usuari propi /userProfile/user1
 

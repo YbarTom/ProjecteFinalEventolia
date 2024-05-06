@@ -20,6 +20,9 @@ app.use(cors());
 
 // Creem el servidor de Socket.io especificant que pot accedir qualsevol client
 const server = http.createServer(app);
+
+//#region SOCKETS
+
 const io = new Server(server, {
     cors: {
         origin: '*', // Replace with the actual origin of your client application
@@ -86,7 +89,6 @@ app.post("/getUserById", async (req, res) => {
 app.post("/getUserByName", async (req, res) => {
     try {
         const userName = req.body.userName
-        console.log(userName)
         const user = await usersDB.getUserByName(userName)
         res.status(200).json(user);
     } catch (error) {
@@ -173,10 +175,6 @@ app.post("/getPostsEvents", async (req, res) => {
 
 });
 
-
-
-
-
 //#region POSTS:
 
 app.get("/getPosts", async (req, res) => {
@@ -225,7 +223,8 @@ app.post("/getPostById", async (req, res) => {
 
 app.post("/getPostsByIdUser", async (req, res) => {
     try {
-        const idUser = req.body
+        const idUser = req.body.idUser
+        console.log(idUser)
         const post = await postsDB.getPostsByIdUser(idUser)
         res.status(200).json(post);
     } catch (error) {
@@ -281,7 +280,7 @@ app.post("/createEvent", async (req, res) => {
 
 app.post("/getEventsByIdUser", async (req, res) => {
     try {
-        const idUser = req.body
+        const idUser = req.body.idUser
         const post = await eventsDB.getEventsByIdUser(idUser)
         res.json(post)
     } catch (error) {
