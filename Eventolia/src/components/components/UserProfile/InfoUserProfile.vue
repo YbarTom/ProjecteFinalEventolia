@@ -1,15 +1,12 @@
 <template>
     <div class="info-user-profile">
-
         <div class="ususrio">
-            <div class="img-usuario"><ImagenUsuario/></div>
             <div class="datos-usuario"><InfoUserProfile/></div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import ImagenUsuario from '@/components/components/foto.vue'
     import InfoUserProfile from '@/components/components/UserProfile/DatosUsuario.vue'
 </script>
 
@@ -19,11 +16,7 @@
     justify-content: space-between; /* Distribuye el espacio entre los elementos */
 }
 
-.img-usuario,
-.datos-usuario {
-    flex: 1; /* Permite que cada elemento ocupe un espacio equitativo */
-    padding: 10px; /* Añade un poco de espacio alrededor de los elementos para evitar que se toquen */
-}
+
 
 /* Asegúrate de que la imagen no se deforme o se estire demasiado */
 .img-usuario img {
