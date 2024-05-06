@@ -8,19 +8,21 @@
 </template>
 
 <script>
-import { defineProps, ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 
 export default {
   props: {
     buttonText: String,
   },
-  setup(props) {
+  setup(props, { emit }) {
     const isSelected = ref(false);
 
     const selectUser = () => {
       isSelected.value = !isSelected.value;
-      // Emitir un evento para notificar al componente padre que se ha seleccionado/deseleccionado este usuario
-      this.$emit('selectUser', props.buttonText);
+      // Emitir un evento solo si el usuario está seleccionado
+      if (isSelected.value) {
+        emit('selectUser', props.buttonText);
+      }
     };
 
     return {
@@ -30,6 +32,11 @@ export default {
   }
 };
 </script>
+
+
+
+
+
 
 <style scoped>
 .button {
