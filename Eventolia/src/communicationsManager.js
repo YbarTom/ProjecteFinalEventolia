@@ -68,6 +68,21 @@ export async function createEvent(event) {
   }
 }
 
+export async function getUserByName(userName) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getUserByName`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userName })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Error al revuperar user CM");
+    throw error;
+  }
+}
+
 export async function logIn(userInfo) {
   try {
     const response = await fetch(`${SERVER_URL}/login`,

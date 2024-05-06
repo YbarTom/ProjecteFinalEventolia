@@ -83,6 +83,17 @@ app.post("/getUserById", async (req, res) => {
     }
 })
 
+app.post("/getUserByName", async (req, res) => {
+    try {
+        const userName = req.body.userName
+        console.log(userName)
+        const user = await usersDB.getUserByName(userName)
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting user" });
+    }
+})
+
 app.post("/followUser", async (req, res) => {
     try {
         const data = req.body

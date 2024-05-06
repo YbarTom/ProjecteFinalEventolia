@@ -29,16 +29,7 @@ export const useAppStore = defineStore('app', {
       this.user.privacity = privacity;
     },
     setUser(user) {
-      this.user.id = user.id;
-      this.user.userName = user.userName;
-      this.user.email = user.email;
-      this.user.password = user.password;
-      this.user.followers = user.followers;
-      this.user.followed = user.followed;
-      this.user.posts = user.posts;
-      this.user.events = user.events;
-      this.user.profilePic = user.profilePic;
-      this.user.privacity = user.privacity;
+      this.user = user
     },
     setUserId(id) {
       this.user.id = id;
