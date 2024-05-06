@@ -46,10 +46,12 @@ onMounted(() => {
 
 .list-container {
   flex: 1; /* Toma todo el espacio disponible */
+  background-color: red;
+  width: 30%;
 }
 
 .input-container {
-  width: 200px; /* Ancho fijo para el área de entrada de texto */
-  margin-left: 20px; /* Margen para separar el área de entrada de texto */
+  width: 70%; /* Ancho fijo para el área de entrada de texto */
+  background-color: blue;
 }
 </style>
