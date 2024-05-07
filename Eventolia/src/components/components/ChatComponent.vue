@@ -96,7 +96,7 @@ export default {
   position: fixed;
   display: flex;
   height: 3rem;
-  bottom: 2.5%;
+  bottom: 0;
   width: 36.9%;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
