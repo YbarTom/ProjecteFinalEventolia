@@ -13,25 +13,25 @@ import { ref, defineEmits } from 'vue';
 export default {
   props: {
     buttonText: String,
+    isSelected: Boolean // Añade la propiedad isSelected como prop
   },
   setup(props, { emit }) {
-    const isSelected = ref(false);
-
     const selectUser = () => {
-      isSelected.value = !isSelected.value;
-      // Emitir un evento solo si el usuario está seleccionado
-      if (isSelected.value) {
-        emit('selectUser', props.buttonText);
+      // Si el usuario actualmente seleccionado es el mismo que el usuario pulsado, emitir un evento para deseleccionar
+      if (props.isSelected) {
+        emit('selectUser', null); // Emitir null para deseleccionar al usuario
+      } else {
+        emit('selectUser', props.buttonText); // Emitir el nombre del usuario para seleccionarlo
       }
     };
 
     return {
-      isSelected,
       selectUser
     };
   }
 };
 </script>
+
 
 
 
