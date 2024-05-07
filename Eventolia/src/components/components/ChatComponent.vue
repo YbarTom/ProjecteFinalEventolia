@@ -56,12 +56,17 @@ export default {
     const selectedUser = ref(null);
     const sendMessage = () => {
       if (newMessage.value.trim() !== '') {
-        socket.emit('chat message', newMessage.value);
+        const message = {
+          user: "tom.ybarguengoitia",
+          message: newMessage.value
+        };
+        socket.emit('chat message', message);
         newMessage.value = '';
       }
     };
     socket.on('chat message', (msg) => {
-      messages.value.push(msg);
+      messages.value.push(msg.message);
+      console.log(msg.user);
     });
     const selectUser = (user) => {
       if (selectedUser.value === user) {
