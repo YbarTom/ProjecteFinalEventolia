@@ -30,7 +30,7 @@
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
 
       <ul>
-        <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
+        <li v-for="(message, index) in messages" :key="index">{{ message.message }}</li>
       </ul>
       <div class="form">
         <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
@@ -67,7 +67,7 @@ export default {
       }
     };
     socket.on('chat message', (msg) => {
-      messages.value.push(msg.message);
+      messages.value.push(msg);
       console.log(msg.user);
     });
     const selectUser = (user) => {
