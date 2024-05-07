@@ -2,33 +2,39 @@
   <div class="container">
     <div class="list-container">
       <div class="users">
-        <UserChat buttonText="tom.ybarguengoitia" :isSelected="selectedUser === 'tom.ybarguengoitia'" @selectUser="selectUser"/>
-        <UserChat buttonText="mikiDix" :isSelected="selectedUser === 'mikiDix'" @selectUser="selectUser"/>
-        <UserChat buttonText="crosmyc" :isSelected="selectedUser === 'crosmyc'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="tom.ybarguengoitia" :isSelected="selectedUser === 'tom.ybarguengoitia'"
+          @selectUser="selectUser" />
+        <UserChat buttonText="mikiDix" :isSelected="selectedUser === 'mikiDix'" @selectUser="selectUser" />
+        <UserChat buttonText="crosmyc" :isSelected="selectedUser === 'crosmyc'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
       </div>
       <ul>
         <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
       </ul>
     </div>
-    <div class="input-container" :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
-      <input type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
+    <div class="input-container"
+      :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
+      <form id="form" action="">
+
+        <input id="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
+          placeholder="Type your message..."><button>Send</button>
+      </form>
     </div>
   </div>
 </template>
@@ -84,13 +90,49 @@ export default {
 </script>
 
 <style scoped>
-.users{
+#form {
+  background: rgba(0, 0, 0, 0.15);
+  padding: 0.25rem;
+  position: fixed;
+  display: flex;
+  height: 3rem;
+  bottom: 2.5%;
+  width: 36.9%;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+}
+
+#input {
+  border: none;
+  padding: 0 1rem;
+  flex-grow: 1;
+  border-radius: 2rem;
+  margin: 0.25rem;
+}
+
+#input:focus {
+  outline: none;
+}
+
+#form>button {
+  background: #333;
+  border: none;
+  padding: 0 1rem;
+  margin: 0.25rem;
+  border-radius: 3px;
+  outline: none;
+  color: #fff;
+}
+
+
+.users {
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: auto;
   height: 90vh;
 }
+
 .container {
   margin-top: 70px;
   display: flex;
@@ -108,9 +150,7 @@ export default {
   width: 70%;
 }
 
-.background-color-1 {
-  background-color: red;
-}
+.background-color-1 {}
 
 .background-color-2 {
   background-color: green;
@@ -126,5 +166,4 @@ export default {
 
 .users::-webkit-scrollbar {
   width: 10px;
-}
-</style>
+}</style>
