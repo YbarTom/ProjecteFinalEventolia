@@ -1,40 +1,43 @@
 <template>
     <div v-if="ownProfile && checkRender" class="container">
-        <div v-for="(user, index) in users" :key="index">
-            <div v-if="type === 1" class="user-container">
+        <div v-if="type === 1">
+            <div v-for="(user, index) in users" :key="index" class="user-container">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
                     <button class="rectangular-button">unfollow</button>
                 </div>
             </div>
-            <div v-if="props.type === 2" class="user-container">
+        </div>
+        <div v-if="type === 2">
+            <div v-for="(user, index) in users" :key="index" class="user-container">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
                     <button class="rectangular-button">ha de fer check</button>
                 </div>
             </div>
-
         </div>
     </div>
+
     <div v-if="!ownProfile && checkRender" class="container">
-        <div v-for="(user, index) in users" :key="index">
-            <div v-if="type === 1" class="user-container">
+        <div v-if="type === 1">
+            <div v-for="(user, index) in users" :key="index" class="user-container">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
                     <button class="rectangular-button">{{ checkedButtonsFollowed[index] }}</button>
                 </div>
             </div>
-            <div v-if="props.type === 2" class="user-container">
+        </div>
+        <div v-if="type === 2">
+            <div v-for="(user, index) in users" :key="index" class="user-container">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
                     <button class="rectangular-button">{{ checkedButtonsFollowers[index] }}</button>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -69,9 +72,6 @@ onMounted(() => {
 
 async function checkButtons(user, users) {
 
-    console.log(user)
-    console.log(users)
-
     for (let i = 0; i < users.value.length; i++) {
         checkedButtonsFollowed.value.push("follow")
         checkedButtonsFollowers.value.push("follow")
@@ -79,9 +79,7 @@ async function checkButtons(user, users) {
 
     if (props.type === 1) {
         for (let i = 0; i < users.value.length; i++) {
-            console.log("i", i, users.value[i].id)
             for (let j = 0; j < user.value.followed.length; j++) {
-                console.log("j", j, user.value.followed[j])
                 if (users.value[i].id === user.value.followed[j]) {
                     checkedButtonsFollowed.value[i] = "unfollow"
                 }
@@ -90,9 +88,7 @@ async function checkButtons(user, users) {
     }
     else if (props.type === 2) {
         for (let i = 0; i < users.value.length; i++) {
-            console.log("i", i, users.value[i].id)
             for (let j = 0; j < user.value.followers.length; j++) {
-                console.log("j", j, user.value.followers[j])
                 if (users.value[i].id === user.value.followers[j]) {
                     checkedButtonsFollowers.value[i] = "unfollow"
                 }
@@ -101,7 +97,7 @@ async function checkButtons(user, users) {
     }
 
     //cuando lo imprimo aquí lo hace bien pero en el componente me dice undefined
-    console.log(checkedButtonsFollowed.value[0])
+    console.log(checkedButtonsFollowed)
     checkRender.value = true
 }
 </script>
@@ -117,7 +113,9 @@ async function checkButtons(user, users) {
 .user-container {
     display: flex;
     align-items: center;
-    background-color: blue
+    background-color: blue;
+    margin-bottom: 10px;
+    /* Agrega un margen inferior para separar los contenedores */
 }
 
 .user-avatar {
