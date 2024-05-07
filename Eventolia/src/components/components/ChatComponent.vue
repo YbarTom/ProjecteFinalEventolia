@@ -142,7 +142,6 @@ export default {
 }
 
 .input-container {
-  height: 90vh;
   width: 70%;
 }
 
