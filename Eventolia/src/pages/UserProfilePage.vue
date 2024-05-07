@@ -44,7 +44,7 @@ onMounted(async () => {
       email: "a",
       password: "a",
       followers: [],
-      followed: [],
+      followed: ["fzndxr6frp6lvm89jd4"],
       posts: [],
       events: [],
       profilePic: "",
