@@ -13,50 +13,47 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import ThemeToggler from '@/components/components/ThemeToggler.vue'
 import TextField from '@/components/components/Log_Reg/TextField.vue'
 import Button from '@/components/components/Log_Reg/Button.vue'
 import * as funcionsCM from '../../../../communicationsManager.js'
 import { useAppStore } from '@/stores/app.js'
-import { useRouter } from 'vue-router'
 
-let email = ""
-let password = ""
-
-const login = async () => {
-  try {
-    const appStore = useAppStore()
-    const router = useRouter()
-
-    var userInfo = {
-      email: email,
-      password: password
-    }
-    const response = await funcionsCM.logIn(userInfo)
-
-    if (response.id) {
-      appStore.setUser(response)
-      router.push('/MainPage')
-    }
-    else {
-      console.log("AAAA")
-    }
-  }
-  catch (error) {
-    console.error('Login Error: ', error)
-  }
-}
-</script>
-
-<script>
 export default {
   components: {
     ThemeToggler,
     TextField,
     Button
   },
-}
+  data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const appStore = useAppStore(); // You might want to check if you can access the store directly here without using a hook
+        const userInfo = {
+          email: this.email,
+          password: this.password
+        };
+        const response = await funcionsCM.logIn(userInfo);
+
+        if (response.id) {
+          appStore.setUser(response);
+          this.$router.push('/MainPage');
+        } else {
+          console.log("AAAA");
+        }
+      } catch (error) {
+        console.error('Login Error: ', error);
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>

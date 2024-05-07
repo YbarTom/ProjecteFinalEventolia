@@ -24,17 +24,19 @@
         <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
         <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
       </div>
-      <ul>
-        <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
-      </ul>
+
     </div>
     <div class="input-container"
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
-      <form id="form" action="">
 
-        <input id="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
-          placeholder="Type your message..."><button>Send</button>
-      </form>
+      <ul>
+        <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
+      </ul>
+      <div class="form">
+        <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
+          placeholder="Type your message..."><button @click="sendMessage">Send</button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -43,6 +45,7 @@
 import { ref, onMounted } from 'vue';
 import { io } from 'socket.io-client';
 import UserChat from './UserChat.vue';
+import { useAppStore } from '@/stores/app.js'
 
 export default {
   components: {
@@ -50,22 +53,23 @@ export default {
   },
   setup() {
     const socket = io('http://localhost:3001');
-
     const messages = ref([]);
     const newMessage = ref('');
     const selectedUser = ref(null);
-
     const sendMessage = () => {
       if (newMessage.value.trim() !== '') {
-        socket.emit('chat message', newMessage.value);
+        const message = {
+          user: useAppStore().getUser().userName,
+          message: newMessage.value
+        };
+        socket.emit('chat message', message);
         newMessage.value = '';
       }
     };
-
     socket.on('chat message', (msg) => {
-      messages.value.push(msg);
+      messages.value.push(msg.message);
+      console.log(msg.user);
     });
-
     const selectUser = (user) => {
       if (selectedUser.value === user) {
         selectedUser.value = null; // Deseleccionar si ya está seleccionado
@@ -73,11 +77,9 @@ export default {
         selectedUser.value = user; // Seleccionar el usuario
       }
     };
-
     onMounted(() => {
       // Lógica adicional al montar el componente
     });
-
     return {
       messages,
       newMessage,
@@ -89,20 +91,21 @@ export default {
 };
 </script>
 
+
 <style scoped>
-#form {
+.form {
   background: rgba(0, 0, 0, 0.15);
   padding: 0.25rem;
   position: fixed;
   display: flex;
   height: 3rem;
-  bottom: 2.5%;
+  bottom: 0;
   width: 36.9%;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
 }
 
-#input {
+.input {
   border: none;
   padding: 0 1rem;
   flex-grow: 1;
@@ -110,11 +113,11 @@ export default {
   margin: 0.25rem;
 }
 
-#input:focus {
+.input:focus {
   outline: none;
 }
 
-#form>button {
+.form>button {
   background: #333;
   border: none;
   padding: 0 1rem;
@@ -146,7 +149,6 @@ export default {
 }
 
 .input-container {
-  height: 90vh;
   width: 70%;
 }
 
@@ -166,4 +168,5 @@ export default {
 
 .users::-webkit-scrollbar {
   width: 10px;
-}</style>
+}
+</style>
