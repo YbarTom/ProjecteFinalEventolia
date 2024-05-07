@@ -26,7 +26,7 @@
   </div>
 
   <v-dialog v-model="showPopUp" width="79%">    
-    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" />
+    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"/>
   </v-dialog>
 </template>
 
@@ -47,7 +47,6 @@ const typePopUp = ref(0)
 const followers = ref([]);
 const followed = ref([])
 
-// Función para mostrar el pop-up
 const mostrarPopUp = async (users, type) => {
 
   if (type === 1) {
