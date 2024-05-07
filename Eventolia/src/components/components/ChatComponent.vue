@@ -45,6 +45,8 @@
 import { ref, onMounted } from 'vue';
 import { io } from 'socket.io-client';
 import UserChat from './UserChat.vue';
+import { useAppStore } from '@/stores/app.js'
+
 export default {
   components: {
     UserChat
@@ -57,7 +59,7 @@ export default {
     const sendMessage = () => {
       if (newMessage.value.trim() !== '') {
         const message = {
-          user: "tom.ybarguengoitia",
+          user: useAppStore().getUser().userName,
           message: newMessage.value
         };
         socket.emit('chat message', message);
