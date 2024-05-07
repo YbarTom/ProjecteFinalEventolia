@@ -4,7 +4,7 @@
       <LeftSideMainPage />
     </div>
     <div class="user-side">
-      <UserSideUserProfilePage :userProfile="props.userProfile" :ownProfile="props.ownProfile"/>
+      <UserSideUserProfilePage :userProfile="props.userProfile" :ownProfile="props.ownProfile" :events="props.events" :posts="props.posts"/>
     </div>
   </div>
 </template>
@@ -16,7 +16,9 @@ import { defineProps } from "vue";
 
 const props = defineProps({
   userProfile: Object,
-  ownProfile: Boolean
+  ownProfile: Boolean,
+  events: Array,
+  posts: Array
 })
 
 </script>

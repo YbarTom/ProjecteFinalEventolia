@@ -2,7 +2,7 @@
   <div class="ancho">
     <div class="grid" ref="grid" v-if="map">
       <!-- Aquí puedes agregar el contenido de las columnas -->
-      <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
+      <div class="grid-item" v-for="(post, index) in props.posts" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
     </div>
   </div>
 
@@ -11,6 +11,12 @@
 <script setup>
 import { ref, onMounted, watch,nextTick } from 'vue';
 import * as funcionsCM from '../../../communicationsManager.js'
+import { defineProps } from "vue";
+
+const props = defineProps({
+    posts: Array,
+    events: Array
+})
 
 const map = ref(true);
 const publicacions = ref([]);
@@ -32,7 +38,7 @@ const adjustGridItemHeight = () => {
   });
 };
 
-onMounted(async () => {
+{/*onMounted(async () => {
   try {
     const dataPosts = await funcionsCM.getPostsEvents();
     //const dataEvents = await funcionsCM.getEvents();
@@ -46,6 +52,7 @@ onMounted(async () => {
     console.error('Error fetching data: ', error);
   }
 });
+*/}
 
 </script>
 

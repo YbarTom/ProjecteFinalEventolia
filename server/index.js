@@ -124,31 +124,25 @@ app.post("/login", async (req, res) => {
 
 app.post("/getFollowers", async (req, res) => {
     try {
-        const data = req.body
-        const user = await usersDB.getUserById(data.idUser)
-        const followers = [];
-
-        for (let i = 0; i < user.followers.length; i++) {
-            followers.push(await usersDB.getUserById(user.followers[i]))
+        const data = req.body.followers
+        const response = []
+        for (let i = 0; i < data.length; i++) {
+            response.push(await usersDB.getUserById(data[i]))
         }
-
-        res.status(200).json(followers);
+        res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ error: "Error getting followers" });
     }
 })
 
-app.post("/getFolloweds", async (req, res) => {
+app.post("/getFollowed", async (req, res) => {
     try {
-        const data = req.body
-        const user = await usersDB.getUserById(data.idUser)
-        const followed = [];
-
-        for (let i = 0; i < user.followed.length; i++) {
-            followed.push(await usersDB.getUserById(user.followed[i]))
+        const data = req.body.followed
+        const response = []
+        for (let i = 0; i < data.length; i++) {
+            response.push(await usersDB.getUserById(data[i]))
         }
-
-        res.status(200).json(followed);
+        res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ error: "Error getting followed" });
     }
@@ -263,7 +257,6 @@ app.post("/getFollowingPage", async (req, res) => {
 app.post("/createEvent", async (req, res) => {
     try {
         const data = req.body
-
         const event = data.event
         event.assistants = []
         event.posts = []
