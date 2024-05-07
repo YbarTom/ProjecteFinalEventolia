@@ -128,6 +128,36 @@ export async function logIn(userInfo) {
   }
 }
 
+export async function getFollowers(followers) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getFollowers`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ followers })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Get followers Error CM");
+    throw error;
+  }
+}
+
+export async function getFollowed(followed) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getFollowed`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ followed })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Get followed Error CM");
+    throw error;
+  }
+}
+
 export async function searchLocation(addressQuery) {
   const apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
     addressQuery

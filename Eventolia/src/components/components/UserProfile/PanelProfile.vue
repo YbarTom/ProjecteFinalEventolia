@@ -4,7 +4,7 @@
       <InfoUserProfile :userProfile="props.userProfile" :ownProfile="props.ownProfile"/>
     </div>
     <div class="imagen">
-      <grid />
+      <grid :events="props.events" :posts="props.posts"/>
     </div>
   </div>
 </template>
@@ -16,7 +16,9 @@ import { defineProps } from "vue";
 
 const props = defineProps({
     userProfile: Object,
-    ownProfile: Boolean
+    ownProfile: Boolean,
+    posts: Array,
+    events: Array
 })
 </script>
 

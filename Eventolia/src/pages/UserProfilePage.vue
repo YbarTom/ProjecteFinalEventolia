@@ -1,7 +1,7 @@
 <template>
   <div v-if="userProfile">
-    <DesktopUserProfilePage v-if="isDesktop" :userProfile="userProfile" :ownProfile="ownProfile" />
-    <MobileUserProfilePage v-else :userProfile="userProfile" :ownProfile="ownProfile" />
+    <DesktopUserProfilePage v-if="isDesktop" :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts" />
+    <MobileUserProfilePage v-else :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts"/>
   </div>
 </template>
 
@@ -34,9 +34,7 @@ onMounted(async () => {
     const appStore = useAppStore()
 
     posts.value = await funcionsCM.getPostsByIdUser(data.id)
-    console.log(posts.value)
     events.value = await funcionsCM.getEventsByIdUser(data.id)
-    console.log(events.value)
 
     //setUser no farà falta al final, si es vol usuari propi /userProfile/user1
 

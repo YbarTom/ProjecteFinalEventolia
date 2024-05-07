@@ -1,4 +1,3 @@
-
 <template>
   <div class="container">
     <div class="post bg-principal" v-if="!imagePreview">
@@ -21,13 +20,15 @@
         </div>
         <div class="right-side">
           <div class="margin-25">
-            <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize rows="1"></v-textarea>
-            <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize rows="4"></v-textarea>
-            <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants" :hideInput="false"
-              :inset="false" variant="outlined"></v-number-input>
-            <v-textarea v-model="Address" label="Address" variant="outlined" counter  no-resize rows="1"></v-textarea>
-            <v-text-field v-model="startDate" label="Start Date" type="date" ></v-text-field>
-            <v-text-field v-model="endDate" label="End Date" type="date" ></v-text-field>
+            <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize
+              rows="1"></v-textarea>
+            <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize
+              rows="4"></v-textarea>
+            <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants"
+              :hideInput="false" :inset="false" variant="outlined"></v-number-input>
+            <v-textarea v-model="Address" label="Address" variant="outlined" counter no-resize rows="1"></v-textarea>
+            <v-text-field v-model="startDate" label="Start Date" type="date"></v-text-field>
+            <v-text-field v-model="endDate" label="End Date" type="date"></v-text-field>
             <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
 
           </div>
@@ -67,8 +68,9 @@ const handleImageUpload = (event) => {
 const createEvent = async () => {
   try {
     const appStore = useAppStore()
-    appStore.setUser("zi0s21h26zlvm89j9d", "user1", "user1@gmail.com", "password1", [], [], [], [], "",false)
-    const user = appStore.getUser()
+    const user = { id: "zi0s21h26zlvm89j9d", userName: "user1", email: "user1@gmail.com", password: "password1", followers: [], followed: [], posts: [], events: [], profilePic: "", privacity: false }
+    appStore.setUser()
+    //const user = appStore.getUser()
 
     const event = {
       idUser: user.id,
@@ -82,6 +84,7 @@ const createEvent = async () => {
       categories: [],
       location: Address.value
     }
+
     const coordinates = await funcionsCM.searchLocation(Address.value);
     event.latitude = coordinates.latitude;
     event.longitude = coordinates.longitude;
@@ -154,7 +157,7 @@ const createEvent = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width:100%;
+  width: 100%;
 }
 
 .title {
