@@ -1,6 +1,7 @@
 <template>
-  <div :class="{ button: true, 'bg-warning': isSelected }" @click="selectUser">
+  <div :class="{ button: true }" @click="selectUser">
     <div class="svg-container">
+      <img class="round-image" src="https://primefaces.org/cdn/primevue/images/galleria/galleria10.jpg" alt="Descripción de la imagen">
 
     </div>
     <h3 class="text-text">{{ buttonText }}</h3>
@@ -39,6 +40,12 @@ export default {
 
 
 <style scoped>
+
+.round-image {
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+}
 .button {
   height: 55px;
   width: 100%;
@@ -48,8 +55,7 @@ export default {
 }
 
 .svg-container {
-  height: 55px;
-  width: 55px;
+
   display: flex;
   align-items: center;
   margin-right: 10px;

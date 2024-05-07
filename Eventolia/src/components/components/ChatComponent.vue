@@ -1,10 +1,26 @@
 <template>
   <div class="container">
     <div class="list-container">
-      <div>
+      <div class="users">
         <UserChat buttonText="tom.ybarguengoitia" :isSelected="selectedUser === 'tom.ybarguengoitia'" @selectUser="selectUser"/>
         <UserChat buttonText="mikiDix" :isSelected="selectedUser === 'mikiDix'" @selectUser="selectUser"/>
         <UserChat buttonText="crosmyc" :isSelected="selectedUser === 'crosmyc'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
+        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
         <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser"/>
       </div>
       <ul>
@@ -68,6 +84,13 @@ export default {
 </script>
 
 <style scoped>
+.users{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+  height: 90vh;
+}
 .container {
   margin-top: 70px;
   display: flex;
@@ -81,6 +104,7 @@ export default {
 }
 
 .input-container {
+  height: 90vh;
   width: 70%;
 }
 
@@ -98,5 +122,9 @@ export default {
 
 .background-color-4 {
   background-color: yellow;
+}
+
+.users::-webkit-scrollbar {
+  width: 10px;
 }
 </style>
