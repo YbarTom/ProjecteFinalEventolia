@@ -95,6 +95,7 @@ const createEvent = async () => {
 }
 
 </script>
+
 <style scoped>
 .input-container {
     display: flex;
@@ -113,46 +114,44 @@ const createEvent = async () => {
 }
 
 .margin-25 {
-    margin-left: 28px;
-    margin-right: 28px;
+    margin: 0 28px;
 }
 
 .margin {
-    margin-left: 28px;
-
+    margin: 0 28px;
 }
 
 .left-side {
-    height: 500px;
-    width: 450px;
+    width: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 16px 16px 0 0;
-    /* Ajustar el border-radius */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .right-side {
-    height: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
     border-radius: 0 0 16px 16px;
-    /* Ajustar el border-radius */
 }
 
 .div-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: auto;
-    /* Esto colocará el botón en la parte inferior del contenedor */
     padding: 20px 0;
-    /* Añadir espacio alrededor del botón */
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
+    padding: 20px;
 }
 
 .title {
@@ -161,14 +160,16 @@ const createEvent = async () => {
 }
 
 .post {
-    width: 80%;
+    width: 100%;
+    max-width: 900px;
     text-align: center;
     border-radius: 16px;
-    height: 80vh;
+    height: auto;
     display: flex;
-    /* Añadir esto para permitir el posicionamiento flex */
     flex-direction: column;
-    /* Añadir esto para que los elementos internos se apilen verticalmente */
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .horizontal-bar-create {
@@ -184,16 +185,27 @@ const createEvent = async () => {
 }
 
 .post img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
-    max-height: 700px;
-    /* Hacer que la altura se ajuste automáticamente */
-    margin-top: 10px;
+    max-height: 450px;
 }
 
 .bg-background {
-    margin-top: -25px; /* Ajusta este valor según tus necesidades */
+    margin-top: -25px;
 }
 
+@media (max-width: 768px) {
+    .left-side, .right-side {
+        flex-direction: column;
+        border-radius: 16px;
+    }
 
+    .post {
+        flex-direction: column;
+    }
+
+    .margin-25, .margin {
+        margin: 10px;
+    }
+}
 </style>

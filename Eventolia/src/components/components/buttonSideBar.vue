@@ -8,9 +8,7 @@
   <v-dialog
       v-model="createEvent"
       width="79%"
-
     >
-
       <CreateComponent v-if="!mobile"/>
       <MobileCreateComponent v-if="mobile"/>
     </v-dialog>
