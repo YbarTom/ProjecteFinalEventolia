@@ -30,8 +30,12 @@
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
 
       <ul>
-        <li v-for="(message, index) in messages" :key="index">{{ message.message }}</li>
+        <li v-for="(message, index) in messages" :key="index"
+          :class="message.user === myUser ? 'right-message' : 'left-message'"> <span class="span bg-principal text-text" >{{ message.message
+          }}</span>
+        </li>
       </ul>
+
       <div class="form">
         <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
           placeholder="Type your message..."><button @click="sendMessage">Send</button>
@@ -56,10 +60,11 @@ export default {
     const messages = ref([]);
     const newMessage = ref('');
     const selectedUser = ref(null);
+    const myUser = ref(useAppStore().getUser().userName); // Declare myUser as a ref
     const sendMessage = () => {
       if (newMessage.value.trim() !== '') {
         const message = {
-          user: useAppStore().getUser().userName,
+          user: myUser.value, // Access myUser as a ref
           message: newMessage.value
         };
         socket.emit('chat message', message);
@@ -68,7 +73,6 @@ export default {
     };
     socket.on('chat message', (msg) => {
       messages.value.push(msg);
-      console.log(msg.user);
     });
     const selectUser = (user) => {
       if (selectedUser.value === user) {
@@ -84,15 +88,41 @@ export default {
       messages,
       newMessage,
       selectedUser,
+      myUser, // Return myUser as part of the setup return object
       sendMessage,
       selectUser
     };
   }
 };
+
 </script>
 
 
 <style scoped>
+.span {
+  color: white;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+ul {
+  margin-top: 10px;
+  list-style: none;
+}
+li {
+  margin-bottom: 15px;
+}
+
+.right-message {
+
+  text-align: right;
+}
+
+.left-message {
+  text-align: left;
+}
+
 .form {
   background: rgba(0, 0, 0, 0.15);
   padding: 0.25rem;
