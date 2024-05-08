@@ -12,6 +12,7 @@
     >
 
       <CreateComponent v-if="!mobile"/>
+      
     </v-dialog>
 </template>
 
