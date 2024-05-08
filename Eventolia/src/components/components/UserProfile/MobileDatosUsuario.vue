@@ -25,8 +25,10 @@
         <div class="btn-seguir">
             <BtnSeguir />
         </div>
-        
     </div>
+    <v-dialog v-model="showPopUp" width="79%">    
+        <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"/>
+    </v-dialog>
 </template>
 
 <script setup>
@@ -68,6 +70,7 @@ const mostrarPopUp = async (users, type) => {
     align-items: center;
     height: 100vh;
     margin-left: 100px;
+    margin-top: -250px;
 }
 
 .numeros {
