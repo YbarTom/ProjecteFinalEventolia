@@ -12,6 +12,7 @@
     >
 
       <CreateComponent v-if="!mobile"/>
+      <MobileCreateComponent v-if="mobile"/>
     </v-dialog>
 </template>
 
@@ -21,6 +22,7 @@ import { ref,defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import CreateComponent from './CreateComponent.vue';
 import MobileDatosUsuario from './UserProfile/MobileDatosUsuario.vue';
+import MobileCreateComponent from './MobileCreateComponent.vue';
 const createEvent = ref(false);
 
 const props = defineProps({
