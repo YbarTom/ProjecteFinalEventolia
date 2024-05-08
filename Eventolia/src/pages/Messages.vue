@@ -7,7 +7,7 @@
   import { ref, onMounted, onUnmounted } from 'vue';
 
   import DesktopMessage from '@/components/ViewComponents/Desktop/DesktopMessage.vue';
-  
+  import Messages from '@/components/ViewComponents/Mobile/MobileMessage.vue';
   
   const isDesktop = ref(window.innerWidth > 800);
 
