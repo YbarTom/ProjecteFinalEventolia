@@ -30,7 +30,10 @@
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
 
       <ul>
-        <li v-for="(message, index) in messages" :key="index" :class="message.user === myUser ? 'right-message' : 'left-message'">{{ message.message }}</li>
+        <li v-for="(message, index) in messages" :key="index"
+          :class="message.user === myUser ? 'right-message' : 'left-message'"> <span class="span bg-principal text-text" >{{ message.message
+          }}</span>
+        </li>
       </ul>
 
       <div class="form">
@@ -96,7 +99,23 @@ export default {
 
 
 <style scoped>
+.span {
+  color: white;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+ul {
+  margin-top: 10px;
+  list-style: none;
+}
+li {
+  margin-bottom: 15px;
+}
+
 .right-message {
+
   text-align: right;
 }
 
