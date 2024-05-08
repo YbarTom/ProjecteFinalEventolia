@@ -104,11 +104,15 @@ export default {
   margin-bottom: 10px;
   padding: 8px 12px;
   border-radius: 12px;
+  word-wrap: break-word; /* Agregamos esta propiedad */
+  max-width: 100px; /* Establece el ancho máximo del mensaje */
+
 }
 
 ul {
   margin-top: 10px;
   list-style: none;
+  overflow-y: auto;
 }
 li {
   margin-bottom: 15px;
@@ -179,6 +183,7 @@ li {
 }
 
 .input-container {
+  overflow-y: auto;
   width: 70%;
 }
 
@@ -197,6 +202,9 @@ li {
 }
 
 .users::-webkit-scrollbar {
+  width: 10px;
+}
+.input-container::-webkit-scrollbar {
   width: 10px;
 }
 </style>
