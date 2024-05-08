@@ -115,6 +115,8 @@ ul {
   overflow-y: auto;
 }
 li {
+  margin-top: 10px;
+
   margin-bottom: 15px;
 }
 
