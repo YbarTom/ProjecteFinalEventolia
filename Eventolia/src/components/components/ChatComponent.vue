@@ -186,6 +186,7 @@ li {
 
 .input-container {
   overflow-y: auto;
+  height: calc(100% - 120px);
   width: 70%;
 }
 
