@@ -10,7 +10,8 @@
       width="79%"
 
     >
-      <CreateComponent />
+
+      <CreateComponent v-if="!mobile"/>
     </v-dialog>
 </template>
 
@@ -19,12 +20,14 @@
 import { ref,defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import CreateComponent from './CreateComponent.vue';
+import MobileDatosUsuario from './UserProfile/MobileDatosUsuario.vue';
 const createEvent = ref(false);
 
 const props = defineProps({
   type: String,
   buttonText: String,
-  route: String // Nueva prop para la ruta
+  route: String, // Nueva prop para la ruta
+  mobile: Boolean
 });
 
 const router = useRouter();

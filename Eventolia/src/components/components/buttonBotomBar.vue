@@ -3,17 +3,17 @@
       <!-- Pasando las rutas como propiedades -->
       <ButtonSideBar type="home"    :route="'/mainpage'" />
       <ButtonSideBar type="lupa"    :route="'/searchpage'" />
-      <ButtonSideBar type="add"     :route="'/createpage'" />
+      <ButtonSideBar type="add"    mobile="true" :route="'/createpage'" />
       <ButtonSideBar type="message" :route="'/messagespage'" />
       <ButtonSideBar type="bell"    :route="'/notificationspage'" />
       <ButtonSideBar type="user"    :route="'/userprofile'" />
     </div>
   </template>
-  
+
   <script setup>
   import ButtonSideBar from './buttonSideBar.vue';
   </script>
-  
+
   <style scoped>
     .button-side-bar {
     display: flex;
