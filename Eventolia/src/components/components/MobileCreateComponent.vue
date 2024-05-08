@@ -1,148 +1,143 @@
 <template>
     <div class="container">
-      <div class="post bg-principal" v-if="!imagePreview">
-        <div>
-          <p class="title text-text"><b>Mobil</b></p>
-          <div class="horizontal-bar-create bg-background"></div>
-          <!-- Mover el bloque del botón aquí -->
-        </div>
-        <div class="div-button">
-          <label for="image-upload" class="upload-button bg-background">Select Image From Computer</label>
-          <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
-        </div>
-      </div>
-      <div class="post bg-principal" v-if="imagePreview" ref="post">
-        <div class="grid-container">
-          <div class="left-side">
-            <div class="margin" style="max-height: 500px;">
-              <img :src="imagePreview" ref="image" alt="Image Preview" />
+        <div class="post bg-principal" v-if="!imagePreview">
+            <div>
+                <p class="title text-text"><b>Create new Event</b></p>
+                <div class="horizontal-bar-create bg-background"></div>
+                <!-- Mover el bloque del botón aquí -->
             </div>
-          </div>
-          <div class="right-side">
-            <div class="margin-25">
-              <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize
-                rows="1"></v-textarea>
-              <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize
-                rows="4"></v-textarea>
-              <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants"
-                :hideInput="false" :inset="false" variant="outlined"></v-number-input>
-              <v-textarea v-model="Address" label="Address" variant="outlined" counter no-resize rows="1"></v-textarea>
-              <v-text-field v-model="startDate" label="Start Date" type="date"></v-text-field>
-              <v-text-field v-model="endDate" label="End Date" type="date"></v-text-field>
-              <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
-  
+            <div class="div-button">
+                <label for="image-upload" class="upload-button bg-background">Select Image From Computer</label>
+                <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
             </div>
-          </div>
         </div>
-      </div>
+        <div class="post bg-principal" v-if="imagePreview" ref="post">
+            <div class="left-side">
+                <div class="margin" style="max-height: 500px;">
+                    <img :src="imagePreview" ref="image" alt="Image Preview" />
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="margin-25">
+                    <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize
+                        rows="1"></v-textarea>
+                    <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2"
+                        no-resize rows="4"></v-textarea>
+                    <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default"
+                        label="Maximum Assitants" :hideInput="false" :inset="false" variant="outlined"></v-number-input>
+                    <v-textarea v-model="Address" label="Address" variant="outlined" counter no-resize
+                        rows="1"></v-textarea>
+                    <v-text-field v-model="startDate" label="Start Date" type="date"></v-text-field>
+                    <v-text-field v-model="endDate" label="End Date" type="date"></v-text-field>
+                    <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
+
+                </div>
+            </div>
+        </div>
     </div>
-  </template>
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import * as funcionsCM from '../../communicationsManager.js'
-  import { useAppStore } from '@/stores/app.js';
-  
-  const imagePreview = ref('');
-  const image = ref(null);
-  const post = ref(null);
-  const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
-  const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
-  const startDate = ref('');
-  const endDate = ref('');
-  const Title = ref('');
-  const Description = ref('');
-  const AssistantsMax = ref('');
-  const Address = ref('');
-  
-  const handleImageUpload = (event) => {
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+import * as funcionsCM from '../../communicationsManager.js'
+import { useAppStore } from '@/stores/app.js';
+
+const imagePreview = ref('');
+const image = ref(null);
+const post = ref(null);
+const rules = ref([v => v.length <= 25 || 'Max 25 characters']);
+const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
+const startDate = ref('');
+const endDate = ref('');
+const Title = ref('');
+const Description = ref('');
+const AssistantsMax = ref('');
+const Address = ref('');
+
+const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        imagePreview.value = reader.result;
-      };
-      reader.readAsDataURL(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+            imagePreview.value = reader.result;
+        };
+        reader.readAsDataURL(file);
     }
-  };
-  
-  const createEvent = async () => {
+};
+
+const createEvent = async () => {
     try {
-      const appStore = useAppStore()
-      const user = { id: "zi0s21h26zlvm89j9d", userName: "user1", email: "user1@gmail.com", password: "password1", followers: [], followed: [], posts: [], events: [], profilePic: "", privacity: false }
-      appStore.setUser()
-      //const user = appStore.getUser()
-  
-      const event = {
-        idUser: user.id,
-        title: Title.value,
-        description: Description.value,
-        assistantsMax: AssistantsMax.value,
-        organizer: user.userName,
-        image: imagePreview.value,
-        startDate: startDate.value,
-        endDate: endDate.value,
-        categories: [],
-        location: Address.value
-      }
-  
-      const coordinates = await funcionsCM.searchLocation(Address.value);
-      event.latitude = coordinates.latitude;
-      event.longitude = coordinates.longitude;
-      funcionsCM.createEvent(event)
-  
+        const appStore = useAppStore()
+        const user = { id: "zi0s21h26zlvm89j9d", userName: "user1", email: "user1@gmail.com", password: "password1", followers: [], followed: [], posts: [], events: [], profilePic: "", privacity: false }
+        appStore.setUser()
+        //const user = appStore.getUser()
+
+        const event = {
+            idUser: user.id,
+            title: Title.value,
+            description: Description.value,
+            assistantsMax: AssistantsMax.value,
+            organizer: user.userName,
+            image: imagePreview.value,
+            startDate: startDate.value,
+            endDate: endDate.value,
+            categories: [],
+            location: Address.value
+        }
+
+        const coordinates = await funcionsCM.searchLocation(Address.value);
+        event.latitude = coordinates.latitude;
+        event.longitude = coordinates.longitude;
+        funcionsCM.createEvent(event)
+
     } catch (error) {
-      console.error('Error creating event: ', error)
+        console.error('Error creating event: ', error)
     }
-  }
-  
-  </script>
-  <style scoped>
-  .input-container {
+}
+
+</script>
+<style scoped>
+.input-container {
     display: flex;
     align-items: center;
-  }
-  
-  .input-container label {
+}
+
+.input-container label {
     margin-right: 10px;
-  }
-  
-  .numberinput {
+}
+
+.numberinput {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #525151;
-  }
-  
-  .grid-container {
-    display: grid;
-    height: 80vh;
-  
-    grid-template-columns: 1fr 1fr;
-    /* Dos columnas de igual tamaño */
-  }
-  
-  .margin-25 {
-    margin: 28px;
-  }
-  
-  .margin {
-    margin: 20px;
-  }
-  
-  .left-side {
+}
+
+.margin-25 {
+    margin-left: 28px;
+    margin-right: 28px;
+}
+
+.margin {
+    margin-left: 28px;
+
+}
+
+.left-side {
     height: 500px;
     width: 450px;
     justify-content: center;
     align-items: center;
-    border-radius: 16px 0 0 16px;
-  }
-  
-  .right-side {
+    border-radius: 16px 16px 0 0;
+    /* Ajustar el border-radius */
+}
+
+.right-side {
     height: 100%;
-    border-radius: 0 16px 16px 0;
-  }
-  
-  .div-button {
+    border-radius: 0 0 16px 16px;
+    /* Ajustar el border-radius */
+}
+
+.div-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,22 +145,22 @@
     /* Esto colocará el botón en la parte inferior del contenedor */
     padding: 20px 0;
     /* Añadir espacio alrededor del botón */
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100%;
-  }
-  
-  .title {
+}
+
+.title {
     font-size: 18px;
     margin-top: 20px;
-  }
-  
-  .post {
+}
+
+.post {
     width: 80%;
     text-align: center;
     border-radius: 16px;
@@ -174,26 +169,31 @@
     /* Añadir esto para permitir el posicionamiento flex */
     flex-direction: column;
     /* Añadir esto para que los elementos internos se apilen verticalmente */
-  }
-  
-  .horizontal-bar-create {
+}
+
+.horizontal-bar-create {
     width: 100%;
     height: 1px;
     margin-top: 20px;
-  }
-  
-  .upload-button {
+}
+
+.upload-button {
     font-weight: bold;
     border-radius: 16px;
     padding: 10px 20px;
-  }
-  
-  .post img {
+}
+
+.post img {
     max-width: 100%;
     height: auto;
     max-height: 700px;
     /* Hacer que la altura se ajuste automáticamente */
     margin-top: 10px;
-  }
-  </style>
-  
+}
+
+.bg-background {
+    margin-top: -25px; /* Ajusta este valor según tus necesidades */
+}
+
+
+</style>
