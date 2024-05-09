@@ -1,7 +1,7 @@
 <template>
     <div v-if="ownProfile && checkRender" class="container">
         <div v-if="type === 1">
-            <div v-for="(user, index) in users" :key="index" class="user-container">
+            <div v-for="(user, index) in users" :key="index" class="user-container" @click="router.push('/userprofile/' + user.userName)">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
@@ -11,7 +11,7 @@
             </div>
         </div>
         <div v-if="type === 2">
-            <div v-for="(user, index) in users" :key="index" class="user-container">
+            <div v-for="(user, index) in users" :key="index" class="user-container" @click="router.push('/userprofile/' + user.userName)">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
@@ -24,7 +24,7 @@
 
     <div v-if="!ownProfile && checkRender" class="container">
         <div v-if="type === 1">
-            <div v-for="(user, index) in users" :key="index" class="user-container">
+            <div v-for="(user, index) in users" :key="index" class="user-container" @click="router.push('/userprofile/' + user.userName)">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div v-if="type === 2">
-            <div v-for="(user, index) in users" :key="index" class="user-container">
+            <div v-for="(user, index) in users" :key="index" class="user-container" @click="router.push('/userprofile/' + user.userName)">
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
@@ -50,6 +50,9 @@ import { defineProps, onMounted, ref } from 'vue';
 import { useAppStore } from '@/stores/app.js'
 import ButtonFollow from './ButtonFollow.vue';
 import * as funcionsCM from '@/communicationsManager.js'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps({
     type: Number,
