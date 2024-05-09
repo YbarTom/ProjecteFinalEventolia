@@ -7,11 +7,12 @@
                 <!-- Mover el bloque del botón aquí -->
             </div>
             <div class="div-button">
-                <label for="image-upload" class="upload-button bg-background">Select Image From Computer</label>
+                <label for="image-upload" class="upload-button bg-background">Select Image</label>
                 <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
             </div>
         </div>
         <div class="post bg-principal" v-if="imagePreview" ref="post">
+            <div class="grid-container">
             <div class="left-side">
                 <div class="margin" style="max-height: 500px;">
                     <img :src="imagePreview" ref="image" alt="Image Preview" />
@@ -30,9 +31,9 @@
                     <v-text-field v-model="startDate" label="Start Date" type="date"></v-text-field>
                     <v-text-field v-model="endDate" label="End Date" type="date"></v-text-field>
                     <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
-
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </template>
@@ -113,6 +114,8 @@ const createEvent = async () => {
     border: 1px solid #525151;
 }
 
+
+
 .margin-25 {
     margin: 0 28px;
 }
@@ -143,6 +146,7 @@ const createEvent = async () => {
     justify-content: center;
     align-items: center;
     padding: 20px 0;
+    margin-top: 45px;
 }
 
 .container {
@@ -182,6 +186,7 @@ const createEvent = async () => {
     font-weight: bold;
     border-radius: 16px;
     padding: 10px 20px;
+    margin-top: 20px;
 }
 
 .post img {
