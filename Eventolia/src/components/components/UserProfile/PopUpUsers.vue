@@ -5,7 +5,8 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow text="unfollow" @click="changeFollow(index, user.id)"></ButtonFollow>
+                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index, user.id)">
+                    </ButtonFollow>
                 </div>
             </div>
         </div>
@@ -14,7 +15,8 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow text="check" @click="changeFollow(index, user.id)"></ButtonFollow>
+                    <ButtonFollow :text="checkedButtonsFollowers[index]" @click="changeFollow(index, user.id)">
+                    </ButtonFollow>
                 </div>
             </div>
         </div>
@@ -36,7 +38,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index, user.id)">
+                    <ButtonFollow :text="checkedButtonsFollowers[index]" @click="changeFollow(index, user.id)">
                     </ButtonFollow>
                 </div>
             </div>
@@ -53,7 +55,9 @@ const props = defineProps({
     type: Number,
     followers: Array,
     followed: Array,
-    ownProfile: Boolean
+    ownProfile: Boolean,
+    changeFollowed: Function,
+    changeFollowers: Function
 })
 
 const users = ref(null)
@@ -82,19 +86,33 @@ async function checkButtons(user, users) {
     }
 
     if (props.type === 1) {
-        for (let i = 0; i < users.value.length; i++) {
-            for (let j = 0; j < user.value.followed.length; j++) {
-                if (users.value[i].id === user.value.followed[j]) {
-                    checkedButtonsFollowed.value[i] = "unfollow"
+        if (props.ownProfile) {
+            for (let i = 0; i < checkedButtonsFollowed.value.length; i++) {
+                checkedButtonsFollowed.value[i] = "unfollow"
+            }
+        }
+        else {
+            for (let i = 0; i < users.value.length; i++) {
+                for (let j = 0; j < user.value.followed.length; j++) {
+                    if (users.value[i].id === user.value.followed[j]) {
+                        checkedButtonsFollowed.value[i] = "unfollow"
+                    }
                 }
             }
         }
     }
     else if (props.type === 2) {
-        for (let i = 0; i < users.value.length; i++) {
-            for (let j = 0; j < user.value.followers.length; j++) {
-                if (users.value[i].id === user.value.followers[j]) {
-                    checkedButtonsFollowers.value[i] = "unfollow"
+        if (props.ownProfile) {
+            for (let i = 0; i < checkedButtonsFollowers.value.length; i++) {
+                checkedButtonsFollowers.value[i] = "eliminate"
+            }
+        }
+        else {
+            for (let i = 0; i < users.value.length; i++) {
+                for (let j = 0; j < user.value.followers.length; j++) {
+                    if (users.value[i].id === user.value.followers[j]) {
+                        checkedButtonsFollowers.value[i] = "unfollow"
+                    }
                 }
             }
         }
@@ -109,11 +127,16 @@ async function changeFollow(index, id) {
         if (checkedButtonsFollowed.value[index] == "follow") {
             checkedButtonsFollowed.value[index] = "unfollow"
             funcionsCM.followUser(data)
-
+            if (props.ownProfile) {
+                props.changeFollowed(id, true)
+            }
         }
         else {
             checkedButtonsFollowed.value[index] = "follow"
             funcionsCM.unfollowUser(data)
+            if (props.ownProfile) {
+                props.changeFollowed(id, false)
+            }
         }
     }
     else if (props.type === 2) {
@@ -121,9 +144,14 @@ async function changeFollow(index, id) {
             checkedButtonsFollowers.value[index] = "unfollow"
             funcionsCM.followUser(data)
         }
-        else {
+        else if (checkedButtonsFollowers.value[index] == "unfollow") {
             checkedButtonsFollowers.value[index] = "follow"
             funcionsCM.unfollowUser(data)
+
+        }
+        else {
+            props.changeFollowers(id)
+            funcionsCM.unfollowUser({ idFollower: id, idFollowed: user.value.id })
         }
     }
 }
