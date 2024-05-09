@@ -5,7 +5,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <button class="rectangular-button">unfollow</button>
+                    <ButtonFollow text="unfollow" @click="changeFollow(index)"></ButtonFollow>
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <button class="rectangular-button">ha de fer check</button>
+                    <ButtonFollow text="check" @click="changeFollow(index)"></ButtonFollow>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <button class="rectangular-button">{{ checkedButtonsFollowed[index] }}</button>
+                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index)"></ButtonFollow>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <button class="rectangular-button">{{ checkedButtonsFollowers[index] }}</button>
+                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index)"></ButtonFollow>
                 </div>
             </div>
         </div>
@@ -44,6 +44,7 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue';
 import { useAppStore } from '@/stores/app.js'
+import ButtonFollow from './ButtonFollow.vue';
 
 const props = defineProps({
     type: Number,
@@ -96,9 +97,11 @@ async function checkButtons(user, users) {
         }
     }
 
-    //cuando lo imprimo aquí lo hace bien pero en el componente me dice undefined
-    console.log(checkedButtonsFollowed)
     checkRender.value = true
+}
+
+async function changeFollow(index) {
+
 }
 </script>
 <style scoped>

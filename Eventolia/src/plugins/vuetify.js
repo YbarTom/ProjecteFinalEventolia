@@ -14,6 +14,7 @@ const myCustomLightTheme = {
   colors: {
     background: '#fcecfd',
     principal: '#F0A1F7',
+    principal2: '#c55bda',
     text: '#3f0D44',
     error: '#B00020',
     info: '#2196F3',
@@ -29,6 +30,7 @@ const myCustomDarkTheme = {
   colors: {
     background: '#3f0D44',
     principal: '#780F80',
+    principal2: '#c55bda',
     text: '#fcecfd',
     error: '#f44336',
     info: '#2196F3',

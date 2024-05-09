@@ -31,8 +31,8 @@
 
       <ul>
         <li v-for="(message, index) in messages" :key="index"
-          :class="message.user === myUser ? 'right-message' : 'left-message'"> <span class="span bg-principal text-text" >{{ message.message
-          }}</span>
+          :class="message.user === myUser ? 'right-message' : 'left-message'">
+          <div :class="{'width':true, 'bg-principal':message.user === myUser ,'bg-principal2':message.user !== myUser,'text-text':true}"><span class="span " >{{ message.message}}</span></div>
         </li>
       </ul>
 
@@ -101,14 +101,17 @@ export default {
 <style scoped>
 .span {
   color: white;
+  word-wrap: break-word; /* Agregamos esta propiedad */
+}
+.width{
+  width: 100%;
   margin-bottom: 10px;
   padding: 8px 12px;
   border-radius: 12px;
   word-wrap: break-word; /* Agregamos esta propiedad */
-  max-width: 100px; /* Establece el ancho máximo del mensaje */
+
 
 }
-
 ul {
   margin-top: 10px;
   list-style: none;
