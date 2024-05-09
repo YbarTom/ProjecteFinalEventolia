@@ -98,11 +98,21 @@ app.post("/getUserByName", async (req, res) => {
 
 app.post("/followUser", async (req, res) => {
     try {
-        const data = req.body
+        const data = req.body.data
         await usersDB.followUser(data.idFollower, data.idFollowed)
         res.status(200).json({ message: "User followed successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error following user" });
+    }
+})
+
+app.post("/unfollowUser", async (req, res) => {
+    try {
+        const data = req.body.data
+        await usersDB.unfollowUser(data.idFollower, data.idFollowed)
+        res.status(200).json({ message: "User unfollowed successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error unfollowing user" });
     }
 })
 

@@ -5,7 +5,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow text="unfollow" @click="changeFollow(index)"></ButtonFollow>
+                    <ButtonFollow text="unfollow" @click="changeFollow(index, user.id)"></ButtonFollow>
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow text="check" @click="changeFollow(index)"></ButtonFollow>
+                    <ButtonFollow text="check" @click="changeFollow(index, user.id)"></ButtonFollow>
                 </div>
             </div>
         </div>
@@ -26,7 +26,8 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index)"></ButtonFollow>
+                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index, user.id)">
+                    </ButtonFollow>
                 </div>
             </div>
         </div>
@@ -35,7 +36,8 @@
                 <img class="user-avatar" :src="user.profilePic" alt="profilePic" />
                 <div class="user-info">
                     <div>{{ user.userName }}</div>
-                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index)"></ButtonFollow>
+                    <ButtonFollow :text="checkedButtonsFollowed[index]" @click="changeFollow(index, user.id)">
+                    </ButtonFollow>
                 </div>
             </div>
         </div>
@@ -45,6 +47,7 @@
 import { defineProps, onMounted, ref } from 'vue';
 import { useAppStore } from '@/stores/app.js'
 import ButtonFollow from './ButtonFollow.vue';
+import * as funcionsCM from '@/communicationsManager.js'
 
 const props = defineProps({
     type: Number,
@@ -100,8 +103,29 @@ async function checkButtons(user, users) {
     checkRender.value = true
 }
 
-async function changeFollow(index) {
+async function changeFollow(index, id) {
+    const data = { idFollower: user.value.id, idFollowed: id }
+    if (props.type === 1) {
+        if (checkedButtonsFollowed.value[index] == "follow") {
+            checkedButtonsFollowed.value[index] = "unfollow"
+            funcionsCM.followUser(data)
 
+        }
+        else {
+            checkedButtonsFollowed.value[index] = "follow"
+            funcionsCM.unfollowUser(data)
+        }
+    }
+    else if (props.type === 2) {
+        if (checkedButtonsFollowers.value[index] == "follow") {
+            checkedButtonsFollowers.value[index] = "unfollow"
+            funcionsCM.followUser(data)
+        }
+        else {
+            checkedButtonsFollowers.value[index] = "follow"
+            funcionsCM.unfollowUser(data)
+        }
+    }
 }
 </script>
 <style scoped>
