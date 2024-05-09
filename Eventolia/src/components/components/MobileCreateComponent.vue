@@ -4,39 +4,48 @@
             <div>
                 <p class="title text-text"><b>Create new Event</b></p>
                 <div class="horizontal-bar-create bg-background"></div>
-                <!-- Mover el bloque del botón aquí -->
             </div>
             <div class="div-button">
                 <label for="image-upload" class="upload-button bg-background">Select Image</label>
                 <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
             </div>
         </div>
-        <div class="post bg-principal" v-if="imagePreview" ref="post">
+        <div class="post bg-principal" v-if="imagePreview && !showForm" ref="post">
             <div class="grid-container">
-            <div class="left-side">
-                <div class="margin" style="max-height: 500px;">
-                    <img :src="imagePreview" ref="image" alt="Image Preview" />
-                </div>
-            </div>
-            <div class="right-side">
-                <div class="margin-25">
-                    <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize
-                        rows="1"></v-textarea>
-                    <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2"
-                        no-resize rows="4"></v-textarea>
-                    <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default"
-                        label="Maximum Assitants" :hideInput="false" :inset="false" variant="outlined"></v-number-input>
-                    <v-textarea v-model="Address" label="Address" variant="outlined" counter no-resize
-                        rows="1"></v-textarea>
-                    <v-text-field v-model="startDate" label="Start Date" type="date"></v-text-field>
-                    <v-text-field v-model="endDate" label="End Date" type="date"></v-text-field>
-                    <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
+                <div class="left-side">
+                    <div class="margin" style="max-height: 800px;">
+                        <img :src="imagePreview" ref="image" alt="Image Preview" 
+                             :class="{ 'fullscreen': isFullscreen }" @click="toggleFullscreen" />
+                    </div>
+                    <div class="button-Siguiente">
+                        <v-btn @click="showForm = true" class="bg-background">Siguiente</v-btn>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="post bg-principal" v-if="showForm" ref="post">
+            <div class="grid-container">
+                <div class="right-side">
+                    <div class="margin-25">
+                        <v-textarea v-model="Title" label="Title" variant="outlined" counter :rules="rules" no-resize
+                            rows="1"></v-textarea>
+                        <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2"
+                            no-resize rows="4"></v-textarea>
+                        <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default"
+                            label="Maximum Assitants" :hideInput="false" :inset="false"
+                            variant="outlined"></v-number-input>
+                        <v-textarea v-model="Address" label="Address" variant="outlined" counter no-resize
+                            rows="1"></v-textarea>
+                        <v-text-field v-model="startDate" label="Start Date" type="date"></v-text-field>
+                        <v-text-field v-model="endDate" label="End Date" type="date"></v-text-field>
+                        <v-btn @click="createEvent" class="bg-background text-text">Post</v-btn>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
@@ -53,6 +62,7 @@ const Title = ref('');
 const Description = ref('');
 const AssistantsMax = ref('');
 const Address = ref('');
+const showForm = ref(false); // Nueva variable reactiva
 
 const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -95,7 +105,17 @@ const createEvent = async () => {
     }
 }
 
+const isFullscreen = ref(false);
+
+
+
+const toggleFullscreen = () => {
+    isFullscreen.value = !isFullscreen.value;
+};
+
 </script>
+
+<!-- Estilos omitidos para brevedad -->
 
 <style scoped>
 .input-container {
@@ -114,7 +134,9 @@ const createEvent = async () => {
     border: 1px solid #525151;
 }
 
-
+.button-Siguiente {
+    margin-top: 25px;
+}
 
 .margin-25 {
     margin: 0 28px;
@@ -163,18 +185,7 @@ const createEvent = async () => {
     margin-top: 20px;
 }
 
-.post {
-    width: 100%;
-    max-width: 900px;
-    text-align: center;
-    border-radius: 16px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    box-sizing: border-box;
-}
+
 
 .horizontal-bar-create {
     width: 100%;
@@ -189,10 +200,34 @@ const createEvent = async () => {
     margin-top: 20px;
 }
 
+.post {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    border-radius: 16px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .post img {
     width: 100%;
     height: auto;
     max-height: 450px;
+}
+
+.post img.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    max-width: 100vw;
+    max-height: 100vh;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    z-index: 1000;
 }
 
 .bg-background {
@@ -200,7 +235,9 @@ const createEvent = async () => {
 }
 
 @media (max-width: 768px) {
-    .left-side, .right-side {
+
+    .left-side,
+    .right-side {
         flex-direction: column;
         border-radius: 16px;
     }
@@ -209,7 +246,8 @@ const createEvent = async () => {
         flex-direction: column;
     }
 
-    .margin-25, .margin {
+    .margin-25,
+    .margin {
         margin: 10px;
     }
 }
