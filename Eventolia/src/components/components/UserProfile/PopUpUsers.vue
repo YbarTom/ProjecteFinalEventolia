@@ -81,8 +81,8 @@ onMounted(() => {
     checkButtons(user, users)
 });
 
-async function checkButtons(user, users) {
-
+async function checkButtons(user, users) {   
+    
     for (let i = 0; i < users.value.length; i++) {
         checkedButtonsFollowed.value.push("follow")
         checkedButtonsFollowers.value.push("follow")
@@ -100,6 +100,9 @@ async function checkButtons(user, users) {
                     if (users.value[i].id === user.value.followed[j]) {
                         checkedButtonsFollowed.value[i] = "unfollow"
                     }
+                    else if (users.value[i].id === user.value.id) {
+                        checkedButtonsFollowed.value[i] = "you"
+                    }
                 }
             }
         }
@@ -115,6 +118,9 @@ async function checkButtons(user, users) {
                 for (let j = 0; j < user.value.followers.length; j++) {
                     if (users.value[i].id === user.value.followers[j]) {
                         checkedButtonsFollowers.value[i] = "unfollow"
+                    }
+                    else if (users.value[i].id === user.value.id) {
+                        checkedButtonsFollowed.value[i] = "you"
                     }
                 }
             }
