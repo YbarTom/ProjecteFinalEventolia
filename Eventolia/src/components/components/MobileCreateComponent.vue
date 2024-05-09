@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, defineEmits ,onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from '@/stores/app.js';
 
@@ -63,6 +63,8 @@ const Description = ref('');
 const AssistantsMax = ref('');
 const Address = ref('');
 const showForm = ref(false); // Nueva variable reactiva
+const emit = defineEmits(['close-dialog']);
+
 
 const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -100,6 +102,7 @@ const createEvent = async () => {
         event.longitude = coordinates.longitude;
         funcionsCM.createEvent(event)
 
+        emit('close-dialog')
     } catch (error) {
         console.error('Error creating event: ', error)
     }
