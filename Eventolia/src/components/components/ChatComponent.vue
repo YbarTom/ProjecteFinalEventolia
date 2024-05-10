@@ -2,20 +2,24 @@
   <div class="container">
     <div class="list-container">
       <div class="users">
-        <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]" :isSelected="selectedUser === chat" @selectUser="selectUser(chat)" />
+        <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]"
+          :isSelected="selectedUser === chat" @selectUser="selectUser(chat)" />
       </div>
     </div>
     <div class="input-container"
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
       <ul>
-        <li v-for="(message, index) in messages" :key="index" :class="message.user === myUser ? 'right-message' : 'left-message'">
-          <div :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+        <li v-for="(message, index) in messages" :key="index"
+          :class="message.user === myUser ? 'right-message' : 'left-message'">
+          <div
+            :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
             <span class="span ">{{ message.message }}</span>
           </div>
         </li>
       </ul>
       <div class="form">
-        <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
+        <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
+          placeholder="Type your message...">
         <button @click="sendMessage">Send</button>
       </div>
     </div>
@@ -78,6 +82,19 @@ export default {
         selectedUser.value = chat;
         // Envía solicitud al servidor para unirse a la sala
         socket.emit('joinRoom', chat.room); // Envía el nombre de la sala al servidor
+
+        try {
+          const roomMessages = chat.messages.map(message => {
+            console.log('message:', message);
+            return {
+              user: message.sender,
+              message: message.content
+            };
+          });
+          messages.value = roomMessages;
+        } catch (error) {
+          console.error('Error loading room messages:', error);
+        }
       }
     };
 
@@ -211,5 +228,4 @@ li {
 
 .input-container::-webkit-scrollbar {
   width: 10px;
-}
-</style>
+}</style>
