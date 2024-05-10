@@ -27,8 +27,8 @@
         </div>
     </div>
     <v-dialog v-model="showPopUp" width="79%">    
-        <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"/>
-    </v-dialog>
+    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile" :changeFollowed="changeFollowed" :changeFollowers="changeFollowers"/>
+  </v-dialog>
 </template>
 
 <script setup>
