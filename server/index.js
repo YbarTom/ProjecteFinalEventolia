@@ -185,6 +185,17 @@ app.post("/getChats", async (req, res) => {
 
 })
 
+app.post("/postMessageChat", async (req, res) => {
+    try {
+        const room = req.body.room
+        const message = req.body.message
+        const user = req.body.user
+        await chatsDB.postMessageChat(room,message,user)
+        res.status(200).json({ message: "Message posted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error posting message" });
+    }
+})
 //#region POSTEVENT:
 
 app.post("/getPostsEvents", async (req, res) => {

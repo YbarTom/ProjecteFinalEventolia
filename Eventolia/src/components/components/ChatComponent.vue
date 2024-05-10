@@ -67,6 +67,7 @@ export default {
           room: selectedUser.value.room // Agrega el nombre de la sala al mensaje
         };
         socket.emit('chat message', message);
+        funcionsCM.postMessageChat(selectedUser.value.room,newMessage.value, myUser.value );
         newMessage.value = '';
       }
     };
