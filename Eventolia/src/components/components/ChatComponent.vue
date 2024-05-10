@@ -2,29 +2,22 @@
   <div class="container">
     <div class="list-container">
       <div class="users">
-        <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat" :isSelected="selectedUser === chat" @selectUser="selectUser" />
-
-
+        <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]" :isSelected="selectedUser === chat" @selectUser="selectUser(chat)" />
       </div>
-
     </div>
     <div class="input-container"
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
-
       <ul>
-        <li v-for="(message, index) in messages" :key="index"
-          :class="message.user === myUser ? 'right-message' : 'left-message'">
-          <div
-            :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
-            <span class="span ">{{ message.message }}</span></div>
+        <li v-for="(message, index) in messages" :key="index" :class="message.user === myUser ? 'right-message' : 'left-message'">
+          <div :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+            <span class="span ">{{ message.message }}</span>
+          </div>
         </li>
       </ul>
-
       <div class="form">
-        <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage"
-          placeholder="Type your message..."><button @click="sendMessage">Send</button>
+        <input class="input" type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
+        <button @click="sendMessage">Send</button>
       </div>
-
     </div>
   </div>
 </template>
@@ -33,8 +26,8 @@
 import { ref, onMounted } from 'vue';
 import { io } from 'socket.io-client';
 import UserChat from './UserChat.vue';
-import { useAppStore } from '@/stores/app.js'
-import * as funcionsCM from '../../communicationsManager.js'
+import { useAppStore } from '@/stores/app.js';
+import * as funcionsCM from '../../communicationsManager.js';
 
 export default {
   components: {
@@ -51,7 +44,12 @@ export default {
     const loadMyChats = async () => {
       try {
         const data = await funcionsCM.getChats();
-        myChats.value = data.filter(chat => chat.users.includes(myUser.value)).flatMap(chat => chat.users.filter(user => user !== myUser.value));
+        myChats.value = data.map(chat => {
+          return {
+            ...chat,
+            users: chat.users.filter(user => user !== myUser.value)
+          };
+        });
       } catch (error) {
         console.error('Error loading chats:', error);
       }
@@ -61,7 +59,8 @@ export default {
       if (newMessage.value.trim() !== '') {
         const message = {
           user: myUser.value,
-          message: newMessage.value
+          message: newMessage.value,
+          room: selectedUser.value.room // Agrega el nombre de la sala al mensaje
         };
         socket.emit('chat message', message);
         newMessage.value = '';
@@ -72,11 +71,13 @@ export default {
       messages.value.push(msg);
     });
 
-    const selectUser = (user) => {
-      if (selectedUser.value === user) {
+    const selectUser = (chat) => {
+      if (selectedUser.value === chat) {
         selectedUser.value = null;
       } else {
-        selectedUser.value = user;
+        selectedUser.value = chat;
+        // Envía solicitud al servidor para unirse a la sala
+        socket.emit('joinRoom', chat.room); // Envía el nombre de la sala al servidor
       }
     };
 
@@ -97,12 +98,10 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .span {
   color: white;
   word-wrap: break-word;
-  /* Agregamos esta propiedad */
 }
 
 .width {
@@ -111,9 +110,6 @@ export default {
   padding: 8px 12px;
   border-radius: 12px;
   word-wrap: break-word;
-  /* Agregamos esta propiedad */
-
-
 }
 
 ul {
@@ -124,12 +120,10 @@ ul {
 
 li {
   margin-top: 10px;
-
   margin-bottom: 15px;
 }
 
 .right-message {
-
   text-align: right;
 }
 
@@ -170,7 +164,6 @@ li {
   outline: none;
   color: #fff;
 }
-
 
 .users {
   display: flex;
@@ -218,4 +211,5 @@ li {
 
 .input-container::-webkit-scrollbar {
   width: 10px;
-}</style>
+}
+</style>

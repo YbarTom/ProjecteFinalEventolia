@@ -34,10 +34,21 @@ const io = new Server(server, {
 // Codi del servidor del chat
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+  
+    socket.on('joinRoom', (roomName) => {
+      socket.join(roomName); // Úne al usuario a la sala correspondiente
+      console.log(`User joined room: ${roomName}`);
     });
-});
+  
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  
+    socket.on('chat message', (msg) => {
+      io.to(msg.room).emit('chat message', msg); // Envía el mensaje a todos los usuarios en la sala
+    });
+  });
+  
 
 app.use(bodyParser.json(bodyParserOptions));
 
