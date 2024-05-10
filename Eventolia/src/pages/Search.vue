@@ -22,7 +22,4 @@ onUnmounted(() => {
     window.removeEventListener('resize', updateWidth);
 });
 
-
-
-//
 </script>
