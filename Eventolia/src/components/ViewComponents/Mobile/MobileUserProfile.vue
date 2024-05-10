@@ -11,6 +11,14 @@
 <script setup>
 import UserSideUserProfilePage from '@/components/components/UserProfile/UserSideUserProfilePage.vue'
 import btnBotonBar from '@/components/components/buttonBotomBar.vue';
+import { defineProps } from "vue";
+
+const props = defineProps({
+  userProfile: Object,
+  ownProfile: Boolean,
+  events: Array,
+  posts: Array
+})
 
 const isMobile = ref(window.innerWidth < 800);
 const updateWidth = () => {
@@ -25,12 +33,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateWidth);
 });
 
-const props = defineProps({
-  userProfile: Object,
-  ownProfile: Boolean,
-  events: Array,
-  posts: Array
-})
+
 </script>
 
 <style scoped>

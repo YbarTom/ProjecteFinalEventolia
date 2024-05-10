@@ -39,8 +39,8 @@ import { defineProps } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
 
 const props = defineProps({
-    userProfile: Object,
-    ownProfile: Boolean
+  userProfile: Object,
+  ownProfile: Boolean
 })
 
 const showPopUp = ref(false);
@@ -50,15 +50,27 @@ const followed = ref([])
 
 const mostrarPopUp = async (users, type) => {
 
-    if (type === 1) {
-        followed.value = await funcionsCM.getFollowed(users)
-        typePopUp.value = 1
-    }
-    else if (type === 2) {
-        followers.value = await funcionsCM.getFollowers(users)
-        typePopUp.value = 2
-    }
-    showPopUp.value = true;
+  if (type === 1) {
+    followed.value = await funcionsCM.getFollowed(users)
+    typePopUp.value = 1
+  }
+  else if (type === 2) {
+    followers.value = await funcionsCM.getFollowers(users)
+    typePopUp.value = 2
+  }
+  showPopUp.value = true;
+}
+
+const changeFollowed = async (id, check) => {
+  console.log(props.userProfile.followed)
+  if(check){
+    props.userProfile.followed.push(id)
+  }else {
+    props.userProfile.followed = props.userProfile.followed.filter(item => item != id)
+  }
+}
+const changeFollowers = async (id) => {
+  props.userProfile.followers = props.userProfile.followers.filter(item => item != id)
 }
 </script>
 
