@@ -2,7 +2,7 @@
   <div class="ancho">
     <div class="grid" ref="grid" v-if="map">
       <!-- Aquí puedes agregar el contenido de las columnas -->
-      <div class="grid-item" v-for="(post, index) in props.posts" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
+      <div class="grid-item" v-for="(post, index) in props.posts" :key="index" :style="{ backgroundImage: 'url(' + post.image + ')' }"></div>
     </div>
   </div>
 
@@ -23,6 +23,7 @@ const publicacions = ref([]);
 
 
 onMounted(() => {
+  console.log(props.posts)
   adjustGridItemHeight();
 });
 
@@ -37,22 +38,6 @@ const adjustGridItemHeight = () => {
     item.style.height = `${item.offsetWidth}px`;
   });
 };
-
-{/*onMounted(async () => {
-  try {
-    const dataPosts = await funcionsCM.getPostsEvents();
-    //const dataEvents = await funcionsCM.getEvents();
-    publicacions.value = dataPosts;
-    console.log(publicacions.value);
-
-    // Esperar a que todas las imágenes se carguen antes de ajustar la altura de los elementos
-    await Promise.all(Array.from(document.querySelectorAll('.grid-item img')).map(img => img.complete ? Promise.resolve() : new Promise(resolve => img.addEventListener('load', resolve))));
-    adjustGridItemHeight();
-  } catch (error) {
-    console.error('Error fetching data: ', error);
-  }
-});
-*/}
 
 </script>
 

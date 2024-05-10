@@ -230,11 +230,13 @@ app.post("/likePost", async (req, res) => {
 
 app.post("/createPost", async (req, res) => {
     try {
-        const post = req.body
+        const post = req.body.post
 
         post.likes = []
         post.comments = []
         post.publicationDate = new Date()
+
+        
 
         await postsDB.createPost(post)
         res.status(200).json({ message: "Post created successfully" });
