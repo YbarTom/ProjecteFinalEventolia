@@ -7,22 +7,7 @@
         <UserChat buttonText="mikiDix" :isSelected="selectedUser === 'mikiDix'" @selectUser="selectUser" />
         <UserChat buttonText="crosmyc" :isSelected="selectedUser === 'crosmyc'" @selectUser="selectUser" />
         <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+
       </div>
 
     </div>
@@ -32,7 +17,9 @@
       <ul>
         <li v-for="(message, index) in messages" :key="index"
           :class="message.user === myUser ? 'right-message' : 'left-message'">
-          <div :class="{'width':true, 'bg-principal':message.user === myUser ,'bg-principal2':message.user !== myUser,'text-text':true}"><span class="span " >{{ message.message}}</span></div>
+          <div
+            :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+            <span class="span ">{{ message.message }}</span></div>
         </li>
       </ul>
 
@@ -50,6 +37,7 @@ import { ref, onMounted } from 'vue';
 import { io } from 'socket.io-client';
 import UserChat from './UserChat.vue';
 import { useAppStore } from '@/stores/app.js'
+import * as funcionsCM from '../../communicationsManager.js'
 
 export default {
   components: {
@@ -82,17 +70,19 @@ export default {
       }
     };
     onMounted(() => {
-      // Lógica adicional al montar el componente
+      funcionsCM.getChats().then((data) => {
+        console.log("chats"+JSON.stringify(data));
+      });
     });
-    return {
-      messages,
-      newMessage,
-      selectedUser,
-      myUser, // Return myUser as part of the setup return object
-      sendMessage,
-      selectUser
-    };
-  }
+      return {
+        messages,
+        newMessage,
+        selectedUser,
+        myUser, // Return myUser as part of the setup return object
+        sendMessage,
+        selectUser
+      };
+    }
 };
 
 </script>
@@ -101,22 +91,27 @@ export default {
 <style scoped>
 .span {
   color: white;
-  word-wrap: break-word; /* Agregamos esta propiedad */
+  word-wrap: break-word;
+  /* Agregamos esta propiedad */
 }
-.width{
+
+.width {
   width: 100%;
   margin-bottom: 10px;
   padding: 8px 12px;
   border-radius: 12px;
-  word-wrap: break-word; /* Agregamos esta propiedad */
+  word-wrap: break-word;
+  /* Agregamos esta propiedad */
 
 
 }
+
 ul {
   margin-top: 10px;
   list-style: none;
   overflow-y: auto;
 }
+
 li {
   margin-top: 10px;
 
@@ -210,7 +205,7 @@ li {
 .users::-webkit-scrollbar {
   width: 10px;
 }
+
 .input-container::-webkit-scrollbar {
   width: 10px;
-}
-</style>
+}</style>

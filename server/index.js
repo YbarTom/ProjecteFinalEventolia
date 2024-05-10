@@ -10,6 +10,7 @@ const usersDB = require("./users.js")
 const postsDB = require("./posts.js")
 const eventsDB = require("./events.js")
 const commentsDB = require("./comments.js")
+const chatsDB = require("./chats.js")
 
 const bodyParserOptions = {
     limit: "50mb" // Cambia el valor según tus necesidades
@@ -147,6 +148,22 @@ app.post("/getFollowed", async (req, res) => {
         res.status(500).json({ error: "Error getting followed" });
     }
 })
+//#region CHATS:
+
+app.post("/getChats", async (req, res) => {
+    try {
+        const data = req.body.idChats
+        const chats = []
+        for (let i = 0; i < data.length; i++) {
+            chats.push(await chatsDB.getChatsById(data[i]))
+        }
+        res.status(200).json(chats);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting chats" });
+    }
+
+})
+
 //#region POSTEVENT:
 
 app.post("/getPostsEvents", async (req, res) => {

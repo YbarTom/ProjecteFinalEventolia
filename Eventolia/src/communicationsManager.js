@@ -1,4 +1,5 @@
 export const SERVER_URL = "http://localhost:3001"
+import { useAppStore } from '@/stores/app.js'
 
 export async function getPosts() {
   try {
@@ -18,6 +19,23 @@ export async function getPostsEvents(){
     return posts;
   } catch (error) {
     console.log("Error al recuperar posts CM");
+    throw error;
+  }
+
+}
+
+export async function getChats() {
+  
+  try {
+    const response = await fetch(`${SERVER_URL}/getChats`,
+    {
+      method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idChats:  useAppStore().getUser().chats})
+    });
+    const chats = await response.json();
+    return chats;
+  } catch (error) {
+    console.log("Error al recuperar chats CM");
     throw error;
   }
 
