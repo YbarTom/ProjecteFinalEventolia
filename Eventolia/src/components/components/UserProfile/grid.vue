@@ -4,8 +4,9 @@
       <div class="grid-item" @click="seePost(post)" v-for="(post, index) in props.posts" :key="index"
         :style="{ backgroundImage: 'url(' + post.image + ')' }"></div>
     </div>
-    <div v-if="grid==false">
-      <Publication :post="postToSee"></Publication>
+    <div v-else>
+      <Publication :post="postToSee" :key="postToSee.id"></Publication>
+      <button @click="grid=true"></button>
     </div>
   </div>
 
@@ -43,10 +44,7 @@ const adjustGridItemHeight = () => {
 
 const seePost = (post) => {
   postToSee.value = post
-  grid.value = true
-
-  console.log(postToSee.value)
-  console.log(grid.value)
+  grid.value = false
 }
 
 </script>
