@@ -37,19 +37,7 @@ onMounted(async () => {
     events.value = await funcionsCM.getEventsByIdUser(data.id)
 
     //setUser no farà falta al final, si es vol usuari propi /userProfile/user1
-
-    appStore.setUser({
-      id: "zi0s21h26zlvm89j9d",
-      userName: "a",
-      email: "a",
-      password: "a",
-      followers: [],
-      followed: ["8531u5nyxe7lvm89jbf"],
-      posts: [],
-      events: [],
-      profilePic: "",
-      privacity: false
-    })
+    
     const user = appStore.getUser()
 
     if (data.id == user.id) {
