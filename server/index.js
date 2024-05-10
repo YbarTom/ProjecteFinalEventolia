@@ -10,6 +10,7 @@ const usersDB = require("./users.js")
 const postsDB = require("./posts.js")
 const eventsDB = require("./events.js")
 const commentsDB = require("./comments.js")
+const chatsDB = require("./chats.js")
 
 const bodyParserOptions = {
     limit: "50mb" // Cambia el valor según tus necesidades
@@ -33,10 +34,21 @@ const io = new Server(server, {
 // Codi del servidor del chat
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+  
+    socket.on('joinRoom', (roomName) => {
+      socket.join(roomName); // Úne al usuario a la sala correspondiente
+      console.log(`User joined room: ${roomName}`);
     });
-});
+  
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  
+    socket.on('chat message', (msg) => {
+      io.to(msg.room).emit('chat message', msg); // Envía el mensaje a todos los usuarios en la sala
+    });
+  });
+  
 
 app.use(bodyParser.json(bodyParserOptions));
 
@@ -98,11 +110,21 @@ app.post("/getUserByName", async (req, res) => {
 
 app.post("/followUser", async (req, res) => {
     try {
-        const data = req.body
+        const data = req.body.data
         await usersDB.followUser(data.idFollower, data.idFollowed)
         res.status(200).json({ message: "User followed successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error following user" });
+    }
+})
+
+app.post("/unfollowUser", async (req, res) => {
+    try {
+        const data = req.body.data
+        await usersDB.unfollowUser(data.idFollower, data.idFollowed)
+        res.status(200).json({ message: "User unfollowed successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error unfollowing user" });
     }
 })
 
@@ -147,6 +169,22 @@ app.post("/getFollowed", async (req, res) => {
         res.status(500).json({ error: "Error getting followed" });
     }
 })
+//#region CHATS:
+
+app.post("/getChats", async (req, res) => {
+    try {
+        const data = req.body.idChats
+        const chats = []
+        for (let i = 0; i < data.length; i++) {
+            chats.push(await chatsDB.getChatsById(data[i]))
+        }
+        res.status(200).json(chats);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting chats" });
+    }
+
+})
+
 //#region POSTEVENT:
 
 app.post("/getPostsEvents", async (req, res) => {

@@ -26,7 +26,7 @@
   </div>
 
   <v-dialog v-model="showPopUp" width="79%">    
-    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"/>
+    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile" :changeFollowed="changeFollowed" :changeFollowers="changeFollowers"/>
   </v-dialog>
 </template>
 
@@ -58,6 +58,18 @@ const mostrarPopUp = async (users, type) => {
     typePopUp.value = 2
   }
   showPopUp.value = true;
+}
+
+const changeFollowed = async (id, check) => {
+  console.log(props.userProfile.followed)
+  if(check){
+    props.userProfile.followed.push(id)
+  }else {
+    props.userProfile.followed = props.userProfile.followed.filter(item => item != id)
+  }
+}
+const changeFollowers = async (id) => {
+  props.userProfile.followers = props.userProfile.followers.filter(item => item != id)
 }
 </script>
 
