@@ -2,11 +2,8 @@
   <div class="container">
     <div class="list-container">
       <div class="users">
-        <UserChat buttonText="tom.ybarguengoitia" :isSelected="selectedUser === 'tom.ybarguengoitia'"
-          @selectUser="selectUser" />
-        <UserChat buttonText="mikiDix" :isSelected="selectedUser === 'mikiDix'" @selectUser="selectUser" />
-        <UserChat buttonText="crosmyc" :isSelected="selectedUser === 'crosmyc'" @selectUser="selectUser" />
-        <UserChat buttonText="fcbarcelona" :isSelected="selectedUser === 'fcbarcelona'" @selectUser="selectUser" />
+        <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat" :isSelected="selectedUser === chat" @selectUser="selectUser" />
+
 
       </div>
 
@@ -48,43 +45,56 @@ export default {
     const messages = ref([]);
     const newMessage = ref('');
     const selectedUser = ref(null);
-    const myUser = ref(useAppStore().getUser().userName); // Declare myUser as a ref
+    const myUser = ref(useAppStore().getUser().userName);
+    const myChats = ref([]);
+
+    const loadMyChats = async () => {
+      try {
+        const data = await funcionsCM.getChats();
+        myChats.value = data.filter(chat => chat.users.includes(myUser.value)).flatMap(chat => chat.users.filter(user => user !== myUser.value));
+      } catch (error) {
+        console.error('Error loading chats:', error);
+      }
+    };
+
     const sendMessage = () => {
       if (newMessage.value.trim() !== '') {
         const message = {
-          user: myUser.value, // Access myUser as a ref
+          user: myUser.value,
           message: newMessage.value
         };
         socket.emit('chat message', message);
         newMessage.value = '';
       }
     };
+
     socket.on('chat message', (msg) => {
       messages.value.push(msg);
     });
+
     const selectUser = (user) => {
       if (selectedUser.value === user) {
-        selectedUser.value = null; // Deseleccionar si ya está seleccionado
+        selectedUser.value = null;
       } else {
-        selectedUser.value = user; // Seleccionar el usuario
+        selectedUser.value = user;
       }
     };
-    onMounted(() => {
-      funcionsCM.getChats().then((data) => {
-        console.log("chats"+JSON.stringify(data));
-      });
-    });
-      return {
-        messages,
-        newMessage,
-        selectedUser,
-        myUser, // Return myUser as part of the setup return object
-        sendMessage,
-        selectUser
-      };
-    }
-};
 
+    onMounted(() => {
+      loadMyChats();
+    });
+
+    return {
+      messages,
+      newMessage,
+      selectedUser,
+      myUser,
+      myChats,
+      sendMessage,
+      selectUser
+    };
+  }
+};
 </script>
 
 
