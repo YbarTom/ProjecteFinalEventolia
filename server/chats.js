@@ -40,6 +40,33 @@ function getChatsById(idChat) {
     });
 }
 
+function postMessageChat(room, message, user) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                chatsCollection.updateOne
+                    (
+                        { room: room },
+                        { $push: { messages: { sender: user, content: message } } }
+                    )
+                    .then((result) => {
+                        resolve(result);
+                    })
+                    .catch((error) => {
+                        console.error("Error posting message: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    }
+    );
+}
+
 module.exports = {
-    getChatsById
+    getChatsById,
+    postMessageChat
 }

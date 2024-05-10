@@ -95,12 +95,14 @@ const props = defineProps({
 
 .likes {
   margin-left: 10px;
+  text-align: left;
 }
 
 .userComments {
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .profile-div {

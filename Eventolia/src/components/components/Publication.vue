@@ -21,6 +21,7 @@ import PublicationEvent from './PublicationEvent.vue';
 const props = defineProps({
   post: Object
 });
+
 </script>
 
 <style scoped>
