@@ -12,7 +12,9 @@ export const useAppStore = defineStore('app', {
       posts: [],
       events: [],
       profilePic: "",
-      privacity: false
+      privacity: false,
+      latitude: 0,
+      longitude: 0
     }
   }),
   actions: {
@@ -70,6 +72,12 @@ export const useAppStore = defineStore('app', {
     setUserPrivacy(privacity) {
       this.user.privacity = privacity;
     },
+    setUserLatitude(latitude) {
+      this.user.latitude = latitude;
+    },
+    setUserLongitude(longitude) {
+      this.user.longitude = longitude;
+    },
     getUser() {
       return this.user
     },
@@ -102,6 +110,12 @@ export const useAppStore = defineStore('app', {
     },
     getUserPrivacy() {
       return this.user.privacity;
+    },
+    getUserLatitude() {
+      return this.user.latitude;
+    },
+    getUserLongitude() {
+      return this.user.longitude;
     }
   }
 })

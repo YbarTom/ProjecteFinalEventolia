@@ -12,13 +12,16 @@
       <!-- Aquí puedes agregar el contenido de las columnas -->
       <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
     </div>
-    <div class="map bg-warning" v-else></div>
+    <div class="map" v-else>
+      <Map />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch,nextTick } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
+import Map from "./Map.vue";
 
 const map = ref(true);
 const publicacions = ref([]);

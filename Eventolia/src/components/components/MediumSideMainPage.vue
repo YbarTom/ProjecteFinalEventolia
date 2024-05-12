@@ -11,6 +11,8 @@ import { ref, onMounted } from 'vue';
 import TopBarMediumSideMainPage from './TopBarMediumSideMainPage.vue';
 import ForYouPage from './ForYouPage.vue';
 import FollowingPage from './FollowingPage.vue';
+import { useAppStore } from '@/stores/app.js';
+
 
 const showRed = ref(true);
 const showBlue = ref(false);
@@ -28,6 +30,12 @@ function handleFollowingClicked() {
 function muestraPosicion(position) {
   console.log('Latitude:', position.coords.latitude);
   console.log('Longitude:', position.coords.longitude);
+
+  const appStore = useAppStore()
+  
+  appStore.setUserLatitude(position.coords.latitude)
+  appStore.setUserLongitude(position.coords.longitude)
+
 }
 
 function errorPosicion(error) {
@@ -37,6 +45,9 @@ function errorPosicion(error) {
 onMounted(() => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(muestraPosicion, errorPosicion);
+
+
+
   }
 });
 </script>

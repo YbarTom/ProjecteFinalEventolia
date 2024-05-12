@@ -12,6 +12,7 @@
     "axios": "^1.6.8",
     "core-js": "^3.34.0",
     "cropperjs": "^1.6.2",
+    "maplibre-gl": "^4.2.0",
     "roboto-fontface": "*",
     "vue": "^3.4.0",
     "vue-cropperjs": "^5.0.0",
