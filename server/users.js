@@ -130,6 +130,28 @@ function getUserById(idUser) {
     });
 }
 
+function getUserByName(userName) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                usersCollection
+                    .findOne({ userName: userName })
+                    .then((user) => {
+                        resolve(user);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting user: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 function getUserByEmail(email) {
     return new Promise((resolve, reject) => {
         client
@@ -181,6 +203,37 @@ function followUser(idFollower, idFollowed) {
             });
     });
 }
+
+function unfollowUser(idFollower, idFollowed) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                const updateFollower = {
+                    $pull: { followed: idFollowed }
+                };
+                const updateFollowed = {
+                    $pull: { followers: idFollower }
+                };
+                Promise.all([
+                    usersCollection.updateOne({ id: idFollower }, updateFollower),
+                    usersCollection.updateOne({ id: idFollowed }, updateFollowed)
+                ])
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        console.error("Error updating users: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 
 function getAssistants(assistants) {
     return new Promise((resolve, reject) => {
@@ -252,5 +305,7 @@ module.exports = {
     getAssistants,
     addPost,
     addEvent,
-    getUserByEmail
+    getUserByEmail,
+    getUserByName,
+    unfollowUser
 }

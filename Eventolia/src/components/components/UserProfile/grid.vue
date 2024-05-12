@@ -1,25 +1,35 @@
 <template>
-
-  <div class="grid" ref="grid">
-    <!-- Aquí puedes agregar el contenido de las columnas -->
-    <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index"
-      :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
+  <div class="ancho">
+    <div class="grid" ref="grid" v-if="map && grid">
+      <div class="grid-item" @click="seePost(post)" v-for="(post, index) in props.posts" :key="index"
+        :style="{ backgroundImage: 'url(' + post.image + ')' }"></div>
+    </div>
+    <div v-else>
+      <Publication :post="postToSee" :key="postToSee.id"></Publication>
+      <button @click="grid=true"></button>
+    </div>
   </div>
+
 </template>
 
 <script setup>
 import { ref, onMounted, watch, nextTick } from 'vue';
 import * as funcionsCM from '../../../communicationsManager.js'
+import { defineProps } from "vue";
+import Publication from '../Publication.vue';
+
+const props = defineProps({
+  posts: Array,
+  events: Array
+})
 
 const map = ref(true);
-const publicacions = ref([]);
-
-
+const grid = ref(true)
+const postToSee = ref({})
 
 onMounted(() => {
   adjustGridItemHeight();
 });
-
 
 watch(map, () => {
   nextTick(adjustGridItemHeight);
@@ -32,25 +42,14 @@ const adjustGridItemHeight = () => {
   });
 };
 
-onMounted(async () => {
-  try {
-    const dataPosts = await funcionsCM.getPostsEvents();
-    //const dataEvents = await funcionsCM.getEvents();
-    publicacions.value = dataPosts;
-    console.log(publicacions.value);
-
-    // Esperar a que todas las imágenes se carguen antes de ajustar la altura de los elementos
-    await Promise.all(Array.from(document.querySelectorAll('.grid-item img')).map(img => img.complete ? Promise.resolve() : new Promise(resolve => img.addEventListener('load', resolve))));
-    adjustGridItemHeight();
-  } catch (error) {
-    console.error('Error fetching data: ', error);
-  }
-});
+const seePost = (post) => {
+  postToSee.value = post
+  grid.value = false
+}
 
 </script>
 
 <style scoped>
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -72,4 +71,5 @@ onMounted(async () => {
 
 .grid::-webkit-scrollbar {
   display: none;
-}</style>
+}
+</style>

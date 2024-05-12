@@ -33,7 +33,7 @@
       width="79%"
       
     >
-      <addPost />
+      <addPost idEvent="1b6g3zkr11zilvw1ato4"/>
     </v-dialog>
   </div>
 

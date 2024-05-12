@@ -14,8 +14,11 @@
     "cropperjs": "^1.6.2",
     "maplibre-gl": "^4.2.0",
     "roboto-fontface": "*",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "vue": "^3.4.0",
     "vue-cropperjs": "^5.0.0",
+    "vue-socket.io": "^3.0.10",
     "vuetify": "^3.5.0",
     "vuex": "^4.0.2"
   },

@@ -5,26 +5,26 @@
     </div>
     <h3 class="text-text">{{ buttonText }}</h3>
   </div>
-  <v-dialog
-      v-model="createEvent"
-      width="79%"
-
-    >
-      <CreateComponent />
-    </v-dialog>
+  <v-dialog v-model="createEvent" width="79%">
+    <CreateComponent v-if="!mobile" @close-dialog="createEvent = false" />
+    <MobileCreateComponent v-if="mobile" @close-dialog="createEvent = false" />
+</v-dialog>
 </template>
 
 <script setup>
 
-import { ref,defineProps } from 'vue';
+import { ref, defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import CreateComponent from './CreateComponent.vue';
+import MobileDatosUsuario from './UserProfile/MobileDatosUsuario.vue';
+import MobileCreateComponent from './MobileCreateComponent.vue';
 const createEvent = ref(false);
 
 const props = defineProps({
   type: String,
   buttonText: String,
-  route: String // Nueva prop para la ruta
+  route: String, // Nueva prop para la ruta
+  mobile: Boolean
 });
 
 const router = useRouter();
@@ -40,9 +40,9 @@ const icono = (() => {
 
 // Función para navegar a la ruta proporcionada
 const navigateToRoute = () => {
-  if(props.type==="add"){
+  if (props.type === "add") {
     createEvent.value = !createEvent.value;
-  }else{
+  } else {
     router.push(props.route);
   }
 };

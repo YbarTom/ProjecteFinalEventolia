@@ -1,4 +1,5 @@
 export const SERVER_URL = "http://localhost:3001"
+import { useAppStore } from '@/stores/app.js'
 
 export async function getPosts() {
   try {
@@ -18,6 +19,37 @@ export async function getPostsEvents(){
     return posts;
   } catch (error) {
     console.log("Error al recuperar posts CM");
+    throw error;
+  }
+
+}
+
+export async function postMessageChat(room,message,user) {
+
+  try {
+    fetch(`${SERVER_URL}/postMessageChat`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({room:room, message:message, user:user })
+      });
+  } catch (error) {
+    console.log("Error al enviar mensaje CM");
+    throw error;
+  }
+}
+
+export async function getChats() {
+
+  try {
+    const response = await fetch(`${SERVER_URL}/getChats`,
+    {
+      method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idChats:  useAppStore().getUser().chats})
+    });
+    const chats = await response.json();
+    return chats;
+  } catch (error) {
+    console.log("Error al recuperar chats CM");
     throw error;
   }
 
@@ -53,6 +85,34 @@ export async function getFollowingPage(user) {
   }
 }
 
+export async function followUser(data) {
+  try {
+    console.log(data)
+    fetch(`${SERVER_URL}/followUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data })
+      });
+  } catch (error) {
+    console.log("Error following user CM");
+    throw error;
+  }
+}
+
+export async function unfollowUser(data) {
+  try {
+    console.log(data)
+    fetch(`${SERVER_URL}/unfollowUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data })
+      });
+  } catch (error) {
+    console.log("Error unfollowing user CM");
+    throw error;
+  }
+}
+
 export async function createEvent(event) {
   try {
     const response = await fetch(`${SERVER_URL}/createEvent`,
@@ -68,6 +128,66 @@ export async function createEvent(event) {
   }
 }
 
+export async function createPost(post) {
+  try {
+    const response = await fetch(`${SERVER_URL}/createPost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Error al crear post CM");
+    throw error;
+  }
+}
+
+export async function getUserByName(userName) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getUserByName`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userName })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Error al recuperar user CM");
+    throw error;
+  }
+}
+
+export async function getPostsByIdUser(idUser) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getPostsByIdUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idUser })
+      });
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.log("Error al recuperar posts CM");
+    throw error;
+  }
+}
+
+export async function getEventsByIdUser(idUser) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getEventsByIdUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idUser })
+      });
+    const events = await response.json();
+    return events;
+  } catch (error) {
+    console.log("Error al recuperar events CM");
+    throw error;
+  }
+}
+
 export async function logIn(userInfo) {
   try {
     const response = await fetch(`${SERVER_URL}/login`,
@@ -79,6 +199,36 @@ export async function logIn(userInfo) {
     return resposta;
   } catch (error) {
     console.log("Login Error CM");
+    throw error;
+  }
+}
+
+export async function getFollowers(followers) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getFollowers`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ followers })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Get followers Error CM");
+    throw error;
+  }
+}
+
+export async function getFollowed(followed) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getFollowed`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ followed })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Get followed Error CM");
     throw error;
   }
 }

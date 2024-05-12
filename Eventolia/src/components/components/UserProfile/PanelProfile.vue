@@ -1,45 +1,48 @@
 <template>
-    <div class="Profile">
-        <div class="perfil"><InfoUserProfile/></div>
-        <div class="imagen"><EstructFoto/></div>
+  <div class="Profile">
+    <div class="perfil">
+      <InfoUserProfile :userProfile="props.userProfile" :ownProfile="props.ownProfile"/>
     </div>
+    <div class="imagen">
+      <grid :events="props.events" :posts="props.posts"/>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import InfoUserProfile from '@/components/components/UserProfile/InfoUserProfile.vue'
-import EstructFoto from '@/components/components/UserProfile/EstructuraFotosUserProfile.vue'
+import grid from '@/components/components/UserProfile/grid.vue'
+import { defineProps } from "vue";
+
+const props = defineProps({
+    userProfile: Object,
+    ownProfile: Boolean,
+    posts: Array,
+    events: Array
+})
 </script>
 
 <style scoped>
 .Profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-    min-height: 100vh; /* Altura mínima para ocupar toda la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  width: 79%;
+  min-height: 100vh;
+  /* Altura mínima para ocupar toda la altura de la ventana */
 }
 
-/* Consulta de medios para pantallas medianas */
-@media (max-width: 1024px) {
-  .Profile {
-    width: 90%;
-  }
-}
+.perfil{
+  flex: 1;
+  /* Ambos elementos ocupan la misma fracción del espacio disponible */
 
-/* Consulta de medios para pantallas pequeñas */
-@media (max-width: 768px) {
-  .Profile {
-    width: 95%;
-  }
 }
-
-/* Consulta de medios para pantallas muy pequeñas */
-@media (max-width: 480px) {
-  .Profile {
-    width: 100%;
-  }
-}
-</style>
+.imagen {
+  margin-top: -300px;
+  width:79%;
+  flex: 1;
+  /* Ambos elementos ocupan la misma fracción del espacio disponible */
+}</style>

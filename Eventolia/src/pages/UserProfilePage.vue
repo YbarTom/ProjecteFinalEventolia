@@ -1,23 +1,58 @@
 <template>
-    <DesktopUserProfilePage v-if="isDesktop" />
-    <MobileUserProfilePage v-else />
-  </template>
-  
+  <div v-if="userProfile">
+    <DesktopUserProfilePage v-if="isDesktop" :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts" />
+    <MobileUserProfilePage v-else :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts"/>
+  </div>
+</template>
+
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue';
-  import DesktopUserProfilePage from '@/components/ViewComponents/Desktop/DesktopUserProfilePage.vue'
-  import MobileUserProfilePage from '@/components/ViewComponents/Mobile/MobileUserProfile.vue'
-  const isDesktop = ref(window.innerWidth > 800);
+import { ref, onMounted, onUnmounted } from 'vue';
+import DesktopUserProfilePage from '@/components/ViewComponents/Desktop/DesktopUserProfilePage.vue'
+import MobileUserProfilePage from '@/components/ViewComponents/Mobile/MobileUserProfile.vue'
+import * as funcionsCM from '@/communicationsManager.js';
+import { useAppStore } from '@/stores/app.js'
+import { useRoute } from 'vue-router';
 
-  const updateWidth = () => {
-    isDesktop.value = window.innerWidth > 800;
-  };
+const isDesktop = ref(window.innerWidth > 800);
+const userName = ref('')
+const ownProfile = ref(false)
+const userProfile = ref(null)
+const events = ref({})
+const posts = ref({})
 
-  onMounted(() => {
+const updateWidth = () => {
+  isDesktop.value = window.innerWidth > 800;
+};
+
+const route = useRoute()
+
+onMounted(async () => {
+  try {
     window.addEventListener('resize', updateWidth);
-  });
+    userName.value = route.params.userName
+    const data = await funcionsCM.getUserByName(userName.value)
+    const appStore = useAppStore()
 
-  onUnmounted(() => {
-    window.removeEventListener('resize', updateWidth);
-  });
+    posts.value = await funcionsCM.getPostsByIdUser(data.id)
+    events.value = await funcionsCM.getEventsByIdUser(data.id)
+
+    //setUser no farà falta al final, si es vol usuari propi /userProfile/user1
+    
+    const user = appStore.getUser()
+
+    if (data.id == user.id) {
+      ownProfile.value = true
+      userProfile.value = data
+    } else {
+      userProfile.value = data
+    }
+
+  } catch (error) {
+    console.error("Error getting profile", error)
+  }
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateWidth);
+});
 </script>

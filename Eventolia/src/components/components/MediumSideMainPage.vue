@@ -3,6 +3,9 @@
     <TopBarMediumSideMainPage @forYouClicked="handleForYouClicked" @followingClicked="handleFollowingClicked" />
     <ForYouPage v-if="showRed" />
     <FollowingPage v-if="showBlue" />
+    <div class="bottom-bar bg-background" v-if="isMobile">
+      <btnBotonBar/>
+    </div>
   </div>
 </template>
 
@@ -12,7 +15,20 @@ import TopBarMediumSideMainPage from './TopBarMediumSideMainPage.vue';
 import ForYouPage from './ForYouPage.vue';
 import FollowingPage from './FollowingPage.vue';
 import { useAppStore } from '@/stores/app.js';
+import btnBotonBar from './buttonBotomBar.vue';
 
+const isMobile = ref(window.innerWidth < 800);
+const updateWidth = () => {
+  isMobile.value = window.innerWidth < 800;
+};
+
+onMounted(() => {
+  window.addEventListener('resize', updateWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateWidth);
+});
 
 const showRed = ref(true);
 const showBlue = ref(false);
@@ -56,5 +72,10 @@ onMounted(() => {
 .container {
   height: 100vh;
   position: relative;
+}
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 </style>
