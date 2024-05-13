@@ -7,6 +7,8 @@
         <option value="2">2 km</option>
         <option value="5">5 km</option>
         <option value="10">10 km</option>
+        <option value="1000">1000 km</option>
+
         <!-- Agrega más opciones según sea necesario -->
       </select>
     </div>
@@ -99,7 +101,7 @@
         });
         L.marker([this.latitude, this.longitude], { icon: redIcon }).addTo(this.map);
   
-        
+
         this.filteredEvents.forEach(event => {
           L.marker([event.latitude, event.longitude]).addTo(this.map)
             .bindPopup(event.title);
