@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main class="no-scroll">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </v-main>
   </v-app>
 </template>
