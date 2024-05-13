@@ -139,6 +139,21 @@ export async function createEvent(event) {
   }
 }
 
+export async function createComment(comment) {
+  try {
+    const response = await fetch(`${SERVER_URL}/createComment`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ comment })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Error al crear comment CM");
+    throw error;
+  }
+}
+
 export async function createPost(post) {
   try {
     const response = await fetch(`${SERVER_URL}/createPost`,
