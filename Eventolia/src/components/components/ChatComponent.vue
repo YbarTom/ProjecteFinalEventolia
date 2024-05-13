@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <div class="list-container">
-      <div class="users">
+      <div class="users" >
         <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]"
           :isSelected="selectedUser === chat" @selectUser="selectUser(chat)" />
       </div>
     </div>
-    <div class="input-container"
+    <div class="input-container "
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
       <button class=" bg-principal" @click="closeChat">Cerrar chat</button>
 
-      <ul>
+      <ul class="bg-warning">
         <li v-for="(message, index) in messages" :key="index"
           :class="message.user === myUser ? 'right-message' : 'left-message'">
           <div
