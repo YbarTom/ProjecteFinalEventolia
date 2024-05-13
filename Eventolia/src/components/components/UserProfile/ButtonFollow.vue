@@ -1,8 +1,9 @@
 <template>
     <div class="button">
-        <p>{{ text }}</p>
+        <p :class="{ 'text-green': text === 'follow', 'text-red': text === 'unfollow' }">{{ text }}</p>
     </div>
 </template>
+
 <script setup>
 import { defineProps } from 'vue';
 
@@ -10,8 +11,13 @@ const props = defineProps({
     text: String
 });
 </script>
+
 <style scoped>
-.button {
-    background-color: green;
+.text-green {
+    color: green;
+}
+
+.text-red {
+    color: red;
 }
 </style>

@@ -5,10 +5,12 @@
     </div>
     <h3 class="text-text">{{ buttonText }}</h3>
   </div>
-  <v-dialog v-model="createEvent" width="79%">
-    <CreateComponent v-if="!mobile" @close-dialog="createEvent = false" />
-    <MobileCreateComponent v-if="mobile" @close-dialog="createEvent = false" />
-</v-dialog>
+  <v-dialog class="desktop" v-model="createEvent" v-if="!mobile" width="79%">
+    <CreateComponent @close-dialog="createEvent = false" />
+  </v-dialog>
+  <v-dialog class="mobil" v-model="createEvent" v-if="mobile" width="150%">
+    <MobileCreateComponent @close-dialog="createEvent = false" />
+  </v-dialog>
 </template>
 
 <script setup>
@@ -50,6 +52,8 @@ const navigateToRoute = () => {
 
 
 <style scoped>
+
+
 .button {
   height: 55px;
   width: 100%;

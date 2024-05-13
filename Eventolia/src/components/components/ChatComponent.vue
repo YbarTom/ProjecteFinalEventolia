@@ -8,6 +8,8 @@
     </div>
     <div class="input-container"
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
+      <button class=" bg-principal" @click="closeChat">Cerrar chat</button>
+
       <ul>
         <li v-for="(message, index) in messages" :key="index"
           :class="message.user === myUser ? 'right-message' : 'left-message'">
@@ -44,6 +46,11 @@ export default {
     const selectedUser = ref(null);
     const myUser = ref(useAppStore().getUser().userName);
     const myChats = ref([]);
+
+    const closeChat = () => {
+      selectedUser.value = null;
+      messages.value = []; 
+    };
 
     const loadMyChats = async () => {
       try {
@@ -109,6 +116,7 @@ export default {
       selectedUser,
       myUser,
       myChats,
+      closeChat,
       sendMessage,
       selectUser
     };
@@ -159,6 +167,7 @@ li {
   width: 36.9%;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
+  margin-bottom: 70px;
 }
 
 .input {
@@ -209,7 +218,6 @@ li {
   width: 70%;
 }
 
-.background-color-1 {}
 
 .background-color-2 {
   background-color: green;
