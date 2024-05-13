@@ -4,7 +4,7 @@
   
   <script>
   import L from 'leaflet';
-  
+  import { useAppStore } from '@/stores/app';
   export default {
     mounted() {
       this.initMap();
@@ -12,15 +12,20 @@
     methods: {
       initMap() {
         // Inicializar el mapa
-        const map = L.map('map').setView([51.505, -0.09], 13);
+        const appStore = useAppStore();
+
+        const latitude = appStore.getUserLatitude();
+        const longitude = appStore.getUserLongitude();
+        console.log(latitude, longitude);
+        const map = L.map('map').setView([latitude, longitude], 13);
   
         // Añadir capa de OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
         }).addTo(map);
-  
+         
         // Añadir marcador
-        L.marker([51.5, -0.09]).addTo(map)
+        L.marker([latitude, longitude]).addTo(map)
           .bindPopup('¡Hola! Este es un marcador de ejemplo.')
           .openPopup();
       },
