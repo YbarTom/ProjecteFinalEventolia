@@ -119,10 +119,29 @@ function getEventsByIdUsers(arrayId) {
     });
 }
 
-
+function getEvents(){
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.find().toArray()
+                    .then((events) => {
+                        resolve(events);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting events: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 module.exports = {
     createEvent,
     getEventsByIdUser,
     getEventById,
-    getEventsByIdUsers
+    getEventsByIdUsers,
+    getEvents
 }

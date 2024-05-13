@@ -314,6 +314,14 @@ app.post("/getFollowingPage", async (req, res) => {
 });
 
 //#region EVENTS:
+app.get("/getEvents", async (req, res) => {
+    try {
+        const events = await eventsDB.getEvents()
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting events" });
+    }
+})
 
 app.post("/createEvent", async (req, res) => {
     try {
