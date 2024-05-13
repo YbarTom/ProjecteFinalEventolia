@@ -124,6 +124,32 @@ function likePost(idUser, idPost) {
     });
 }
 
+function dislikePost(idUser, idPost) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                postsCollection
+                    .updateOne(
+                        { id: idPost },
+                        { $pull: { likes: idUser } }
+                    )
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        console.error("Error disliking post: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+
 function getPostsByIdUser(idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
@@ -174,5 +200,6 @@ module.exports = {
     createPost,
     getPostsById,
     getPostsByIdUser,
-    getPostsByIdUsers
+    getPostsByIdUsers,
+    dislikePost
 }
