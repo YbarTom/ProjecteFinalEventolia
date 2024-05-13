@@ -21,6 +21,13 @@
         </div>
         <p class="likes text-text"><b>{{ post.likes.length }} likes</b></p>
         <p class="userComments text-text"><b>{{ post.userName }}</b> {{ post.caption }}</p>
+        <div class="commentField">
+          <TextField text="comment" v-model="comment" />
+          <buttonPublication type="send" @click="createComment"/>
+        </div>
+        <div>
+          
+        </div>
       </div>
     </div>
   </div>
@@ -32,11 +39,13 @@ import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from "@/stores/app";
 import { ref, onMounted } from 'vue';
 import buttonPublication from './buttonPublication.vue';
+import TextField from "./Log_Reg/TextField.vue";
 
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
 const likeCheck = ref(false)
+const comment = ref("")
 
 onMounted(async () => {
   try {
@@ -47,8 +56,6 @@ onMounted(async () => {
         likeCheck.value = true
       }
     }
-
-    console.log(likeCheck.value)
   } catch (error) {
     console.error(error)
   }
@@ -98,9 +105,16 @@ async function like() {
     props.post.likes.push(user.id)
     likeCheck.value = true
   }
+}
 
-  console.log(likeCheck.value)
+async function createComment() {
+  const appStore = useAppStore()
+  const user = appStore.getUser()
 
+  if (comment.value != "") {
+    await funcionsCM.createComment({ idUser: user.id, idPost: props.post.id, text: comment.value, userName: user.userName })
+    comment.value = ""
+  }
 }
 </script>
 
@@ -132,6 +146,12 @@ async function like() {
 .likes {
   margin-left: 10px;
   text-align: left;
+}
+
+.commentField {
+  width: 80%;
+  margin-left: 5%;
+  display: flex;
 }
 
 .userComments {

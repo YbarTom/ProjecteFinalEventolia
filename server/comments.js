@@ -13,6 +13,7 @@ const client = new MongoClient(DBurl, {
 });
 
 const generalFunctions = require("./generalFunctions.js")
+const postsDB = require("./posts.js")
 
 const database = client.db(DBname);
 commentsCollection = database.collection("Comments")
@@ -30,6 +31,7 @@ function createComment(comment) {
                             comment.id = newUniqueId;
                         } else {
                             comment.id = uniqueId;
+                            postsDB.addComment(comment.id, comment.idPost)
                         }
                         commentsCollection.insertOne(comment)
                             .then((result) => {

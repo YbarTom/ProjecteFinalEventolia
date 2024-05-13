@@ -77,6 +77,26 @@ function createPost(post) {
     });
 }
 
+function addComment(idComment, idPost) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return postsCollection.findOneAndUpdate(
+                    { id: idPost },
+                    { $addToSet: { comments: idComment } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedPost) => {
+                resolve(updatedPost);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
+
 function getPostsById(idPost) {
     return new Promise((resolve, reject) => {
         client
@@ -201,5 +221,6 @@ module.exports = {
     getPostsById,
     getPostsByIdUser,
     getPostsByIdUsers,
-    dislikePost
+    dislikePost,
+    addComment
 }

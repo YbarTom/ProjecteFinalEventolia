@@ -375,7 +375,7 @@ app.post("/getEventById", async (req, res) => {
 
 app.post("/createComment", async (req, res) => {
     try {
-        const data = req.body
+        const data = req.body.comment
         await commentsDB.createComment(data)
         res.status(200).json({ message: "Comment created successfully" });
     } catch (error) {
