@@ -11,17 +11,8 @@
         <!-- Agrega más opciones según sea necesario -->
       </select>
   
-      <v-dialog v-model="dialogVisible" persistent max-width="600px">
-        <v-card>
-          <v-card-title>Detalles del Evento</v-card-title>
-          <v-card-text>
-            <p>{{ selectedEvent.title }}</p>
-            <!-- Agrega aquí más detalles del evento según sea necesario -->
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" @click="dialogVisible = false">Cerrar</v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-dialog v-model="dialogVisible" persistent width="30%">
+        <EventPublication />
       </v-dialog>
     </div>
   </template>
@@ -30,6 +21,7 @@
   import L from 'leaflet';
   import { useAppStore } from '@/stores/app';
   import * as funcionsCM from '../../communicationsManager.js';
+  import EventPublication from './EventPublication.vue';
   
   export default {
     data() {
@@ -123,7 +115,7 @@
           });
         });
       },
-      
+
       calculateDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; // Radio de la Tierra en kilómetros
         const dLat = this.deg2rad(lat2 - lat1);
