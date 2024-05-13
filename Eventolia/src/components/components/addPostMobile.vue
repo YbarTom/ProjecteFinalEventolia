@@ -1,33 +1,50 @@
 <template>
-    <div class="container">
+  <div class="container">
       <div class="post bg-principal" v-if="!imagePreview">
-        <div>
-          <p class="title text-text"><b>Create new Post Mobile</b></p>
-          <div class="horizontal-bar-create bg-background"></div>
-        </div>
-        <div class="div-button">
-          <label for="image-upload" class="upload-button bg-background">Select Image From Computer</label>
-          <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
-        </div>
+          <div>
+              <div class="top-left">
+                  <span class="mdi mdi-24px mdi-close" @click="$emit('close-dialog')"></span>
+              </div>
+              <div>
+                  <p class="title text-text"><b>Create new Event</b></p>
+                  <div class="horizontal-bar-create bg-background"></div>
+              </div>
+          </div>
+          <div class="div-button">
+              <label for="image-upload" class="upload-button bg-background">Select Image</label>
+              <input id="image-upload" type="file" @change="handleImageUpload" style="display: none;">
+          </div>
       </div>
-      <div class="post bg-principal" v-if="imagePreview" ref="post">
+      <div class="post bg-principal" v-if="imagePreview && !showForm" ref="post">
+        <div class="top-left">
+                  <span class="mdi mdi-24px mdi-close" @click="$emit('close-dialog')"></span>
+              </div>  
         <div class="grid-container">
-          <div class="left-side">
-            <div class="margin" style="max-height: 500px;">
-              <img :src="imagePreview" ref="image" alt="Image Preview" />
-            </div>
+              <div class="left-side">
+                  <div class="margin" style="max-height: 800px;">
+                      <img :src="imagePreview" ref="image" alt="Image Preview" :class="{ 'fullscreen': isFullscreen }"
+                          @click="toggleFullscreen" />
+                  </div>
+                  <div class="button-Siguiente">
+                      <v-btn @click="showForm = true" class="bg-background">Siguiente</v-btn>
+                  </div>
+              </div>
           </div>
-          <div class="right-side">
-            <div class="margin-25">
-              <v-textarea v-model="Caption" label="Caption" variant="outlined" counter :rules="rules2" no-resize
-                rows="4"></v-textarea>
-              <v-btn @click="createPost" class="bg-background text-text">Post</v-btn>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  </template>
+      <div class="post bg-principal" v-if="showForm" ref="post">
+          <div class="top-left">
+              <span class="mdi mdi-24px mdi-close" @click="$emit('close-dialog')"></span>
+          </div>
+          <div class="grid-container">
+            <div class="margin-25">
+            <v-textarea v-model="Caption" label="Caption" variant="outlined" counter :rules="rules2" no-resize
+              rows="4"></v-textarea>
+            <v-btn @click="createPost" class="bg-background text-text">Post</v-btn>
+          </div>
+          </div>
+      </div>
+  </div>
+</template>
 
   <script setup>
 
@@ -40,7 +57,9 @@
   const post = ref(null);
   const rules2 = ref([v => v.length <= 140 || 'Max 140 characters']);
   const Caption = ref('');
-  
+  const showForm = ref(false);
+  const emit = defineEmits(['close-dialog']);
+
   const props = defineProps({
     idEvent: String
   })
@@ -72,6 +91,7 @@
   
       funcionsCM.createPost(post)
   
+      emit('close-dialog')
     } catch (error) {
       console.error('Error creating post: ', error)
     }
@@ -85,9 +105,9 @@
     align-items: center;
   }
   
-  .input-container label {
-    margin-right: 10px;
-  }
+  .top-left {
+    margin-right: 80%;
+}
   
   .numberinput {
     width: 100%;
@@ -96,13 +116,6 @@
     border: 1px solid #525151;
   }
   
-  .grid-container {
-    display: grid;
-    height: 80vh;
-  
-    grid-template-columns: 1fr 1fr;
-    /* Dos columnas de igual tamaño */
-  }
   
   .margin-25 {
     margin: 28px;
@@ -130,9 +143,7 @@
     justify-content: center;
     align-items: center;
     margin-top: auto;
-    /* Esto colocará el botón en la parte inferior del contenedor */
     padding: 20px 0;
-    /* Añadir espacio alrededor del botón */
   }
   
   .container {
@@ -153,9 +164,7 @@
     border-radius: 16px;
     height: 80vh;
     display: flex;
-    /* Añadir esto para permitir el posicionamiento flex */
     flex-direction: column;
-    /* Añadir esto para que los elementos internos se apilen verticalmente */
   }
   
   .horizontal-bar-create {
@@ -170,11 +179,15 @@
     padding: 10px 20px;
   }
   
+  .button-Siguiente {
+    margin-top: 25px;
+    margin-right: 45%;
+}
+
   .post img {
-    max-width: 100%;
-    height: auto;
-    max-height: 70vh;
-    /* Hacer que la altura se ajuste automáticamente */
-    margin-top: 10px;
-  }
+    max-width: 50%;
+    max-height: 50%;
+    object-fit: contain;
+    margin-right: 50%;
+}
   </style>

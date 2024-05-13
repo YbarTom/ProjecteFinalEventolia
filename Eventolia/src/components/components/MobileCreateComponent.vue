@@ -135,7 +135,7 @@ const toggleFullscreen = () => {
 
 <style scoped>
 .top-left {
-    margin-right: 90%;
+    margin-right: 0%;
 }
 
 .input-container {

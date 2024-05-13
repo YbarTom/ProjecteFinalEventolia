@@ -33,7 +33,7 @@
       <addPost idEvent="1b6g3zkr11zilvw1ato4"/>
     </v-dialog>
     <v-dialog v-model="boolean" width="79%" class="mobil" v-else>
-      <addPostMobile idEvent="1b6g3zkr11zilvw1ato4"/>
+      <addPostMobile idEvent="1b6g3zkr11zilvw1ato4" @close-dialog="boolean = false"/>
     </v-dialog>
     </div>
     
@@ -51,6 +51,7 @@ const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
 const boolean = ref(false);
+
 
 const isDesktop = ref(window.innerWidth > 800);
 
