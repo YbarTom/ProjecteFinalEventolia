@@ -231,7 +231,8 @@ app.get("/getPosts", async (req, res) => {
 
 app.post("/likePost", async (req, res) => {
     try {
-        const data = req.body
+        const data = req.body.likeInfo
+        console.log(data)
         await postsDB.likePost(data.idUser, data.idPost)
         res.status(200).json({ message: "Post liked successfully" });
     } catch (error) {

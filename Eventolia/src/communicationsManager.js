@@ -233,6 +233,21 @@ export async function getFollowed(followed) {
   }
 }
 
+export async function likePost(likeInfo) {
+  try {
+    const response = await fetch(`${SERVER_URL}/likePost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ likeInfo })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Like post Error CM");
+    throw error;
+  }
+}
+
 export async function searchLocation(addressQuery) {
   const apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
     addressQuery

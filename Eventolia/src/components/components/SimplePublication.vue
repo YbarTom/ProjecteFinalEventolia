@@ -12,7 +12,7 @@
     <div ref="commentsDiv" class="comments-div bg-principal">
       <div class="commentsButtons">
         <div class="left">
-          <buttonPublication type="heart" />
+          <buttonPublication type="heart" @click="like"/>
           <buttonPublication type="chat" />
           <buttonPublication type="send" />
         </div>
@@ -29,7 +29,8 @@
 
 <script setup>
 import Foto from "@/components/components/foto.vue";
-
+import * as funcionsCM from '../../communicationsManager.js'
+import { useAppStore } from "@/stores/app";
 import { ref } from 'vue';
 import buttonPublication from './buttonPublication.vue';
 const divExterior = ref(null);
@@ -66,6 +67,13 @@ const adjustHeight = () => {
 const props = defineProps({
   post: Object
 });
+
+async function like() {
+  const appStore = useAppStore()
+  const user = appStore.getUser()
+
+  await funcionsCM.likePost({idUser: user.id, idPost: props.post.id})
+}
 </script>
 
 
