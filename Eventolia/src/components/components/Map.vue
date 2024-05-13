@@ -11,7 +11,7 @@
         <!-- Agrega más opciones según sea necesario -->
       </select>
   
-      <v-dialog v-model="dialogVisible" persistent width="30%">
+      <v-dialog v-model="dialogVisible" width="30%">
         <EventPublication />
       </v-dialog>
     </div>
