@@ -55,6 +55,8 @@ function createEvent(event) {
     });
 }
 
+
+
 function getEventsByIdUser(idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
@@ -74,6 +76,27 @@ function getEventsByIdUser(idUser) {
             });
     });
 }
+
+function editUserName(idUser, newUserName) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.updateMany({ idUser: idUser }, { $set: { organizer: newUserName } })
+                    .then((result) => {
+                        resolve(result.modifiedCount + " events updated successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error updating events: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 
 function getEventById(idEvent) {
     return new Promise((resolve, reject) => {
@@ -119,7 +142,7 @@ function getEventsByIdUsers(arrayId) {
     });
 }
 
-function getEvents(){
+function getEvents() {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
@@ -143,5 +166,6 @@ module.exports = {
     getEventsByIdUser,
     getEventById,
     getEventsByIdUsers,
-    getEvents
+    getEvents,
+    editUserName
 }
