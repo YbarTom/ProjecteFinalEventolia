@@ -96,6 +96,9 @@ export const useAppStore = defineStore('app', {
     getUserEvents() {
       return this.user.events;
     },
+    getPassword(){
+      return this.user.password;
+    },
     getUserProfilePic() {
       return this.user.profilePic;
     },

@@ -22,11 +22,15 @@
     </div>
   </div>
   <div class="btn-seguir">
-    <ButtonFollow text="follow"/>
+    <ButtonFollow :text="buttonText" @click="followState" />
   </div>
 
-  <v-dialog v-model="showPopUp" width="79%">    
-    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile" :changeFollowed="changeFollowed" :changeFollowers="changeFollowers"/>
+  <v-dialog v-model="showPopUp" width="79%">
+    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
+      :changeFollowed="changeFollowed" :changeFollowers="changeFollowers" />
+  </v-dialog>
+  <v-dialog v-model="showPasswordCheck" width="79%">
+    <passwordCheck/>
   </v-dialog>
 </template>
 
@@ -38,6 +42,7 @@ import { defineProps, onMounted } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
 import ButtonFollow from './ButtonFollow.vue';
 import { useAppStore } from '@/stores/app';
+import passwordCheck from '@/components/components/UserProfile/passwordCheck.vue'
 
 const props = defineProps({
   userProfile: Object,
@@ -49,8 +54,9 @@ const typePopUp = ref(0)
 const followers = ref([]);
 const followed = ref([])
 const buttonText = ref("")
+const showPasswordCheck = ref(false)
 
-onMounted(() => { 
+onMounted(() => {
   changeButtonText()
 });
 
@@ -69,9 +75,9 @@ const mostrarPopUp = async (users, type) => {
 
 const changeFollowed = async (id, check) => {
   console.log(props.userProfile.followed)
-  if(check){
+  if (check) {
     props.userProfile.followed.push(id)
-  }else {
+  } else {
     props.userProfile.followed = props.userProfile.followed.filter(item => item != id)
   }
 }
@@ -81,19 +87,49 @@ const changeFollowers = async (id) => {
 }
 
 const changeButtonText = async () => {
-  if(props.ownProfile){
+  if (props.ownProfile) {
     buttonText.value = "Edit"
   } else {
     const appStore = useAppStore()
+    console.log(appStore)
     const user = appStore.getUser()
-    for(let i=0; i<props.userProfile.followers.length; i++){
-      if(user.id == userProfile.followers[i]){
-        buttonText.value = "Unfollow"
+    for (let i = 0; i < props.userProfile.followers.length; i++) {
+      if (user.id == props.userProfile.followers[i]) {
+        buttonText.value = "unfollow"
       }
     }
   }
-  if(buttonText.value == ""){
-    buttonText.value = "Follow"
+  if (buttonText.value == "") {
+    buttonText.value = "follow"
+  }
+}
+
+async function followState() {
+  var check
+  const appStore = useAppStore()
+  const user = appStore.getUser()
+  console.log(user)
+  console.log(props.userProfile)
+  if (props.ownProfile) {
+    showPasswordCheck.value = true
+  }
+  else {
+    if (buttonText.value === "follow") {
+      funcionsCM.followUser({ idFollower: user.id, idFollowed: props.userProfile.id })
+      buttonText.value = "unfollow"
+      check = true
+    }
+    else {
+      funcionsCM.unfollowUser({ idFollower: user.id, idFollowed: props.userProfile.id })
+      buttonText.value = "follow"
+      check = false
+    }
+    var userAux = props.userProfile.followers
+    if(check){
+      userAux.push(user.id)
+    }else {
+      props.userProfile.followers = props.userProfile.followers.filter(item => item != user.id)
+    }
   }
 }
 </script>
