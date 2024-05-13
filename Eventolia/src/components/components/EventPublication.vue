@@ -3,7 +3,7 @@
   <div ref="divExterior" class="div-exterior bg-principal">
     <div class="profile-div">
       <div class="perfil-img"></div>
-      <p><b>{{ props.post.userName }}</b></p>
+      <p><b>{{ props.post.organizer }}</b></p>
     </div>
 
     <div ref="commentsDiv" class="comments-div bg-principal">

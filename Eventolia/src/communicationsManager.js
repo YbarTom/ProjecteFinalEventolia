@@ -122,6 +122,32 @@ export async function unfollowUser(data) {
   }
 }
 
+export async function editUserName(data) {
+  try {
+    fetch(`${SERVER_URL}/editUserName`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data })
+      });
+  } catch (error) {
+    console.log("Error editing user CM");
+    throw error;
+  }
+}
+
+export async function editPassword(data) {
+  try {
+    fetch(`${SERVER_URL}/editPassword`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data })
+      });
+  } catch (error) {
+    console.log("Error editing user CM");
+    throw error;
+  }
+}
+
 export async function getCommentsByIdPost(idPost) {
   try {
     const response = await fetch(`${SERVER_URL}/getCommentsByIdPost`,

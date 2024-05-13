@@ -169,6 +169,28 @@ app.post("/getFollowed", async (req, res) => {
         res.status(500).json({ error: "Error getting followed" });
     }
 })
+
+app.post("/editPassword", async (req, res) => {
+    try {
+        const data = req.body.data
+        usersDB.editPassword(data.idUser, data.password)
+        res.status(200);
+    } catch (error) {
+        res.status(500).json({ error: "Error editing password" });
+    }
+})
+
+app.post("/editUserName", async (req, res) => {
+    try {
+        const data = req.body.data
+        usersDB.editUserName(data.idUser, data.userName)
+        postsDB.editUserName(data.idUser, data.userName)
+        eventsDB.editUserName(data.idUser, data.userName)
+        res.status(200);
+    } catch (error) {
+        res.status(500).json({ error: "Error editing userName" });
+    }
+})
 //#region CHATS:
 
 app.post("/getChats", async (req, res) => {

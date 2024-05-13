@@ -234,6 +234,42 @@ function unfollowUser(idFollower, idFollowed) {
     });
 }
 
+function editUserName(idUser, newUserName) {
+    return new Promise((resolve, reject) => {
+        usersCollection
+            .updateOne({ id: idUser }, { $set: { userName: newUserName } })
+            .then((result) => {
+                if (result.modifiedCount > 0) {
+                    resolve("UserName updated successfully");
+                } else {
+                    reject("No matching document found for id: " + idUser);
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating UserName: ", error);
+                reject(error);
+            });
+    });
+}
+
+function editPassword(idUser, newPassword) {
+    return new Promise((resolve, reject) => {
+        usersCollection
+            .updateOne({ id: idUser }, { $set: { password: newPassword } })
+            .then((result) => {
+                if (result.modifiedCount > 0) {
+                    resolve("Password updated successfully");
+                } else {
+                    reject("No matching document found for id: " + idUser);
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating password: ", error);
+                reject(error);
+            });
+    });
+}
+
 
 function getAssistants(assistants) {
     return new Promise((resolve, reject) => {
@@ -307,5 +343,7 @@ module.exports = {
     addEvent,
     getUserByEmail,
     getUserByName,
-    unfollowUser
+    unfollowUser,
+    editUserName,
+    editPassword
 }
