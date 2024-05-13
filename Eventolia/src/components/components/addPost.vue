@@ -23,7 +23,6 @@
             <v-textarea v-model="Caption" label="Caption" variant="outlined" counter :rules="rules2" no-resize
               rows="4"></v-textarea>
             <v-btn @click="createPost" class="bg-background text-text">Post</v-btn>
-
           </div>
         </div>
       </div>
@@ -62,10 +61,10 @@ const createPost = async () => {
     const user = appStore.getUser()
 
     const post = {
-      idUser: "zi0s21h26zlvm89j9d",
+      idUser: user.id,
       idEvent: props.idEvent,
       caption: Caption.value,
-      userName: "user1",
+      userName: user.userName,
       image: imagePreview.value,
       type: "publicationEvent"
     }

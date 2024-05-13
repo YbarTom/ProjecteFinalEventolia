@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="btn-seguir">
-    <BtnSeguir />
+    <ButtonFollow text="seguir"/>
   </div>
 
   <v-dialog v-model="showPopUp" width="79%">    
@@ -36,6 +36,7 @@ import BtnSeguir from '@/components/components/UserProfile/btnSeguir.vue'
 import PopUpUsers from './PopUpUsers.vue';
 import { defineProps } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
+import ButtonFollow from './ButtonFollow.vue';
 
 const props = defineProps({
   userProfile: Object,
