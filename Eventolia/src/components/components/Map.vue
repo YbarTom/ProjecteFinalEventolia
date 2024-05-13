@@ -31,11 +31,17 @@ export default {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
 
-            // Añadir marcador del usuario
-            L.marker([latitude, longitude]).addTo(map)
-                .bindPopup('Tú')
-                .openPopup();
+            const redIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41],
+            });
 
+            // Añadir marcador del usuario con el icono rojo
+            L.marker([latitude, longitude], { icon: redIcon }).addTo(map)
+                
             // Añadir marcadores de eventos
             events.forEach(event => {
                 L.marker([event.latitude, event.longitude]).addTo(map)
