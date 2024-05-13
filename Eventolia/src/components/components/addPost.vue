@@ -23,7 +23,6 @@
             <v-textarea v-model="Caption" label="Caption" variant="outlined" counter :rules="rules2" no-resize
               rows="4"></v-textarea>
             <v-btn @click="createPost" class="bg-background text-text">Post</v-btn>
-
           </div>
         </div>
       </div>

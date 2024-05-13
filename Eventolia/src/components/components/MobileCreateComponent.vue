@@ -2,8 +2,13 @@
     <div class="container">
         <div class="post bg-principal" v-if="!imagePreview">
             <div>
-                <p class="title text-text"><b>Create new Event</b></p>
-                <div class="horizontal-bar-create bg-background"></div>
+                <div class="top-left">
+                    <span class="mdi mdi-24px mdi-close" @click="$emit('close-dialog')"></span>
+                </div>
+                <div>
+                    <p class="title text-text"><b>Create new Event</b></p>
+                    <div class="horizontal-bar-create bg-background"></div>
+                </div>
             </div>
             <div class="div-button">
                 <label for="image-upload" class="upload-button bg-background">Select Image</label>
@@ -12,10 +17,13 @@
         </div>
         <div class="post bg-principal" v-if="imagePreview && !showForm" ref="post">
             <div class="grid-container">
+                <div class="top-left">
+                    <span class="mdi mdi-24px mdi-close" @click="$emit('close-dialog')"></span>
+                </div>
                 <div class="left-side">
                     <div class="margin" style="max-height: 800px;">
-                        <img :src="imagePreview" ref="image" alt="Image Preview" 
-                             :class="{ 'fullscreen': isFullscreen }" @click="toggleFullscreen" />
+                        <img :src="imagePreview" ref="image" alt="Image Preview" :class="{ 'fullscreen': isFullscreen }"
+                            @click="toggleFullscreen" />
                     </div>
                     <div class="button-Siguiente">
                         <v-btn @click="showForm = true" class="bg-background">Siguiente</v-btn>
@@ -24,6 +32,9 @@
             </div>
         </div>
         <div class="post bg-principal" v-if="showForm" ref="post">
+            <div class="top-left">
+                <span class="mdi mdi-24px mdi-close" @click="$emit('close-dialog')"></span>
+            </div>
             <div class="grid-container">
                 <div class="right-side">
                     <div class="margin-25">
@@ -47,9 +58,10 @@
 </template>
 
 <script setup>
-import { ref, defineEmits ,onMounted } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from '@/stores/app.js';
+import ButtonSideBar from './buttonSideBar.vue';
 
 const imagePreview = ref('');
 const image = ref(null);
@@ -76,6 +88,7 @@ const handleImageUpload = (event) => {
         reader.readAsDataURL(file);
     }
 };
+
 
 const createEvent = async () => {
     try {
@@ -121,6 +134,10 @@ const toggleFullscreen = () => {
 <!-- Estilos omitidos para brevedad -->
 
 <style scoped>
+.top-left {
+    margin-right: 0%;
+}
+
 .input-container {
     display: flex;
     align-items: center;

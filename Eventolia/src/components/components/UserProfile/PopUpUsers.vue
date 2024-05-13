@@ -168,29 +168,53 @@ async function changeFollow(index, id) {
 <style scoped>
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
-    width: 100%;
+    padding: 20px;
 }
 
 .user-container {
     display: flex;
     align-items: center;
-    background-color: blue;
-    margin-bottom: 10px;
-    /* Agrega un margen inferior para separar los contenedores */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-container:hover {
+    background-color: #e0e0e0;
 }
 
 .user-avatar {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
-.user-info {
-    display: flex;
-    flex-direction: column;
+.user-info h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 </style>
