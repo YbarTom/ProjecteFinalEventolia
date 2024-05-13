@@ -8,9 +8,21 @@
         <option value="5">5 km</option>
         <option value="10">10 km</option>
         <option value="1000">1000 km</option>
-
         <!-- Agrega más opciones según sea necesario -->
       </select>
+  
+      <v-dialog v-model="dialogVisible" persistent max-width="600px">
+        <v-card>
+          <v-card-title>Detalles del Evento</v-card-title>
+          <v-card-text>
+            <p>{{ selectedEvent.title }}</p>
+            <!-- Agrega aquí más detalles del evento según sea necesario -->
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" @click="dialogVisible = false">Cerrar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </template>
   
@@ -29,6 +41,8 @@
         longitude: 0,
         events: [], // Almacenar todos los eventos
         filteredEvents: [], // Almacenar eventos filtrados por radio seleccionado
+        selectedEvent: null, // Almacenar el evento seleccionado
+        dialogVisible: false, // Controlar la visibilidad del diálogo
       };
     },
     mounted() {
@@ -55,7 +69,6 @@
           attribution: '© OpenStreetMap contributors'
         }).addTo(this.map);
   
-        
         // Añadir círculo alrededor del usuario para representar el área
         this.addCircle();
   
@@ -101,12 +114,16 @@
         });
         L.marker([this.latitude, this.longitude], { icon: redIcon }).addTo(this.map);
   
-
+        // Agregar marcadores de eventos con evento de clic
         this.filteredEvents.forEach(event => {
-          L.marker([event.latitude, event.longitude]).addTo(this.map)
-            .bindPopup(event.title);
+          const marker = L.marker([event.latitude, event.longitude]).addTo(this.map);
+          marker.on('click', () => {
+            this.selectedEvent = event; // Almacenar el evento seleccionado
+            this.dialogVisible = true; // Mostrar el diálogo
+          });
         });
       },
+      
       calculateDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; // Radio de la Tierra en kilómetros
         const dLat = this.deg2rad(lat2 - lat1);
