@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="btn-seguir">
-    <ButtonFollow text="seguir"/>
+    <ButtonFollow text="follow"/>
   </div>
 
   <v-dialog v-model="showPopUp" width="79%">    
@@ -34,9 +34,10 @@
 import ImagenUsuario from '@/components/components/foto.vue'
 import BtnSeguir from '@/components/components/UserProfile/btnSeguir.vue'
 import PopUpUsers from './PopUpUsers.vue';
-import { defineProps } from "vue";
+import { defineProps, onMounted } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
 import ButtonFollow from './ButtonFollow.vue';
+import { useAppStore } from '@/stores/app';
 
 const props = defineProps({
   userProfile: Object,
@@ -47,6 +48,11 @@ const showPopUp = ref(false);
 const typePopUp = ref(0)
 const followers = ref([]);
 const followed = ref([])
+const buttonText = ref("")
+
+onMounted(() => { 
+  changeButtonText()
+});
 
 const mostrarPopUp = async (users, type) => {
 
@@ -69,8 +75,26 @@ const changeFollowed = async (id, check) => {
     props.userProfile.followed = props.userProfile.followed.filter(item => item != id)
   }
 }
+
 const changeFollowers = async (id) => {
   props.userProfile.followers = props.userProfile.followers.filter(item => item != id)
+}
+
+const changeButtonText = async () => {
+  if(props.ownProfile){
+    buttonText.value = "Edit"
+  } else {
+    const appStore = useAppStore()
+    const user = appStore.getUser()
+    for(let i=0; i<props.userProfile.followers.length; i++){
+      if(user.id == userProfile.followers[i]){
+        buttonText.value = "Unfollow"
+      }
+    }
+  }
+  if(buttonText.value == ""){
+    buttonText.value = "Follow"
+  }
 }
 </script>
 
