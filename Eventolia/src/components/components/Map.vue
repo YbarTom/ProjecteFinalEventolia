@@ -26,7 +26,7 @@
          
         // Añadir marcador
         L.marker([latitude, longitude]).addTo(map)
-          .bindPopup('¡Hola! Este es un marcador de ejemplo.')
+          .bindPopup('Tú')
           .openPopup();
       },
     },
