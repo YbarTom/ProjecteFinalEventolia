@@ -23,11 +23,14 @@
         <p class="userComments text-text"><b>{{ post.userName }}</b> {{ post.caption }}</p>
         <div class="commentField">
           <TextField text="comment" v-model="comment" />
-          <buttonPublication type="send" @click="createComment"/>
+          <buttonPublication type="send" @click="createComment" />
         </div>
         <div>
-          
+          <p @click="seeComments=true">See all comments</p>
         </div>
+        <v-dialog v-model="seeComments" width="79%">
+          <commentList :post="props.post" />
+        </v-dialog>
       </div>
     </div>
   </div>
@@ -40,12 +43,14 @@ import { useAppStore } from "@/stores/app";
 import { ref, onMounted } from 'vue';
 import buttonPublication from './buttonPublication.vue';
 import TextField from "./Log_Reg/TextField.vue";
+import commentList from "@/components/components/commentList.vue"
 
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
 const likeCheck = ref(false)
 const comment = ref("")
+const seeComments = ref(false)
 
 onMounted(async () => {
   try {
@@ -152,6 +157,7 @@ async function createComment() {
   width: 80%;
   margin-left: 5%;
   display: flex;
+  margin-top: -5%;
 }
 
 .userComments {

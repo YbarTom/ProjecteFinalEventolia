@@ -383,11 +383,11 @@ app.post("/createComment", async (req, res) => {
     }
 })
 
-app.post("getCommentsByIdPost", async (req, res) => {
+app.post("/getCommentsByIdPost", async (req, res) => {
     try {
-        const data = req.body
-        await commentsDB.getCommentsByIdPost(data)
-
+        const data = req.body.idPost
+        const comments = await commentsDB.getCommentsByIdPost(data)
+        res.status(200).json(comments)
     } catch (error) {
         console.error("Error getting comments", error)
     }

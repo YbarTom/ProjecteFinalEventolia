@@ -23,7 +23,7 @@ export async function getEvents() {
   }
 }
 
-export async function getPostsEvents(){
+export async function getPostsEvents() {
   try {
     const response = await fetch(`${SERVER_URL}/getPostsEvents`, { method: 'POST', mode: 'cors' });
     const posts = await response.json();
@@ -35,13 +35,13 @@ export async function getPostsEvents(){
 
 }
 
-export async function postMessageChat(room,message,user) {
+export async function postMessageChat(room, message, user) {
 
   try {
     fetch(`${SERVER_URL}/postMessageChat`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({room:room, message:message, user:user })
+        body: JSON.stringify({ room: room, message: message, user: user })
       });
   } catch (error) {
     console.log("Error al enviar mensaje CM");
@@ -53,10 +53,10 @@ export async function getChats() {
 
   try {
     const response = await fetch(`${SERVER_URL}/getChats`,
-    {
-      method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ idChats:  useAppStore().getUser().chats})
-    });
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idChats: useAppStore().getUser().chats })
+      });
     const chats = await response.json();
     return chats;
   } catch (error) {
@@ -98,7 +98,6 @@ export async function getFollowingPage(user) {
 
 export async function followUser(data) {
   try {
-    console.log(data)
     fetch(`${SERVER_URL}/followUser`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
@@ -112,7 +111,6 @@ export async function followUser(data) {
 
 export async function unfollowUser(data) {
   try {
-    console.log(data)
     fetch(`${SERVER_URL}/unfollowUser`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
@@ -120,6 +118,21 @@ export async function unfollowUser(data) {
       });
   } catch (error) {
     console.log("Error unfollowing user CM");
+    throw error;
+  }
+}
+
+export async function getCommentsByIdPost(idPost) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getCommentsByIdPost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idPost })
+      });
+    const comments = await response.json();
+    return comments;
+  } catch (error) {
+    console.log("Error getting comments CM");
     throw error;
   }
 }
