@@ -42,6 +42,11 @@ const routes = [
     name: 'SearchPage',
     component: () => import('@/pages/Search.vue'),
   },
+  {
+    path: '/UserEdit',
+    name: 'UserEdit',
+    component: () => import('@/pages/userEdit.vue'),
+  },
 ]
 
 const router = createRouter({

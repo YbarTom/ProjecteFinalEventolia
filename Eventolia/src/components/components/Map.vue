@@ -7,8 +7,13 @@
         <option value="2">2 km</option>
         <option value="5">5 km</option>
         <option value="10">10 km</option>
+        <option value="1000">1000 km</option>
         <!-- Agrega más opciones según sea necesario -->
       </select>
+  
+      <v-dialog v-model="dialogVisible" width="30%">
+        <EventPublication />
+      </v-dialog>
     </div>
   </template>
   
@@ -16,6 +21,7 @@
   import L from 'leaflet';
   import { useAppStore } from '@/stores/app';
   import * as funcionsCM from '../../communicationsManager.js';
+  import EventPublication from './EventPublication.vue';
   
   export default {
     data() {
@@ -27,6 +33,8 @@
         longitude: 0,
         events: [], // Almacenar todos los eventos
         filteredEvents: [], // Almacenar eventos filtrados por radio seleccionado
+        selectedEvent: null, // Almacenar el evento seleccionado
+        dialogVisible: false, // Controlar la visibilidad del diálogo
       };
     },
     mounted() {
@@ -53,7 +61,6 @@
           attribution: '© OpenStreetMap contributors'
         }).addTo(this.map);
   
-        
         // Añadir círculo alrededor del usuario para representar el área
         this.addCircle();
   
@@ -99,12 +106,16 @@
         });
         L.marker([this.latitude, this.longitude], { icon: redIcon }).addTo(this.map);
   
-        
+        // Agregar marcadores de eventos con evento de clic
         this.filteredEvents.forEach(event => {
-          L.marker([event.latitude, event.longitude]).addTo(this.map)
-            .bindPopup(event.title);
+          const marker = L.marker([event.latitude, event.longitude]).addTo(this.map);
+          marker.on('click', () => {
+            this.selectedEvent = event; // Almacenar el evento seleccionado
+            this.dialogVisible = true; // Mostrar el diálogo
+          });
         });
       },
+
       calculateDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; // Radio de la Tierra en kilómetros
         const dLat = this.deg2rad(lat2 - lat1);

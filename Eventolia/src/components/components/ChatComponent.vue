@@ -8,9 +8,7 @@
     </div>
     <div class="input-container "
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
-      <button class=" bg-principal" @click="closeChat">Cerrar chat</button>
-
-      <ul class="bg-warning">
+      <ul>
         <li v-for="(message, index) in messages" :key="index"
           :class="message.user === myUser ? 'right-message' : 'left-message'">
           <div

@@ -3,7 +3,7 @@
   <div ref="divExterior" class="div-exterior bg-principal">
     <div class="profile-div">
       <div class="perfil-img"></div>
-      <p><b>tom.ybarguengoitia</b></p>
+      <p><b>{{ props.post.userName }}</b></p>
     </div>
 
     <div ref="commentsDiv" class="comments-div bg-principal">
@@ -18,13 +18,11 @@
           <buttonPublication type="save" />
         </div>
       </div>
-      <p class="likes text-text"><b>2.190 likes</b></p>
-      <p class="userComments text-text"><b>tom.ybarguengoitia </b>Good news! We are now taking pre-orders for our
-        awesome new M1 downhill bike. There are limited numbers of frames available in this first run, so once they are
-        gone, they are gone... for a good few months anyway.</p>
+      <p class="likes text-text"><b>{{ props.post.likes.lenght }}</b></p>
+      <p class="userComments text-text"><b>{{ props.post.caption }}</b></p>
     </div>
     <div class="centerImage">
-      <img ref="image" src="../../assets/images/caida.jpg" alt="Imagen de perfil"
+      <img ref="image" :src=props.post.image alt="Imagen de perfil"
         @load="adjustHeight" />
     </div>
 
@@ -42,7 +40,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 import buttonPublication from './buttonPublication.vue';
 import addPost from './addPost.vue';
 import addPostMobile from '@/components/components/addPostMobile.vue';
@@ -52,6 +50,11 @@ const image = ref(null);
 const commentsDiv = ref(null);
 const boolean = ref(false);
 
+const props = defineProps({
+  post: Object  
+})
+
+console.log(props.post)
 
 const isDesktop = ref(window.innerWidth > 800);
 
