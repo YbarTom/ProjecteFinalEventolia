@@ -62,10 +62,10 @@ const createPost = async () => {
     const user = appStore.getUser()
 
     const post = {
-      idUser: "zi0s21h26zlvm89j9d",
+      idUser: user.id,
       idEvent: props.idEvent,
       caption: Caption.value,
-      userName: "user1",
+      userName: user.userName,
       image: imagePreview.value,
       type: "publicationEvent"
     }

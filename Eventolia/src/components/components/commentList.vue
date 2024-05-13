@@ -1,6 +1,8 @@
 <template>
-    <div v-for="comment in comments">
-        <p class="userComments text-text"><b>{{ comment.userName }}</b> {{ comment.text }}</p>
+    <div class="background">
+        <div v-for="comment in comments">
+            <p class="userComments text-text"><b>{{ comment.userName }}</b> {{ comment.text }}</p>
+        </div>
     </div>
 </template>
 <script setup>
@@ -16,7 +18,6 @@ const props = defineProps({
 onMounted(async () => {
     try {
         comments.value = await funcionsCM.getCommentsByIdPost(props.post.id)
-        console.log(comments.value)
     } catch (error) {
         console.error(error)
     }
@@ -24,9 +25,12 @@ onMounted(async () => {
 </script>
 <style scoped>
 .userComments {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.background {
+    background-color: aqua
 }
 </style>
