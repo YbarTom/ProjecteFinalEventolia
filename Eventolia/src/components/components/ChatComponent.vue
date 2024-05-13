@@ -209,7 +209,6 @@ li {
   width: 70%;
 }
 
-.background-color-1 {}
 
 .background-color-2 {
   background-color: green;
