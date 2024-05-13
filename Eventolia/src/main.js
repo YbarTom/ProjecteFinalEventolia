@@ -5,6 +5,8 @@
  */
 
 // Plugins
+import 'leaflet/dist/leaflet.css';
+
 import { registerPlugins } from '@/plugins'
 
 // Components
