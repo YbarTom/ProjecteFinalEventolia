@@ -108,6 +108,18 @@ app.post("/getUserByName", async (req, res) => {
     }
 })
 
+app.post("/getUserByEmailName", async (req, res) => {
+    try {
+        const email = req.body.email
+        console.log(email)
+        const user = await usersDB.getUserByEmail(email)
+        res.status(200).json(user.userName);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting user" });
+    }
+})
+
+
 app.post("/followUser", async (req, res) => {
     try {
         const data = req.body.data
