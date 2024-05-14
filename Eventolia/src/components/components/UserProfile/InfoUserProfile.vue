@@ -25,7 +25,7 @@ const props = defineProps({
 const isDesktop = ref(window.innerWidth > 800);
 
 const updateWidth = () => {
-  isDesktop.value = window.innerWidth > 800; 
+  isDesktop.value = window.innerWidth > 800;
 };
 
 onMounted(() => {
