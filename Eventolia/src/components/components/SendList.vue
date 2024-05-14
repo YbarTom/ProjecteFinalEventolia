@@ -1,27 +1,74 @@
 <template>
-  <div class="background">
-
+  <div class="background bg-background">
+    <div class="chat-container">
+      <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]" />
+    </div>
   </div>
 </template>
-<script setup>
-import { ref, onMounted, defineProps } from 'vue';
-import * as funcionsCM from '../../communicationsManager.js'
 
-const comments = ref([])
+<script>
+import { ref, onMounted } from 'vue';
+import { io } from 'socket.io-client';
+import UserChat from './UserChat.vue';
+import { useAppStore } from '@/stores/app.js';
+import * as funcionsCM from '../../communicationsManager.js';
 
-const props = defineProps({
-  post: Object
-})
+export default {
+  components: {
+    UserChat,
+  },
+  setup() {
+    const socket = io('http://localhost:3001');
+    const messages = ref([]);
+    const newMessage = ref('');
+    const selectedUser = ref(null);
+    const myUser = ref(useAppStore().getUser().email);
+    const myChats = ref([]);
 
-onMounted(async () => {
+    const loadMyChats = async () => {
+      try {
+        const data = await funcionsCM.getChats();
+        myChats.value = data.map(chat => {
+          return {
+            ...chat,
+            users: chat.users.filter(user => user !== myUser.value)
+          };
+        });
 
-})
+        for (const chat of myChats.value) {
+          const nombre = await funcionsCM.getUserByEmailName(chat.users[0]);
+          chat.users[0] = nombre;
+        }
+      } catch (error) {
+        console.error('Error loading chats:', error);
+      }
+    };
+
+    onMounted(() => {
+      loadMyChats();
+    });
+
+    return {
+      messages,
+      newMessage,
+      selectedUser,
+      myUser,
+      myChats,
+    };
+  }
+};
 </script>
-<style scoped>
 
+<style scoped>
 .background {
-  background-color: aqua;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

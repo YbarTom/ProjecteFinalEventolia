@@ -41,7 +41,7 @@ const props = defineProps({
 
 }
 .imagen {
-  margin-top: -300px;
+  margin-top: -50%;
   width:79%;
   flex: 1;
   /* Ambos elementos ocupan la misma fracción del espacio disponible */
