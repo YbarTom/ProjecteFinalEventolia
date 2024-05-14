@@ -239,11 +239,7 @@ function editUserName(idUser, newUserName) {
         usersCollection
             .updateOne({ id: idUser }, { $set: { userName: newUserName } })
             .then((result) => {
-                if (result.modifiedCount > 0) {
-                    resolve("UserName updated successfully");
-                } else {
-                    reject("No matching document found for id: " + idUser);
-                }
+                resolve(result.modifiedCount + "UserName updated successfully");
             })
             .catch((error) => {
                 console.error("Error updating UserName: ", error);

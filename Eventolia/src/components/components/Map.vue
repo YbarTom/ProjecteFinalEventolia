@@ -130,6 +130,6 @@ export default {
 
 <style scoped>
 #map {
-  height: 80vh;
+  height: 70vh;
 }
 </style>

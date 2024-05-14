@@ -174,7 +174,9 @@ app.post("/editPassword", async (req, res) => {
     try {
         const data = req.body.data
         usersDB.editPassword(data.idUser, data.password)
-        res.status(200);
+        const user = await usersDB.getUserById(data.idUser)
+
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: "Error editing password" });
     }
@@ -187,7 +189,10 @@ app.post("/editUserName", async (req, res) => {
         postsDB.editUserName(data.idUser, data.userName)
         eventsDB.editUserName(data.idUser, data.userName)
         commentsDB.editUserName(data.idUser, data.userName)
-        res.status(200);
+
+        const user = await usersDB.getUserById(data.idUser)
+
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: "Error editing userName" });
     }

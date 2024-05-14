@@ -14,7 +14,9 @@ import { ref } from 'vue'
 import TextField from '@/components/components/Log_Reg/TextField.vue'
 import { useAppStore } from '@/stores/app';
 import * as funcionsCM from '@/communicationsManager.js'
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const appStore = useAppStore()
 const password = ref("")
 const password2 = ref("")
@@ -24,8 +26,10 @@ const checkError = ref(false)
 
 async function editUser() {
 
+    var response = appStore.getUser()
+
     if (password.value === "" && userName.value !== "") {
-        funcionsCM.editUserName({idUser: appStore.getUserId(), userName: userName.value})
+        response = await funcionsCM.editUserName({idUser: appStore.getUserId(), userName: userName.value})
     }
     else if (password.value !== "" && userName.value !== "") {
         if (password.value !== password2.value) {
@@ -34,7 +38,7 @@ async function editUser() {
         }
         else {
             funcionsCM.editPassword({idUser: appStore.getUserId(), password: password.value})
-            funcionsCM.editUserName({idUser: appStore.getUserId(), userName: userName.value})
+            response = await funcionsCM.editUserName({idUser: appStore.getUserId(), userName: userName.value})
         }
     }
     else if (password.value !== "" && userName.value === "") {
@@ -43,9 +47,13 @@ async function editUser() {
             checkError.value = true
         }
         else {
-            funcionsCM.editPassword({idUser: appStore.getUserId(), password: password.value})
+            response = await funcionsCM.editPassword({idUser: appStore.getUserId(), password: password.value})
         }
     }
+
+    appStore.setUser(response)
+    console.log(response)
+    router.push('/MainPage')
 }
 </script>
 <style scoped></style>
