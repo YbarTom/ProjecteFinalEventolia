@@ -7,6 +7,9 @@
     </div>
 
     <div ref="commentsDiv" class="comments-div bg-principal">
+
+      <p class="likes text-text"><b>{{ props.post.likes.lenght }}</b></p>
+      <p class="userComments text-text"><b>{{ props.post.description }}</b></p>
       <div class="commentsButtons">
         <div class="left">
           <buttonPublication type="heart" />
@@ -18,8 +21,6 @@
           <buttonPublication type="save" />
         </div>
       </div>
-      <p class="likes text-text"><b>{{ props.post.likes.lenght }}</b></p>
-      <p class="userComments text-text"><b>{{ props.post.caption }}</b></p>
     </div>
     <div class="centerImage">
       <img ref="image" :src=props.post.image alt="Imagen de perfil"
@@ -34,7 +35,7 @@
       <addPostMobile idEvent="1b6g3zkr11zilvw1ato4" @close-dialog="boolean = false"/>
     </v-dialog>
     </div>
-    
+
   </div>
 
 </template>
@@ -51,7 +52,7 @@ const commentsDiv = ref(null);
 const boolean = ref(false);
 
 const props = defineProps({
-  post: Object  
+  post: Object
 })
 
 console.log(props.post)
@@ -59,7 +60,7 @@ console.log(props.post)
 const isDesktop = ref(window.innerWidth > 800);
 
 const updateWidth = () => {
-  isDesktop.value = window.innerWidth > 800; 
+  isDesktop.value = window.innerWidth > 800;
 };
 
 onMounted(() => {
@@ -152,7 +153,7 @@ margin-right: 10px;
 .comments-div {
 position: relative;
 width: 100%;
-height: 180px;
+max-height: 180px;
 border-radius: 0 0 8px 8px;
 }
 

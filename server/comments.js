@@ -70,7 +70,28 @@ function getCommentsByIdPost(idPost) {
     })
 }
 
+function editUserName(idUser, newUserName) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                commentsCollection.updateMany({ idUser: idUser }, { $set: { userName: newUserName } })
+                    .then((result) => {
+                        resolve(result.modifiedCount + " events updated successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error updating events: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 module.exports = {
     createComment,
-    getCommentsByIdPost
+    getCommentsByIdPost,
+    editUserName
 }

@@ -124,11 +124,13 @@ export async function unfollowUser(data) {
 
 export async function editUserName(data) {
   try {
-    fetch(`${SERVER_URL}/editUserName`,
+    const response = await fetch(`${SERVER_URL}/editUserName`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
       });
+      const user = await response.json()
+      return user;
   } catch (error) {
     console.log("Error editing user CM");
     throw error;
@@ -137,11 +139,13 @@ export async function editUserName(data) {
 
 export async function editPassword(data) {
   try {
-    fetch(`${SERVER_URL}/editPassword`,
+    const response = await fetch(`${SERVER_URL}/editPassword`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
       });
+      const user = await response.json()
+      return user
   } catch (error) {
     console.log("Error editing user CM");
     throw error;
@@ -347,5 +351,21 @@ export async function searchLocation(addressQuery) {
     }
   } catch (error) {
     throw new Error("Error al obtener la ubicación: " + error.message);
+  }
+}
+
+export async function getUserByEmailName(email) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getUserByEmailName`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Get user by email Error CM");
+    throw error;
   }
 }

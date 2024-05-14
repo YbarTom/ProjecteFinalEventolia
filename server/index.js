@@ -108,6 +108,18 @@ app.post("/getUserByName", async (req, res) => {
     }
 })
 
+app.post("/getUserByEmailName", async (req, res) => {
+    try {
+        const email = req.body.email
+        console.log(email)
+        const user = await usersDB.getUserByEmail(email)
+        res.status(200).json(user.userName);
+    } catch (error) {
+        res.status(500).json({ error: "Error getting user" });
+    }
+})
+
+
 app.post("/followUser", async (req, res) => {
     try {
         const data = req.body.data
@@ -174,7 +186,9 @@ app.post("/editPassword", async (req, res) => {
     try {
         const data = req.body.data
         usersDB.editPassword(data.idUser, data.password)
-        res.status(200);
+        const user = await usersDB.getUserById(data.idUser)
+
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: "Error editing password" });
     }
@@ -186,7 +200,11 @@ app.post("/editUserName", async (req, res) => {
         usersDB.editUserName(data.idUser, data.userName)
         postsDB.editUserName(data.idUser, data.userName)
         eventsDB.editUserName(data.idUser, data.userName)
-        res.status(200);
+        commentsDB.editUserName(data.idUser, data.userName)
+
+        const user = await usersDB.getUserById(data.idUser)
+
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: "Error editing userName" });
     }

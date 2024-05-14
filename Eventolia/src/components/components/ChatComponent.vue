@@ -42,12 +42,12 @@ export default {
     const messages = ref([]);
     const newMessage = ref('');
     const selectedUser = ref(null);
-    const myUser = ref(useAppStore().getUser().userName);
+    const myUser = ref(useAppStore().getUser().email);
     const myChats = ref([]);
 
     const closeChat = () => {
       selectedUser.value = null;
-      messages.value = []; 
+      messages.value = [];
     };
 
     const loadMyChats = async () => {
@@ -59,6 +59,10 @@ export default {
             users: chat.users.filter(user => user !== myUser.value)
           };
         });
+
+        myChats.value.forEach(async chat => {
+          const nombre = await funcionsCM.getUserByEmailName(chat.users[0]);
+          chat.users[0] = nombre;});
       } catch (error) {
         console.error('Error loading chats:', error);
       }
