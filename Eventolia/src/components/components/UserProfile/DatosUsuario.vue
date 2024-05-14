@@ -159,4 +159,8 @@ async function followState() {
   margin: 10px;
 }
 
+.btn-seguir {
+margin-bottom: 100px;
+}
+
 </style>
