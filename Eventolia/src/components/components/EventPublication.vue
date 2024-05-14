@@ -71,6 +71,19 @@ const updateWidth = () => {
 
 onMounted(() => {
   window.addEventListener('resize', updateWidth);
+
+  try {
+    console.log(props.post)
+    const appStore = useAppStore()
+    const user = appStore.getUser()
+    for (let i = 0; i < props.post.assistants.length; i++) {
+      if (props.post.assistants[i] == user.id) {
+        assistCheck.value = true
+      }
+    }
+  } catch (error) {
+    console.error(error)
+  }
 });
 
 onUnmounted(() => {
@@ -111,14 +124,14 @@ async function addAssistant() {
   const appStore = useAppStore()
   const user = appStore.getUser()
 
-  if (likeCheck.value) {
-    await funcionsCM.dislikePost({ idUser: user.id, idPost: props.post.id })
-    props.post.likes = props.post.likes.filter(item => item !== user.id);
-    likeCheck.value = false
-  } else {
-    await funcionsCM.likePost({ idUser: user.id, idPost: props.post.id })
-    props.post.likes.push(user.id)
-    likeCheck.value = true
+  if (assistCheck.value) {
+    await funcionsCM.removeAssist({ idUser: user.id, idEvent: props.post.id })    
+    props.post.assistants = props.post.assistants.filter(item => item !== user.id);
+    assistCheck.value = false
+  } else if(!assistCheck.value && props.post.assistantsMax !== props.post.assistants.length){
+    await funcionsCM.addAssist({ idUser: user.id, idEvent: props.post.id })
+    props.post.assistants.push(user.id)
+    assistCheck.value = true
   }
 }
 
