@@ -61,6 +61,7 @@ const sendPost = ref(false)
 
 onMounted(async () => {
   try {
+    console.log(props.post)
     const appStore = useAppStore()
     const user = appStore.getUser()
     for (let i = 0; i < props.post.likes.length; i++) {

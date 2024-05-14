@@ -52,7 +52,6 @@ async function editUser() {
     }
 
     appStore.setUser(response)
-    console.log(response)
     router.push('/MainPage')
 }
 </script>

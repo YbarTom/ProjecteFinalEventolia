@@ -289,6 +289,7 @@ app.post("/dislikePost", async (req, res) => {
     }
 })
 
+
 app.post("/createPost", async (req, res) => {
     try {
         const post = req.body.post
@@ -377,6 +378,28 @@ app.post("/createEvent", async (req, res) => {
         res.status(200).json({ message: "Event created successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error creating event" });
+    }
+})
+
+app.post("/addAssist", async (req, res) => {
+    try {
+        const data = req.body.assistInfo
+        console.log(data)
+        await eventsDB.addAssist(data.idEvent, data.idUser)
+        res.status(200).json({ message: "Assistance updated successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error assistance update" });
+    }
+})
+
+app.post("/removeAssist", async (req, res) => {
+    try {
+        const data = req.body.assistInfo
+
+        await eventsDB.removeAssist(data.idEvent, data.idUser)
+        res.status(200).json({ message: "Assistance updated successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error assistance update" });
     }
 })
 

@@ -332,6 +332,36 @@ export async function dislikePost(likeInfo) {
   }
 }
 
+export async function addAssist(assistInfo) {
+  try {
+    const response = await fetch(`${SERVER_URL}/addAssist`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assistInfo })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Assist event Error CM");
+    throw error;
+  }
+}
+
+export async function removeAssist(assistInfo) {
+  try {
+    const response = await fetch(`${SERVER_URL}/removeAssist`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assistInfo })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Assist event Error CM");
+    throw error;
+  }
+}
+
 export async function searchLocation(addressQuery) {
   const apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
     addressQuery

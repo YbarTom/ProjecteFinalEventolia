@@ -161,11 +161,65 @@ function getEvents() {
             });
     });
 }
+
+function addAssist(idEvent, idUser) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                eventsCollection
+                    .updateOne(
+                        { id: idEvent },
+                        { $push: { assistants: idUser } }
+                    )
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        console.error("Error adding assistant: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+function removeAssist(idEvent, idUser) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                eventsCollection
+                    .updateOne(
+                        { id: idEvent },
+                        { $pull: { assistants: idUser } }
+                    )
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        console.error("Error removing assistant: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
+
 module.exports = {
     createEvent,
     getEventsByIdUser,
     getEventById,
     getEventsByIdUsers,
     getEvents,
-    editUserName
+    editUserName,
+    addAssist,
+    removeAssist
 }
