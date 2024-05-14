@@ -59,6 +59,10 @@ export default {
             users: chat.users.filter(user => user !== myUser.value)
           };
         });
+
+        myChats.value.forEach(async chat => {
+          const nombre = await funcionsCM.getUserByEmailName(chat.users[0]);
+          chat.users[0] = nombre;});
       } catch (error) {
         console.error('Error loading chats:', error);
       }

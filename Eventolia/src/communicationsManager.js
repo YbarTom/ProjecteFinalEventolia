@@ -353,3 +353,19 @@ export async function searchLocation(addressQuery) {
     throw new Error("Error al obtener la ubicación: " + error.message);
   }
 }
+
+export async function getUserByEmailName(email) {
+  try {
+    const response = await fetch(`${SERVER_URL}/getUserByEmailName`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Get user by email Error CM");
+    throw error;
+  }
+}
