@@ -31,12 +31,16 @@
         <v-dialog v-model="seeComments" width="79%">
           <commentList :post="props.post" />
         </v-dialog>
+        <v-dialog v-model="sendPost" width="79%">
+          <SendList  />
+        </v-dialog>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import SendList from "./SendList.vue"
 import Foto from "@/components/components/foto.vue";
 import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from "@/stores/app";

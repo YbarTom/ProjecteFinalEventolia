@@ -42,12 +42,12 @@ export default {
     const messages = ref([]);
     const newMessage = ref('');
     const selectedUser = ref(null);
-    const myUser = ref(useAppStore().getUser().userName);
+    const myUser = ref(useAppStore().getUser().email);
     const myChats = ref([]);
 
     const closeChat = () => {
       selectedUser.value = null;
-      messages.value = []; 
+      messages.value = [];
     };
 
     const loadMyChats = async () => {

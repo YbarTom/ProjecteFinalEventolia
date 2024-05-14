@@ -44,6 +44,7 @@ import ButtonFollow from './ButtonFollow.vue';
 import { useAppStore } from '@/stores/app';
 import passwordCheck from '@/components/components/UserProfile/passwordCheck.vue'
 
+
 const props = defineProps({
   userProfile: Object,
   ownProfile: Boolean
