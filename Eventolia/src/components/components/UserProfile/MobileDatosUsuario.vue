@@ -1,30 +1,27 @@
 <template>
-  <div style="margin-left: 45%; ">
-    <ImagenUsuario />
-</div>
   <div class="usuario-info">
-    <h1 class="nombreUsuario">{{ props.userProfile.userName }}</h1>
+    <h1>{{ props.userProfile.userName }}</h1>
   </div>
   <div class="numeros-usu">
-    <div class="item">
+    <div>
       <button @click="mostrarPopUp(props.userProfile.followed, 1)">
         <h3>Seguidos</h3>
         <h3>{{ props.userProfile.followed.length }}</h3>
       </button>
     </div>
-    <div class="item">
+    <div>
       <button @click="mostrarPopUp(props.userProfile.followers, 2)">
         <h3>Seguidores</h3>
         <h3>{{ props.userProfile.followers.length }}</h3>
       </button>
     </div>
-    <div class="item">
+    <div>
       <h3>Publicaciones</h3>
       <h3>{{ props.userProfile.posts.length + props.userProfile.events.length }}</h3>
     </div>
   </div>
   <div class="btn-seguir">
-    <ButtonFollow :text="buttonText" @click="followState" />
+    <h2><ButtonFollow :text="buttonText" @click="followState" /></h2>
   </div>
 
   <v-dialog v-model="showPopUp" width="79%">
@@ -38,7 +35,6 @@
 
 <script setup>
 import ImagenUsuario from '@/components/components/foto.vue'
-import BtnSeguir from '@/components/components/UserProfile/btnSeguir.vue'
 import PopUpUsers from './PopUpUsers.vue';
 import { defineProps, onMounted } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
@@ -138,42 +134,53 @@ async function followState() {
 
 
 <style scoped>
-.usuario-info {
-  display: flex;
-  align-items: center;
+
+.btn-seguir{
+  justify-content: center;
+  margin-left: 23%;
 }
 
-.usuario-info h1 {
-  margin-left: 20px;
-  text-align: center;
-  flex-grow: 1;
-  /* Permite que el título ocupe todo el espacio restante */
+.usuario-info h1{
+  font-size: 50px;
+  margin-left: 22%;
 }
 
 .numeros-usu {
   display: flex;
-  justify-content: center; /* Esto centrará los elementos horizontalmente */
-  align-items: center; /* Esto centrará los elementos verticalmente */
-  margin-left: 20%;
-
-  
+  align-items: center;
+  margin-left: 10%;
 }
 
-.nombreUsuario {
-
-  margin-right:-60px;
-  margin-bottom: 40px;
+.numeros-usu h3 {
+  font-size: 18px;
+  margin-left: 10px;
 }
 
-.item {
-  flex: 1 0 auto;
-  text-align: center;
-  margin-left: 15px;
+@media (min-width: 300px) {
+  .numeros-usu h3 {
+    font-size: 18px;
+  }
+  .usuario-info h1{
+  font-size: 40px;
+  }
 }
 
-.btn-seguir {
-  margin-top: 20px;
-  margin-left: 15%;
+@media (min-width: 400px) {
+  .numeros-usu h3 {
+    font-size: 28px;
+  }
+  .usuario-info h1{
+  font-size: 50px;
+}
 }
 
+/* Cuando la pantalla tiene al menos 1200px de ancho */
+@media (min-width: 700px) {
+  .numeros-usu h3 {
+    font-size: 40px;
+  }
+  .usuario-info h1{
+  font-size: 50px;
+}
+}
 </style>
