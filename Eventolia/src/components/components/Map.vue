@@ -8,6 +8,8 @@
       <option value="5">5 km</option>
       <option value="10">10 km</option>
       <option value="1000">1000 km</option>
+      <option value="10000">10000 km</option>
+
       <!-- Agrega más opciones según sea necesario -->
     </select>
 
@@ -128,6 +130,6 @@ export default {
 
 <style scoped>
 #map {
-  height: 400px;
+  height: 80vh;
 }
 </style>
