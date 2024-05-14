@@ -9,7 +9,6 @@
       <button class="button" @click="map = !map">Botón 1</button>
     </div>
     <div class="grid" ref="grid" v-if="map">
-      <!-- Aquí puedes agregar el contenido de las columnas -->
       <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
     </div>
     <div class="map" v-else>
@@ -67,11 +66,9 @@ const adjustGridItemHeight = () => {
 
 onMounted(async () => {
   try {
-    const dataPosts = await funcionsCM.getPostsEvents();
-    //const dataEvents = await funcionsCM.getEvents();
-    publicacions.value = dataPosts;
-    console.log(publicacions.value);
-
+    const dataEvents = await funcionsCM.getEvents();
+    publicacions.value = dataEvents;
+    console.log(publicacions.value)
     // Esperar a que todas las imágenes se carguen antes de ajustar la altura de los elementos
     await Promise.all(Array.from(document.querySelectorAll('.grid-item img')).map(img => img.complete ? Promise.resolve() : new Promise(resolve => img.addEventListener('load', resolve))));
     adjustGridItemHeight();
