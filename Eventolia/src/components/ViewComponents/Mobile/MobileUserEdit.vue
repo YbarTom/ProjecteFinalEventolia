@@ -9,7 +9,7 @@
       <p v-if="checkError" class="error-message">{{ errorMessage }}</p>
     </div>
   </template>
-
+  
 <script setup>
 import { ref } from 'vue'
 import TextField from '@/components/components/Log_Reg/TextField.vue'
@@ -51,11 +51,11 @@ async function editUser() {
             response = await funcionsCM.editPassword({idUser: appStore.getUserId(), password: password.value})
         }
     }
-
     appStore.setUser(response)
     router.push('/MainPage')
 }
 </script>
+
 
 <style scoped>
 .form-container {
@@ -83,4 +83,3 @@ async function editUser() {
   margin-bottom: 10px;
 }
 </style>
-
