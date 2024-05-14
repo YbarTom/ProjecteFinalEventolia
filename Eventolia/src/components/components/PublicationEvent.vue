@@ -16,7 +16,7 @@
     <div v-if="showText">
       <p class="definition">{{ event.description }}</p>
     </div>
-    <SimplePublication :key="post.id" :post="post" />
+    <SimplePublication :key="props.post.id" :post="props.post" />
   </div>
 </template>
 
@@ -39,6 +39,7 @@ onMounted(async () => {
   try {
     const data = await funcionsCM.getEventInfo(props.post.idEvent);
     event.value = data;
+    console.log(event.value)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
