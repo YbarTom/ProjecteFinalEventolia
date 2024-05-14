@@ -186,6 +186,7 @@ app.post("/editUserName", async (req, res) => {
         usersDB.editUserName(data.idUser, data.userName)
         postsDB.editUserName(data.idUser, data.userName)
         eventsDB.editUserName(data.idUser, data.userName)
+        commentsDB.editUserName(data.idUser, data.userName)
         res.status(200);
     } catch (error) {
         res.status(500).json({ error: "Error editing userName" });
