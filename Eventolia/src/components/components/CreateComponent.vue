@@ -70,9 +70,7 @@ const handleImageUpload = (event) => {
 const createEvent = async () => {
   try {
     const appStore = useAppStore()
-    const user = { id: "zi0s21h26zlvm89j9d", userName: "user1", email: "user1@gmail.com", password: "password1", followers: [], followed: [], posts: [], events: [], profilePic: "", privacity: false }
-    appStore.setUser()
-    //const user = appStore.getUser()
+    const user = appStore.getUser()
 
     const event = {
       idUser: user.id,
@@ -84,7 +82,8 @@ const createEvent = async () => {
       startDate: startDate.value,
       endDate: endDate.value,
       categories: [],
-      location: Address.value
+      location: Address.value,
+      type: "eventPublication"
     }
 
     const coordinates = await funcionsCM.searchLocation(Address.value);

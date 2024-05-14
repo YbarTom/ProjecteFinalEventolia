@@ -17,14 +17,16 @@ const icono = ref('');
 
 if (props.type === 'heart') {
   icono.value = "mdi-heart-outline";
-}else if (props.type === 'chat') {
+} else if (props.type === 'chat') {
   icono.value = "mdi-chat-outline";
-}else if (props.type === 'send') {
+} else if (props.type === 'send') {
   icono.value = "mdi-send";
-}else if (props.type === 'save') {
+} else if (props.type === 'save') {
   icono.value = "mdi-bookmark-outline";
-}else if (props.type === 'add') {
+} else if (props.type === 'add') {
   icono.value = "mdi-plus-box-outline";
+} else if (props.type === 'assistantPlus') {
+  icono.value = "mdi-account-multiple-plus";
 }
 
 const handleClick = () => {
@@ -38,6 +40,7 @@ const handleClick = () => {
 .svg-container {
   display: flex;
   align-items: center;
-  margin-right: 10px; /* Ajusta el espacio entre el icono y el texto */
+  margin-right: 10px;
+  /* Ajusta el espacio entre el icono y el texto */
 }
 </style>
