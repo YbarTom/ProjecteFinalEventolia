@@ -22,8 +22,8 @@
         <p class="likes text-text"><b>{{ post.likes.length }} likes</b></p>
         <p class="userComments text-text"><b>{{ post.userName }}</b> {{ post.caption }}</p>
         <div class="commentField">
-          <TextField text="comment" v-model="comment" />
-          <buttonPublication type="send" @click="createComment" />
+          <TextFieldComment text="comment" v-model="comment" />
+          <buttonPublication class="send" type="send" @click="createComment" />
         </div>
         <div>
           <p style="margin-left: 10px;"    @click="seeComments=true">See all comments</p>
@@ -42,7 +42,7 @@ import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from "@/stores/app";
 import { ref, onMounted } from 'vue';
 import buttonPublication from './buttonPublication.vue';
-import TextField from "./Log_Reg/TextField.vue";
+import TextField from "./TextFieldComment.vue";
 import commentList from "@/components/components/commentList.vue"
 
 const divExterior = ref(null);
@@ -125,6 +125,9 @@ async function createComment() {
 
 
 <style scoped>
+.send {
+  margin-right: 30px;
+}
 .centerImage {
   display: flex;
   justify-content: center;
@@ -154,8 +157,8 @@ async function createComment() {
 }
 
 .commentField {
-  width: 80%;
-  margin-left: 5%;
+  width: 100%;
+  margin-left: 10px;
   display: flex;
   margin-top: -5%;
 }
