@@ -158,4 +158,5 @@ async function followState() {
 .numeros-usu>div {
   margin: 10px;
 }
+
 </style>

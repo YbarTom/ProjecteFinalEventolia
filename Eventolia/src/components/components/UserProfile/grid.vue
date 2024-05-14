@@ -54,9 +54,9 @@ const seePost = (post) => {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
-  width: 140%;
-  
-  max-height: calc(200vh - 150px);
+  width: 100%;
+  max-height: calc(100vh - 150px);
+  /* Altura máxima del grid, ajustada por la altura de los botones */
   overflow-y: auto;
 }
 
