@@ -26,7 +26,7 @@
           <buttonPublication type="send" @click="createComment" />
         </div>
         <div>
-          <p @click="seeComments=true">See all comments</p>
+          <p style="margin-left: 10px;"    @click="seeComments=true">See all comments</p>
         </div>
         <v-dialog v-model="seeComments" width="79%">
           <commentList :post="props.post" />
