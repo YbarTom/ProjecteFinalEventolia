@@ -19,7 +19,7 @@
         </div>
       </div>
       <p class="likes text-text"><b>{{ props.post.likes.lenght }}</b></p>
-      <p class="userComments text-text"><b>{{ props.post.caption }}</b></p>
+      <p class="userComments text-text"><b>{{ props.post.description }}</b></p>
     </div>
     <div class="centerImage">
       <img ref="image" :src=props.post.image alt="Imagen de perfil"

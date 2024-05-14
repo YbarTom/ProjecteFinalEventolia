@@ -45,9 +45,7 @@ export default {
         if (response.id) {
           appStore.setUser(response);
           this.$router.push('/MainPage');
-        } else {
-          console.log("AAAA");
-        }
+        } 
       } catch (error) {
         console.error('Login Error: ', error);
       }

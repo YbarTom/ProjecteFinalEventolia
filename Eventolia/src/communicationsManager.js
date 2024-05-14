@@ -124,11 +124,13 @@ export async function unfollowUser(data) {
 
 export async function editUserName(data) {
   try {
-    fetch(`${SERVER_URL}/editUserName`,
+    const response = await fetch(`${SERVER_URL}/editUserName`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
       });
+      const user = await response.json()
+      return user;
   } catch (error) {
     console.log("Error editing user CM");
     throw error;
@@ -137,11 +139,13 @@ export async function editUserName(data) {
 
 export async function editPassword(data) {
   try {
-    fetch(`${SERVER_URL}/editPassword`,
+    const response = await fetch(`${SERVER_URL}/editPassword`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
       });
+      const user = await response.json()
+      return user
   } catch (error) {
     console.log("Error editing user CM");
     throw error;

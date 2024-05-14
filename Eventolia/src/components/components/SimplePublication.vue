@@ -1,7 +1,7 @@
 <template>
   <div class="width">
     <div ref="divExterior" class="div-exterior bg-principal">
-      <div class="profile-div">
+      <div class="profile-div" @click="router.push('/userprofile/' + post.userName)">
         <div class="perfil-img"></div>
         <p><b>{{ post.userName }}</b></p>
       </div>
@@ -44,7 +44,9 @@ import { ref, onMounted } from 'vue';
 import buttonPublication from './buttonPublication.vue';
 import TextField from "./Log_Reg/TextField.vue";
 import commentList from "@/components/components/commentList.vue"
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
