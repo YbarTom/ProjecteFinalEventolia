@@ -12,7 +12,13 @@
       <div class="grid-item" v-for="(publicacion, index) in publicacions" :key="index" :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"></div>
     </div>
     <div class="map" v-else>
-      <Map />
+      <div v-if="isDesktop">
+        <Map/>
+      </div>
+      <div v-else>
+        <MapMovile/>
+      </div>
+
     </div>
   </div>
 </template>
@@ -21,6 +27,7 @@
 import { ref, onMounted, watch,nextTick } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
 import Map from "./Map.vue";
+import MapMovile from "./MapMovile.vue";
 
 const map = ref(true);
 const publicacions = ref([]);

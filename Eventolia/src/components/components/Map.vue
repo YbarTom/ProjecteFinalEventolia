@@ -13,7 +13,7 @@
       <!-- Agrega más opciones según sea necesario -->
     </select>
 
-    <v-dialog v-model="dialogVisible" width="30%">
+    <v-dialog v-model="dialogVisible" width="100%">
       <EventPublication :post="selectedEvent"/> <!-- Pasar selectedEvent en lugar de event -->
     </v-dialog>
   </div>
