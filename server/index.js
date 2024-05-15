@@ -11,6 +11,7 @@ const postsDB = require("./posts.js")
 const eventsDB = require("./events.js")
 const commentsDB = require("./comments.js")
 const chatsDB = require("./chats.js")
+const notificationsDB = require("./notifications.js")
 
 const bodyParserOptions = {
     limit: "50mb" // Cambia el valor según tus necesidades
@@ -124,6 +125,7 @@ app.post("/followUser", async (req, res) => {
     try {
         const data = req.body.data
         await usersDB.followUser(data.idFollower, data.idFollowed)
+        createNotification({type: "follow", follower: data.idFollower, followed: data.idFollowed})
         res.status(200).json({ message: "User followed successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error following user" });
@@ -274,6 +276,7 @@ app.post("/likePost", async (req, res) => {
         const data = req.body.likeInfo
         await postsDB.likePost(data.idUser, data.idPost)
         res.status(200).json({ message: "Post liked successfully" });
+        createNotification({type: "likePost", post: data.idPost, liker: data.idUser})
     } catch (error) {
         res.status(500).json({ error: "Error liking post" });
     }
@@ -386,6 +389,7 @@ app.post("/addAssist", async (req, res) => {
         const data = req.body.assistInfo
         console.log(data)
         await eventsDB.addAssist(data.idEvent, data.idUser)
+        createNotification({type: "newAssist", event: data.idEvent, assistant: data.idUser})
         res.status(200).json({ message: "Assistance updated successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error assistance update" });
@@ -441,6 +445,7 @@ app.post("/createComment", async (req, res) => {
         const data = req.body.comment
         await commentsDB.createComment(data)
         res.status(200).json({ message: "Comment created successfully" });
+        createNotification({type: "newComment", comment: data})
     } catch (error) {
         res.status(500).json({ error: "Error creating comment" });
     }
@@ -456,5 +461,29 @@ app.post("/getCommentsByIdPost", async (req, res) => {
     }
 })
 
-//#region FUNCTIONS:
+//#region NOTIFICATIONS:
 
+async function createNotification(notification) {
+
+    switch(notification.type){
+        case "newComment":
+        const post = await postsDB.getPostsById(notification.comment.idPost)
+        const newNotification = {notificated: post.idUser, type: "newComment", text: notification.comment.text, notificator: notification.comment.userName}
+        console.log(newNotification)
+        break;
+        case "follow":
+        const userFollower = await usersDB.getUserById(notification.follower)
+        newNotification = {notificated: notification.followed, type: "follow", notificator: userFollower.userName}
+        break;
+        case "likePost":
+        post = await postsDB.getPostsById(notification.post)
+        const userLiker = await usersDB.getUserById(notification.liker)
+        newNotification = {notificated: post.idUser, type: "likePost", notificator: userLiker.userName}
+        break;
+        case "newAssist":
+        const event = await eventsDB.getEventById(notification.event)
+        const userAssistant = await usersDB.getUserById(notification.assistant)
+        newNotification = {notificated: event.idUser, type: "newAssist", notificator: userAssistant.userName}
+        break;
+    }
+}
