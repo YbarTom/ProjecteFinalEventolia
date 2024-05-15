@@ -479,25 +479,31 @@ app.post("/getCommentsByIdPost", async (req, res) => {
 
 async function createNotification(notification) {
 
+    var post
+    var newNotification
+
     switch(notification.type){
         case "newComment":
-        const post = await postsDB.getPostsById(notification.comment.idPost)
-        const newNotification = {notificated: post.idUser, type: "newComment", text: notification.comment.text, notificator: notification.comment.userName}
-        console.log(newNotification)
+        post = await postsDB.getPostsById(notification.comment.idPost)
+        newNotification = {notificated: post.idUser, type: "newComment", text: notification.comment.text, notificator: notification.comment.userName}
+        notificationsDB.createNotification(newNotification)
         break;
         case "follow":
         const userFollower = await usersDB.getUserById(notification.follower)
         newNotification = {notificated: notification.followed, type: "follow", notificator: userFollower.userName}
+        notificationsDB.createNotification(newNotification)
         break;
         case "likePost":
         post = await postsDB.getPostsById(notification.post)
         const userLiker = await usersDB.getUserById(notification.liker)
         newNotification = {notificated: post.idUser, type: "likePost", notificator: userLiker.userName}
+        notificationsDB.createNotification(newNotification)
         break;
         case "newAssist":
         const event = await eventsDB.getEventById(notification.event)
         const userAssistant = await usersDB.getUserById(notification.assistant)
         newNotification = {notificated: event.idUser, type: "newAssist", notificator: userAssistant.userName}
+        notificationsDB.createNotification(newNotification)
         break;
     }
 }
