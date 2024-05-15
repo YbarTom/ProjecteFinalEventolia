@@ -10,7 +10,7 @@
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
       <ul>
         <li v-for="(message, index) in messages" :key="index"
-          :class="message.user === myUser ? 'right-message' : 'left-message'">
+          :class="message.user === myUser && message.type==='message' ? 'right-message' : 'left-message'">
 
           <div v-if="message.type === 'message'"
             :class="{ 'width': true, 'bg-principal3': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
