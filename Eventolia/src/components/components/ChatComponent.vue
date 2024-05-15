@@ -232,7 +232,7 @@ li {
 
 .input-container {
   overflow-y: auto;
-  height: calc(100% - 120px);
+  height: calc(100% - 190px);
   width: 70%;
 }
 
