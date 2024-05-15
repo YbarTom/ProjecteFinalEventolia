@@ -13,8 +13,12 @@
           :class="message.user === myUser ? 'right-message' : 'left-message'">
 
           <div v-if="message.type === 'message'"
-            :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+            :class="{ 'width': true, 'bg-principal3': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
             <span class="span ">{{ message.message }}</span>
+          </div>
+          <div v-if="message.type === 'post'"
+          :class="{ 'width': true, 'bg-principal3': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+            <PublicationEvent :post="message.message" />
           </div>
         </li>
       </ul>
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+import PublicationEvent from './PublicationEvent.vue';
 import { ref, onMounted } from 'vue';
 import { io } from 'socket.io-client';
 import UserChat from './UserChat.vue';
@@ -106,6 +111,7 @@ export default {
             };
           });
           messages.value = roomMessages;
+          console.log('roomMessages:', roomMessages);
         } catch (error) {
           console.error('Error loading room messages:', error);
         }
