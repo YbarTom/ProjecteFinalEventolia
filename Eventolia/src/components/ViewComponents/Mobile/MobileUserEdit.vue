@@ -5,6 +5,8 @@
       <TextField v-model="userName" text="New UserName" />
   
       <button class="btn-editar bg-principal" @click="editUser">Edit</button>
+
+      <button class="btn-editar bg-principal" @click="goToUserProfile"> Cerrar </button>
   
       <p v-if="checkError" class="error-message">{{ errorMessage }}</p>
     </div>
@@ -54,12 +56,23 @@ async function editUser() {
     appStore.setUser(response)
     router.push('/MainPage')
 }
+
+async function goToUserProfile() {
+    router.push('/MainPage')
+}
 </script>
 
 
 <style scoped>
 .form-container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Cambiado de relative a absolute */
+  top: 50%; /* Añadido */
+  left: 50%; /* Añadido */
+  transform: translate(-50%, -50%); /* Añadido */
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
