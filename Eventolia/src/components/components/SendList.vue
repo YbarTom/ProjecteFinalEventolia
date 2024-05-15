@@ -1,8 +1,8 @@
 <template>
   <div class="background bg-background">
     <div class="chat-container">
-      <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]" />
-    </div>
+      <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]"
+          :isSelected="selectedUser === chat" @selectUser="selectUser(chat)" />    </div>
   </div>
 </template>
 
@@ -43,7 +43,23 @@ export default {
         console.error('Error loading chats:', error);
       }
     };
-
+    const selectUser = (chat) => {
+      if (selectedUser.value === chat) {
+        selectedUser.value = null;
+      } else {
+        selectedUser.value = chat;
+        // Envía solicitud al servidor para unirse a la sala
+        socket.emit('joinRoom', chat.room); // Envía el nombre de la sala al servidor
+        const message = {
+          user: "user4",
+          message: "holaaaa",
+          room: chat.room // Agrega el nombre de la sala al mensaje
+        };
+        socket.emit('chat message', message);
+        funcionsCM.postMessageChat(chat.room,"holaaa", "user4" );
+        console.log("holaaa")
+      }
+    };
     onMounted(() => {
       loadMyChats();
     });
@@ -54,6 +70,7 @@ export default {
       selectedUser,
       myUser,
       myChats,
+      selectUser,
     };
   }
 };
