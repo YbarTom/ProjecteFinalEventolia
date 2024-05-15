@@ -138,6 +138,11 @@ async function followState() {
 .btn-seguir{
   justify-content: center;
   margin-left: 23%;
+  margin-bottom: 30px;
+  margin-top: 25px;
+}
+.usuario-info{
+  margin-top: 20%;
 }
 
 .usuario-info h1{

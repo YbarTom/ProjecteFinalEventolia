@@ -22,19 +22,7 @@ const props = defineProps({
     ownProfile: Boolean
 })
 
-const isDesktop = ref(window.innerWidth > 800);
 
-const updateWidth = () => {
-  isDesktop.value = window.innerWidth > 800;
-};
-
-onMounted(() => {
-  window.addEventListener('resize', updateWidth);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateWidth);
-});
 
 </script>
 

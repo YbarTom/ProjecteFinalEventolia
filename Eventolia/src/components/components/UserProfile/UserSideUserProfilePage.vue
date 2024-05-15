@@ -1,11 +1,15 @@
 <template>
-    <div>
+    <div  v-if="isDesktop">
         <PanelProfile :userProfile="props.userProfile" :ownProfile="props.ownProfile" :events="props.events" :posts="props.posts"/>
     </div>
-
+    <div  v-else">
+        <PanelProfileMobil :userProfile="props.userProfile" :ownProfile="props.ownProfile" :events="props.events" :posts="props.posts"/>
+    </div>
 </template>
 <script setup>
 import PanelProfile from '@/components/components/UserProfile/PanelProfile.vue'
+import PanelProfileMobil from '@/components/components/UserProfile/PanelProfileMobil.vue'
+
 import { defineProps } from "vue";
 const props = defineProps({
     userProfile: Object,
