@@ -25,6 +25,7 @@ export default {
   },
   props: {
     post: Object,
+    type: String,
   },
   setup(props) {
     const socket = io('http://localhost:3001');
@@ -58,9 +59,13 @@ export default {
         selectedUser.value = chat;
         // Envía solicitud al servidor para unirse a la sala
         socket.emit('joinRoom', chat.room); // Envía el nombre de la sala al servidor
+        let type = "post";
+        if(props.post.type==='eventPublication'){
+          type = "event";
+        }
         const message = {
           user: myUser.value,
-          type: "post",
+          type: type,
           publication: props.post,
           room: chat.room // Agrega el nombre de la sala al mensaje
         };
