@@ -11,7 +11,8 @@
       <ul>
         <li v-for="(message, index) in messages" :key="index"
           :class="message.user === myUser ? 'right-message' : 'left-message'">
-          <div
+
+          <div v-if="message.type === 'message'"
             :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
             <span class="span ">{{ message.message }}</span>
           </div>
@@ -63,6 +64,8 @@ export default {
         myChats.value.forEach(async chat => {
           const nombre = await funcionsCM.getUserByEmailName(chat.users[0]);
           chat.users[0] = nombre;});
+
+
       } catch (error) {
         console.error('Error loading chats:', error);
       }
@@ -76,7 +79,7 @@ export default {
           room: selectedUser.value.room // Agrega el nombre de la sala al mensaje
         };
         socket.emit('chat message', message);
-        funcionsCM.postMessageChat(selectedUser.value.room,newMessage.value, myUser.value );
+        funcionsCM.postMessageChat(selectedUser.value.room,newMessage.value, myUser.value,"message");
         newMessage.value = '';
       }
     };
@@ -98,7 +101,8 @@ export default {
             console.log('message:', message);
             return {
               user: message.sender,
-              message: message.content
+              message: message.content,
+              type: message.type
             };
           });
           messages.value = roomMessages;
