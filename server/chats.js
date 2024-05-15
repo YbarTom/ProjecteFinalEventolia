@@ -39,7 +39,7 @@ function getChatsById(idChat) {
     });
 }
 
-function postMessageChat(room, message, user) {
+function postMessageChat(room, message, user,type) {
     return new Promise((resolve, reject) => {
         client
             .connect()
@@ -47,7 +47,7 @@ function postMessageChat(room, message, user) {
                 chatsCollection.updateOne
                     (
                         { room: room },
-                        { $push: { messages: { sender: user, content: message } } }
+                        { $push: { messages: { sender: user, content: message,type:type } } }
                     )
                     .then((result) => {
                         resolve(result);
@@ -65,7 +65,33 @@ function postMessageChat(room, message, user) {
     );
 }
 
+function postPostChat(room,post,type, user) {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                chatsCollection.updateOne
+                    (
+                        { room: room },
+                        { $push: { messages: { sender: user, content: post, type: type } } }
+                    )
+                    .then((result) => {
+                        resolve(result);
+                    })
+                    .catch((error) => {
+                        console.error("Error posting post: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    }
+    );
+}
 module.exports = {
     getChatsById,
-    postMessageChat
+    postMessageChat,
+    postPostChat
 }

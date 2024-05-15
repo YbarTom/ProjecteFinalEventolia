@@ -32,7 +32,7 @@
           <commentList :post="props.post" />
         </v-dialog>
         <v-dialog v-model="sendPost" >
-          <SendList />
+          <SendList :post="props.post"/>
         </v-dialog>
       </div>
     </div>

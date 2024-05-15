@@ -1,7 +1,13 @@
 <template>
   <div class="background bg-background">
     <div class="chat-container">
-      <UserChat v-for="(chat, index) in myChats" :key="index" :buttonText="chat.users[0]" />
+      <UserChat
+        v-for="(chat, index) in myChats"
+        :key="index"
+        :buttonText="chat.users[0]"
+        :isSelected="selectedUser === chat"
+        @selectUser="selectUser(chat)"
+      />
     </div>
   </div>
 </template>
@@ -17,7 +23,11 @@ export default {
   components: {
     UserChat,
   },
-  setup() {
+  props: {
+    post: Object,
+    type: String,
+  },
+  setup(props) {
     const socket = io('http://localhost:3001');
     const messages = ref([]);
     const newMessage = ref('');
@@ -28,19 +38,40 @@ export default {
     const loadMyChats = async () => {
       try {
         const data = await funcionsCM.getChats();
-        myChats.value = data.map(chat => {
+        myChats.value = await Promise.all(data.map(async (chat) => {
+          const users = chat.users.filter(user => user !== myUser.value);
+          const userNamePromises = users.map(user => funcionsCM.getUserByEmailName(user));
+          const userNames = await Promise.all(userNamePromises);
           return {
             ...chat,
-            users: chat.users.filter(user => user !== myUser.value)
+            users: userNames,
           };
-        });
-
-        for (const chat of myChats.value) {
-          const nombre = await funcionsCM.getUserByEmailName(chat.users[0]);
-          chat.users[0] = nombre;
-        }
+        }));
       } catch (error) {
         console.error('Error loading chats:', error);
+      }
+    };
+
+    const selectUser = (chat) => {
+      if (selectedUser.value === chat) {
+        selectedUser.value = null;
+      } else {
+        selectedUser.value = chat;
+        // Envía solicitud al servidor para unirse a la sala
+        socket.emit('joinRoom', chat.room); // Envía el nombre de la sala al servidor
+        let type = "post";
+        if(props.post.type==='eventPublication'){
+          type = "event";
+        }
+        const message = {
+          user: myUser.value,
+          type: type,
+          publication: props.post,
+          room: chat.room // Agrega el nombre de la sala al mensaje
+        };
+        socket.emit('chat message', message);
+        funcionsCM.postPostChat(chat.room, message.publication, message.type,message.user);
+        console.log("holaaa");
       }
     };
 
@@ -54,6 +85,7 @@ export default {
       selectedUser,
       myUser,
       myChats,
+      selectUser,
     };
   }
 };
@@ -64,6 +96,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .chat-container {

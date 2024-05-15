@@ -35,18 +35,32 @@ export async function getPostsEvents() {
 
 }
 
-export async function postMessageChat(room, message, user) {
+export async function postMessageChat(room, message, user,type) {
 
   try {
     fetch(`${SERVER_URL}/postMessageChat`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ room: room, message: message, user: user })
+        body: JSON.stringify({ room: room, message: message, user: user, type: type})
       });
   } catch (error) {
     console.log("Error al enviar mensaje CM");
     throw error;
   }
+}
+
+export async function postPostChat(room, post, type,user) {
+
+    try {
+      fetch(`${SERVER_URL}/postPostChat`,
+        {
+          method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ room: room, post: post, type: type, user: user })
+        });
+    } catch (error) {
+      console.log("Error al enviar mensaje CM");
+      throw error;
+    }
 }
 
 export async function getChats() {

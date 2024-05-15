@@ -17,7 +17,7 @@
         <div class="left">
           <buttonPublication type="heart" />
           <buttonPublication type="chat" />
-          <buttonPublication type="send" />
+          <buttonPublication type="send" @click="sendPost=true"/>
           <buttonPublication type="add" :onClick="createPost" />
           <buttonPublication type="assistantPlus" :onClick="addAssistant" />
         </div>
@@ -38,7 +38,9 @@
         <addPostMobile :idEvent="props.post.id" @close-dialog="boolean = false" />
       </v-dialog>
     </div>
-
+    <v-dialog v-model="sendPost" >
+          <SendList :post="props.post"/>
+        </v-dialog>
   </div>
 
 </template>
@@ -46,6 +48,7 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 import buttonPublication from './buttonPublication.vue';
+import SendList from './SendList.vue';
 import addPost from './addPost.vue';
 import addPostMobile from '@/components/components/addPostMobile.vue';
 import * as funcionsCM from '../../communicationsManager.js'
@@ -56,6 +59,7 @@ const image = ref(null);
 const commentsDiv = ref(null);
 const boolean = ref(false);
 const assistCheck = ref(false)
+const sendPost = ref(false)
 
 const props = defineProps({
   post: Object
@@ -125,7 +129,7 @@ async function addAssistant() {
   const user = appStore.getUser()
 
   if (assistCheck.value) {
-    await funcionsCM.removeAssist({ idUser: user.id, idEvent: props.post.id })    
+    await funcionsCM.removeAssist({ idUser: user.id, idEvent: props.post.id })
     props.post.assistants = props.post.assistants.filter(item => item !== user.id);
     assistCheck.value = false
   } else if(!assistCheck.value && props.post.assistantsMax !== props.post.assistants.length){

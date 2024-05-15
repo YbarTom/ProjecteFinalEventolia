@@ -10,10 +10,19 @@
       :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
       <ul>
         <li v-for="(message, index) in messages" :key="index"
-          :class="message.user === myUser ? 'right-message' : 'left-message'">
-          <div
-            :class="{ 'width': true, 'bg-principal': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+          :class="message.user === myUser && message.type === 'message' ? 'right-message' : 'left-message'">
+
+          <div v-if="message.type === 'message'"
+            :class="{ 'width': true, 'bg-principal3': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
             <span class="span ">{{ message.message }}</span>
+          </div>
+          <div v-if="message.type === 'post'"
+            :class="{ 'width': true, 'bg-principal3': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+            <PublicationEvent :post="message.message" />
+          </div>
+          <div v-if="message.type === 'event'"
+            :class="{ 'width': true, 'bg-principal3': message.user === myUser, 'bg-principal2': message.user !== myUser, 'text-text': true }">
+            <EventPublication :post="message.message" />
           </div>
         </li>
       </ul>
@@ -27,6 +36,8 @@
 </template>
 
 <script>
+import PublicationEvent from './PublicationEvent.vue';
+import EventPublication from './EventPublication.vue';
 import { ref, onMounted } from 'vue';
 import { io } from 'socket.io-client';
 import UserChat from './UserChat.vue';
@@ -62,7 +73,10 @@ export default {
 
         myChats.value.forEach(async chat => {
           const nombre = await funcionsCM.getUserByEmailName(chat.users[0]);
-          chat.users[0] = nombre;});
+          chat.users[0] = nombre;
+        });
+
+
       } catch (error) {
         console.error('Error loading chats:', error);
       }
@@ -76,7 +90,7 @@ export default {
           room: selectedUser.value.room // Agrega el nombre de la sala al mensaje
         };
         socket.emit('chat message', message);
-        funcionsCM.postMessageChat(selectedUser.value.room,newMessage.value, myUser.value );
+        funcionsCM.postMessageChat(selectedUser.value.room, newMessage.value, myUser.value, "message");
         newMessage.value = '';
       }
     };
@@ -98,10 +112,12 @@ export default {
             console.log('message:', message);
             return {
               user: message.sender,
-              message: message.content
+              message: message.content,
+              type: message.type
             };
           });
           messages.value = roomMessages;
+          console.log('roomMessages:', roomMessages);
         } catch (error) {
           console.error('Error loading room messages:', error);
         }
@@ -216,7 +232,7 @@ li {
 
 .input-container {
   overflow-y: auto;
-  height: calc(100% - 120px);
+  height: calc(100% - 190px);
   width: 70%;
 }
 
@@ -239,4 +255,5 @@ li {
 
 .input-container::-webkit-scrollbar {
   width: 10px;
-}</style>
+}
+</style>
