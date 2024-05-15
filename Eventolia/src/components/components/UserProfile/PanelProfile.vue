@@ -35,13 +35,8 @@ const props = defineProps({
   /* Altura mínima para ocupar toda la altura de la ventana */
 }
 
-.perfil{
-  flex: 1;
-  /* Ambos elementos ocupan la misma fracción del espacio disponible */
 
-}
 .imagen {
-  margin-top: -300px;
   width:79%;
   flex: 1;
   /* Ambos elementos ocupan la misma fracción del espacio disponible */

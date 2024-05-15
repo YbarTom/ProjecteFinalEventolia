@@ -232,10 +232,24 @@ app.post("/postMessageChat", async (req, res) => {
         const room = req.body.room
         const message = req.body.message
         const user = req.body.user
-        await chatsDB.postMessageChat(room,message,user)
+        const type = req.body.type
+        await chatsDB.postMessageChat(room,message,user,type)
         res.status(200).json({ message: "Message posted successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error posting message" });
+    }
+})
+
+app.post("/postPostChat", async (req, res) => {
+    try {
+        const room = req.body.room
+        const post = req.body.post
+        const user = req.body.user
+        const type = req.body.type
+        await chatsDB.postPostChat(room,post,type,user)
+        res.status(200).json({ message: "Post posted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error posting post" });
     }
 })
 //#region POSTEVENT:

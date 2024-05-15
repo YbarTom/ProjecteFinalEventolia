@@ -13,7 +13,7 @@
           <div class="left">
             <buttonPublication type="heart" @click="like" />
             <buttonPublication type="chat" />
-            <buttonPublication type="send" />
+            <buttonPublication type="send" @click="sendPost=true"/>
           </div>
           <div class="right">
             <buttonPublication type="save" />
@@ -26,13 +26,13 @@
           <buttonPublication class="send" type="send" @click="createComment" />
         </div>
         <div>
-          <p style="margin-left: 10px;"    @click="seeComments=true">See all comments</p>
+          <p style="margin-left: 10px;" @click="seeComments=true">See all comments</p>
         </div>
         <v-dialog v-model="seeComments" width="79%">
           <commentList :post="props.post" />
         </v-dialog>
-        <v-dialog v-model="sendPost" width="79%">
-          <SendList  />
+        <v-dialog v-model="sendPost" >
+          <SendList :post="props.post"/>
         </v-dialog>
       </div>
     </div>
@@ -57,6 +57,7 @@ const commentsDiv = ref(null);
 const likeCheck = ref(false)
 const comment = ref("")
 const seeComments = ref(false)
+const sendPost = ref(false)
 
 onMounted(async () => {
   try {
@@ -118,6 +119,7 @@ async function like() {
     likeCheck.value = true
   }
 }
+
 
 async function createComment() {
   const appStore = useAppStore()

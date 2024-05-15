@@ -21,7 +21,7 @@
       <h3>{{ props.userProfile.posts.length + props.userProfile.events.length }}</h3>
     </div>
   </div>
-  <div class="btn-seguir">
+  <div class="btn-seguir bg-principal">
     <ButtonFollow :text="buttonText" @click="followState" />
   </div>
 
@@ -157,5 +157,10 @@ async function followState() {
 
 .numeros-usu>div {
   margin: 10px;
+}
+
+.btn-seguir{
+
+  margin-bottom: 10%;
 }
 </style>
