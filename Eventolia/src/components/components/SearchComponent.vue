@@ -2,7 +2,7 @@
   <div class="container">
     <div class="div-top">
       <v-autocomplete
-        :items="filteredItems"
+        :items="filteredPublicacions"
         class="mx-auto"
         density="comfortable"
         menu-icon=""
@@ -13,6 +13,8 @@
         item-props
         rounded
         v-model="searchText"
+        append-inner-icon="mdi-close"
+        @click:append-inner="clearSearch"
         @input="filterItems"
       ></v-autocomplete>
     </div>
@@ -34,42 +36,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick, computed } from 'vue';
+import { ref, onMounted, nextTick, computed } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js';
 import Map from './Map.vue';
 
 const map = ref(true);
 const searchText = ref('');
 const publicacions = ref([]);
-const items = ref([]);
-const filteredItems = ref([]);
+const filteredPublicacions = computed(() => {
+  const searchTerm = searchText.value.toLowerCase();
+  return publicacions.value.filter(publicacion =>
+    publicacion.title.toLowerCase().includes(searchTerm)
+  );
+});
 
 onMounted(async () => {
   adjustGridItemHeight();
   try {
     const dataEvents = await funcionsCM.getEvents();
-    items.value = dataEvents;
     publicacions.value = dataEvents;
-    filterItems(); // Initialize filtered items
     await nextTick();
-    const images = document.querySelectorAll('.grid-item img');
-    await Promise.all(
-      Array.from(images).map((img) =>
-        img.complete ? Promise.resolve() : new Promise((resolve) => img.addEventListener('load', resolve))
-      )
-    );
     adjustGridItemHeight();
   } catch (error) {
     console.error('Error fetching data: ', error);
   }
-});
-
-watch(map, () => {
-  nextTick(adjustGridItemHeight);
-});
-
-watch(searchText, () => {
-  filterItems();
 });
 
 const toggleMap = () => {
@@ -83,22 +73,13 @@ const adjustGridItemHeight = () => {
   });
 };
 
-const filterItems = () => {
-  const searchTerm = searchText.value.toLowerCase();
-  filteredItems.value = items.value.filter(item =>
-    item.title.toLowerCase().includes(searchTerm)
-  );
-  filteredPublicacions.value = publicacions.value.filter(publicacion =>
-    publicacion.title.toLowerCase().includes(searchTerm)
-  );
+const clearSearch = () => {
+  searchText.value = '';
 };
 
-const filteredPublicacions = computed(() => {
-  const searchTerm = searchText.value.toLowerCase();
-  return publicacions.value.filter(publicacion =>
-    publicacion.title.toLowerCase().includes(searchTerm)
-  );
-});
+const filterItems = () => {
+  // No es necesario aquí, el filtro se realiza en computed `filteredPublicacions`
+};
 
 </script>
 
