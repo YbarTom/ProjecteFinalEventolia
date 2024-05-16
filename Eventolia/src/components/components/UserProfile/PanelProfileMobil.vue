@@ -30,7 +30,7 @@
     justify-content: center;
     text-align: center;
     padding: 20px;
-    width: 79%;
+    width: 100%;
     min-height: 100vh;
     margin-top: -10%;
     /* Altura mínima para ocupar toda la altura de la ventana */
@@ -38,8 +38,8 @@
   
   
   .imagen {
-    margin-top: -180px;
-    width:79%;
+    margin-top: 15%;
+    width:100%;
     flex: 1;
     /* Ambos elementos ocupan la misma fracción del espacio disponible */
   }</style>

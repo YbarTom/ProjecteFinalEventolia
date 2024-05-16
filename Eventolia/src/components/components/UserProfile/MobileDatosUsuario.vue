@@ -1,33 +1,36 @@
 <template>
-    <div class="todo">
-        <ImagenUsuario />
-        <div class="usuario-info">
-            <h1>{{ props.userProfile.userName }}</h1>
-        </div>
-        <div class="numeros">
-            <div>
-                <button @click="mostrarPopUp(props.userProfile.followed, 1)">
-                    <h4>Seguidos</h4>
-                    <h3>{{ props.userProfile.followed.length }}</h3>
-                </button>
-            </div>
-            <div>
-                <button @click="mostrarPopUp(props.userProfile.followers, 2)">
-                    <h4>Seguidores</h4>
-                    <h3>{{ props.userProfile.followers.length }}</h3>
-                </button>
-            </div>
-            <div>
-                <h4>Publicaciones</h4>
-                <h3>{{ props.userProfile.posts.length + props.userProfile.events.length }}</h3>
-            </div>
-        </div>
-        <div class="btn-seguir">
-            <BtnSeguir />
-        </div>
+  <div class="usuario-info">
+    <ImagenUsuario />
+    <h1>{{ props.userProfile.userName }}</h1>
+  </div>
+  <div class="numeros-usu">
+    <div>
+      <button @click="mostrarPopUp(props.userProfile.followed, 1)">
+        <h3>Seguidos</h3>
+        <h3>{{ props.userProfile.followed.length }}</h3>
+      </button>
     </div>
-    <v-dialog v-model="showPopUp" width="79%">    
-    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile" :changeFollowed="changeFollowed" :changeFollowers="changeFollowers"/>
+    <div>
+      <button @click="mostrarPopUp(props.userProfile.followers, 2)">
+        <h3>Seguidores</h3>
+        <h3>{{ props.userProfile.followers.length }}</h3>
+      </button>
+    </div>
+    <div>
+      <h3>Publicaciones</h3>
+      <h3>{{ props.userProfile.posts.length + props.userProfile.events.length }}</h3>
+    </div>
+  </div>
+  <div class="btn-seguir bg-principal">
+    <ButtonFollow :text="buttonText" @click="followState" />
+  </div>
+
+  <v-dialog v-model="showPopUp" width="79%">
+    <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
+      :changeFollowed="changeFollowed" :changeFollowers="changeFollowers" />
+  </v-dialog>
+  <v-dialog v-model="showPasswordCheck" width="79%">
+    <passwordCheck/>
   </v-dialog>
 </template>
 
@@ -35,8 +38,12 @@
 import ImagenUsuario from '@/components/components/foto.vue'
 import BtnSeguir from '@/components/components/UserProfile/btnSeguir.vue'
 import PopUpUsers from './PopUpUsers.vue';
-import { defineProps } from "vue";
+import { defineProps, onMounted } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
+import ButtonFollow from './ButtonFollow.vue';
+import { useAppStore } from '@/stores/app';
+import passwordCheck from '@/components/components/UserProfile/passwordCheck.vue'
+
 
 const props = defineProps({
   userProfile: Object,
@@ -47,6 +54,12 @@ const showPopUp = ref(false);
 const typePopUp = ref(0)
 const followers = ref([]);
 const followed = ref([])
+const buttonText = ref("")
+const showPasswordCheck = ref(false)
+
+onMounted(() => {
+  changeButtonText()
+});
 
 const mostrarPopUp = async (users, type) => {
 
@@ -63,40 +76,90 @@ const mostrarPopUp = async (users, type) => {
 
 const changeFollowed = async (id, check) => {
   console.log(props.userProfile.followed)
-  if(check){
+  if (check) {
     props.userProfile.followed.push(id)
-  }else {
+  } else {
     props.userProfile.followed = props.userProfile.followed.filter(item => item != id)
   }
 }
+
 const changeFollowers = async (id) => {
   props.userProfile.followers = props.userProfile.followers.filter(item => item != id)
+}
+
+const changeButtonText = async () => {
+  if (props.ownProfile) {
+    buttonText.value = "Edit"
+  } else {
+    const appStore = useAppStore()
+    console.log(appStore)
+    const user = appStore.getUser()
+    for (let i = 0; i < props.userProfile.followers.length; i++) {
+      if (user.id == props.userProfile.followers[i]) {
+        buttonText.value = "unfollow"
+      }
+    }
+  }
+  if (buttonText.value == "") {
+    buttonText.value = "follow"
+  }
+}
+
+async function followState() {
+  var check
+  const appStore = useAppStore()
+  const user = appStore.getUser()
+  console.log(user)
+  console.log(props.userProfile)
+  if (props.ownProfile) {
+    showPasswordCheck.value = true
+  }
+  else {
+    if (buttonText.value === "follow") {
+      funcionsCM.followUser({ idFollower: user.id, idFollowed: props.userProfile.id })
+      buttonText.value = "unfollow"
+      check = true
+    }
+    else {
+      funcionsCM.unfollowUser({ idFollower: user.id, idFollowed: props.userProfile.id })
+      buttonText.value = "follow"
+      check = false
+    }
+    var userAux = props.userProfile.followers
+    if(check){
+      userAux.push(user.id)
+    }else {
+      props.userProfile.followers = props.userProfile.followers.filter(item => item != user.id)
+    }
+  }
 }
 </script>
 
 <style scoped>
-.todo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin-left: 100px;
-    margin-top: -250px;
+
+.usuario-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
 }
 
-.numeros {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+
+.btn-seguir {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.numeros>div {
-    margin: 0 10px;
+.numeros-usu {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
 }
 
-.numeros h3,
-.numeros h4 {
-    font-size: calc(1em + 1vw);
+.numeros-usu > div {
+  margin: 0 10px;
 }
 </style>

@@ -5,9 +5,10 @@
         :style="{ backgroundImage: 'url(' + post.image + ')' }"></div>
     </div>
     <div v-else>
-      <Publication :post="postToSee" :key="postToSee.id"></Publication>
-      <button @click="grid=true"></button>
+        <Publication :post="postToSee" :key="postToSee.id"></Publication>
+        <button @click="grid=true"></button>
     </div>
+
   </div>
 
 </template>
