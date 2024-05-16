@@ -2,7 +2,7 @@
   <div class="container">
     <div class="div-top">
       <v-autocomplete
-        :items="items"
+        :items="filteredItems"
         class="mx-auto"
         density="comfortable"
         menu-icon=""
@@ -13,6 +13,7 @@
         item-props
         rounded
         v-model="searchText"
+        @input="filterItems"
       ></v-autocomplete>
     </div>
     <div class="buttons-container">
@@ -21,7 +22,7 @@
     <div class="grid" v-if="map">
       <div
         class="grid-item"
-        v-for="(publicacion, index) in publicacions"
+        v-for="(publicacion, index) in filteredPublicacions"
         :key="index"
         :style="{ backgroundImage: 'url(' + publicacion.image + ')' }"
       ></div>
@@ -33,23 +34,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, watch, nextTick, computed } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js';
 import Map from './Map.vue';
 
 const map = ref(true);
 const searchText = ref('');
 const publicacions = ref([]);
-
 const items = ref([]);
+const filteredItems = ref([]);
 
 onMounted(async () => {
   adjustGridItemHeight();
-  items.value = await funcionsCM.getEvents();
-  console.log("items.value"+items.value);
   try {
     const dataEvents = await funcionsCM.getEvents();
+    items.value = dataEvents;
     publicacions.value = dataEvents;
+    filterItems(); // Initialize filtered items
     await nextTick();
     const images = document.querySelectorAll('.grid-item img');
     await Promise.all(
@@ -78,6 +79,22 @@ const adjustGridItemHeight = () => {
   });
 };
 
+const filterItems = () => {
+  const searchTerm = searchText.value.toLowerCase();
+  filteredItems.value = items.value.filter(item =>
+    item.title.toLowerCase().includes(searchTerm)
+  );
+  filteredPublicacions.value = publicacions.value.filter(publicacion =>
+    publicacion.title.toLowerCase().includes(searchTerm)
+  );
+};
+
+const filteredPublicacions = computed(() => {
+  const searchTerm = searchText.value.toLowerCase();
+  return publicacions.value.filter(publicacion =>
+    publicacion.title.toLowerCase().includes(searchTerm)
+  );
+});
 
 </script>
 
