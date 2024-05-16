@@ -39,7 +39,6 @@ onMounted(async () => {
   try {
     const data = await funcionsCM.getEventInfo(props.post.idEvent);
     event.value = data;
-    console.log(event.value)
   } catch (error) {
     console.error('Error fetching data:', error);
   }

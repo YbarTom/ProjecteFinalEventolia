@@ -502,3 +502,13 @@ async function createNotification(notification) {
         break;
     }
 }
+
+app.post("/getNotificationsByIdUser", async (req, res) => {
+    try {
+        const data = req.body.idUser
+        const notifications = await notificationsDB.getNotificationsByIdUser(data)
+        res.status(200).json(notifications)
+    } catch (error) {
+        console.error("Error getting notifications", error)
+    }
+})
