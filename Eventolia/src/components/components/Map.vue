@@ -39,6 +39,9 @@ export default {
       dialogVisible: false,
     };
   },
+  props: {
+    searchText: String,
+  },
   mounted() {
     funcionsCM.getEvents()
       .then(events => {
@@ -77,6 +80,7 @@ export default {
       }).addTo(this.map);
     },
     updateCircleRadius() {
+      console.log('Updating circle radius'+this.searchText);
       const radiusInKilometers = parseInt(this.selectedRadius);
       this.circle.setRadius(radiusInKilometers * 1000);
 
