@@ -13,8 +13,6 @@ const props = defineProps({
 
 const notificationsMessage = ref([])
 
-console.log(props.notifications)
-
 onMounted(async () => {
     var message
     try {
