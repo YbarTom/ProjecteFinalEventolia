@@ -68,6 +68,10 @@ watch(map, () => {
   nextTick(adjustGridItemHeight);
 });
 
+watch(searchText, () => {
+  filterItems();
+});
+
 const toggleMap = () => {
   map.value = !map.value;
 };

@@ -9,12 +9,10 @@
       <option value="10">10 km</option>
       <option value="1000">1000 km</option>
       <option value="10000">10000 km</option>
-
-      <!-- Agrega más opciones según sea necesario -->
     </select>
 
     <v-dialog v-model="dialogVisible" width="30%">
-      <EventPublication :post="selectedEvent"/> <!-- Pasar selectedEvent en lugar de event -->
+      <EventPublication :post="selectedEvent"/>
     </v-dialog>
   </div>
 </template>
@@ -26,6 +24,9 @@ import * as funcionsCM from '../../communicationsManager.js';
 import EventPublication from './EventPublication.vue';
 
 export default {
+  props: {
+    searchText: String,
+  },
   data() {
     return {
       selectedRadius: '5',
@@ -39,14 +40,21 @@ export default {
       dialogVisible: false,
     };
   },
-  props: {
-    searchText: String,
+  watch: {
+    searchText(newSearchText) {
+      this.updateFilteredEvents();
+      this.updateMapMarkers();
+    },
+    selectedRadius() {
+      this.updateCircleRadius();
+    }
   },
   mounted() {
     funcionsCM.getEvents()
       .then(events => {
         this.events = events;
         this.initMap();
+        this.updateFilteredEvents();
       })
       .catch(error => {
         console.error('Error al obtener los eventos:', error);
@@ -64,11 +72,7 @@ export default {
       }).addTo(this.map);
 
       this.addCircle();
-
       this.updateCircleRadius();
-
-      const bounds = L.latLngBounds([this.latitude, this.longitude], this.circle.getBounds().getNorthEast());
-      this.map.fitBounds(bounds);
     },
     addCircle() {
       const radiusInKilometers = parseInt(this.selectedRadius);
@@ -80,15 +84,19 @@ export default {
       }).addTo(this.map);
     },
     updateCircleRadius() {
-      console.log('Updating circle radius'+this.searchText);
       const radiusInKilometers = parseInt(this.selectedRadius);
       this.circle.setRadius(radiusInKilometers * 1000);
-
+      this.updateFilteredEvents();
+      this.updateMapMarkers();
+    },
+    updateFilteredEvents() {
+      const searchTerm = this.searchText.toLowerCase();
       this.filteredEvents = this.events.filter(event => {
         const distance = this.calculateDistance(this.latitude, this.longitude, event.latitude, event.longitude);
-        return distance <= radiusInKilometers;
+        return distance <= parseInt(this.selectedRadius) && event.title.toLowerCase().includes(searchTerm);
       });
-
+    },
+    updateMapMarkers() {
       this.map.eachLayer(layer => {
         if (layer instanceof L.Marker) {
           this.map.removeLayer(layer);
@@ -112,7 +120,6 @@ export default {
         });
       });
     },
-
     calculateDistance(lat1, lon1, lat2, lon2) {
       const R = 6371;
       const dLat = this.deg2rad(lat2 - lat1);
