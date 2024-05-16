@@ -1,7 +1,12 @@
 <template>
   <div v-if="userProfile">
-    <DesktopUserProfilePage v-if="isDesktop"  :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts" />
-    <MobileUserProfilePage v-else             :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts"/>
+    <div v-if="isDesktop">
+      <DesktopUserProfilePage :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts" />
+    </div>
+    <div v-else>
+      <MobileUserProfilePage :userProfile="userProfile" :ownProfile="ownProfile" :events="events" :posts="posts"/>
+
+    </div>
   </div>
 </template>
 
