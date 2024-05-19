@@ -30,7 +30,12 @@
       ></div>
     </div>
     <div class="map" v-else>
-      <Map :searchText="searchText" />
+      <div v-if="isDesktop">
+        <Map :searchText="searchText" />
+      </div>
+      <div  v-else>
+        <MapMobile :searchText="searchText" />
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +44,7 @@
 import { ref, onMounted, nextTick, computed } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js';
 import Map from './Map.vue';
+import MapMobile from './MapMobile.vue';
 
 const map = ref(true);
 const searchText = ref('');
