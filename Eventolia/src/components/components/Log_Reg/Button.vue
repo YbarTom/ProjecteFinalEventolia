@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="handleClick" class="bg-loginButton">{{text}}</button>
+    <button @click="handleClick" class="bg-principal2">{{text}}</button>
   </div>
 </template>
 
