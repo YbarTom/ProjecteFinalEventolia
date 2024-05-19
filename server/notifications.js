@@ -51,6 +51,27 @@ function createNotification(notification) {
     });
 }
 
+function getNotificationsByIdUser(idUser) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                notificationsCollection.find({ notificated: idUser }).toArray()
+                    .then((notifications) => {
+                        resolve(notifications);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting notifications: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 module.exports = {
-    createNotification
+    createNotification,
+    getNotificationsByIdUser
 }

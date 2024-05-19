@@ -112,7 +112,6 @@ app.post("/getUserByName", async (req, res) => {
 app.post("/getUserByEmailName", async (req, res) => {
     try {
         const email = req.body.email
-        console.log(email)
         const user = await usersDB.getUserByEmail(email)
         res.status(200).json(user.userName);
     } catch (error) {
@@ -337,7 +336,6 @@ app.post("/getPostById", async (req, res) => {
 app.post("/getPostsByIdUser", async (req, res) => {
     try {
         const idUser = req.body.idUser
-        console.log(idUser)
         const post = await postsDB.getPostsByIdUser(idUser)
         res.status(200).json(post);
     } catch (error) {
@@ -349,8 +347,6 @@ app.post("/getFollowingPage", async (req, res) => {
     try {
         const data = req.body;
         const user = data.user
-
-        console.log(data)
 
         const [posts, events] = await Promise.all([
             postsDB.getPostsByIdUsers(user.followed),
@@ -401,7 +397,6 @@ app.post("/createEvent", async (req, res) => {
 app.post("/addAssist", async (req, res) => {
     try {
         const data = req.body.assistInfo
-        console.log(data)
         await eventsDB.addAssist(data.idEvent, data.idUser)
         createNotification({type: "newAssist", event: data.idEvent, assistant: data.idUser})
         res.status(200).json({ message: "Assistance updated successfully" });
@@ -507,3 +502,13 @@ async function createNotification(notification) {
         break;
     }
 }
+
+app.post("/getNotificationsByIdUser", async (req, res) => {
+    try {
+        const data = req.body.idUser
+        const notifications = await notificationsDB.getNotificationsByIdUser(data)
+        res.status(200).json(notifications)
+    } catch (error) {
+        console.error("Error getting notifications", error)
+    }
+})

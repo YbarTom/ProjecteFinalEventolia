@@ -65,8 +65,6 @@ const props = defineProps({
   post: Object
 })
 
-console.log(props.post)
-
 const isDesktop = ref(window.innerWidth > 800);
 
 const updateWidth = () => {
@@ -77,7 +75,6 @@ onMounted(() => {
   window.addEventListener('resize', updateWidth);
 
   try {
-    console.log(props.post)
     const appStore = useAppStore()
     const user = appStore.getUser()
     for (let i = 0; i < props.post.assistants.length; i++) {

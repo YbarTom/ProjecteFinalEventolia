@@ -64,7 +64,6 @@ export async function postPostChat(room, post, type,user) {
 }
 
 export async function getChats() {
-
   try {
     const response = await fetch(`${SERVER_URL}/getChats`,
       {
@@ -77,7 +76,22 @@ export async function getChats() {
     console.log("Error al recuperar chats CM");
     throw error;
   }
+}
 
+export async function getNotificationsByIdUser(idUser) {
+  console.log(idUser)
+  try {
+    const response = await fetch(`${SERVER_URL}/getNotificationsByIdUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({idUser})
+      });
+    const notifications = await response.json();
+    return notifications;
+  } catch (error) {
+    console.log("Error al recuperar notifications CM");
+    throw error;
+  }
 }
 
 export async function getEventInfo(idEvent) {

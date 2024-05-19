@@ -1,6 +1,6 @@
 <template>
   <div class="lado-izquierda">
-    <img data-v-1ed81890="" class="profile-img" src="/src/assets/images/rascacielos.jpeg" alt="Imagen de perfil">
+    <img data-v-1ed81890="" class="profile-img" src="" alt="Imagen de perfil">
   </div>
 </template>
 
