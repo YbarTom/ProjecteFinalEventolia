@@ -39,7 +39,7 @@ function getChatsById(idChat) {
     });
 }
 
-function postMessageChat(room, message, user,type) {
+function postMessageChat(room, message, user, type) {
     return new Promise((resolve, reject) => {
         client
             .connect()
@@ -47,7 +47,7 @@ function postMessageChat(room, message, user,type) {
                 chatsCollection.updateOne
                     (
                         { room: room },
-                        { $push: { messages: { sender: user, content: message,type:type } } }
+                        { $push: { messages: { sender: user, content: message, type: type } } }
                     )
                     .then((result) => {
                         resolve(result);
@@ -65,7 +65,7 @@ function postMessageChat(room, message, user,type) {
     );
 }
 
-function postPostChat(room,post,type, user) {
+function postPostChat(room, post, type, user) {
     return new Promise((resolve, reject) => {
         client
             .connect()
@@ -90,8 +90,54 @@ function postPostChat(room,post,type, user) {
     }
     );
 }
+
+function checkChat(user1, user2) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return chatsCollection.findOne({
+                    users: {
+                        $all: [user1.email, user2.email]
+                    }
+                });
+            })
+            .then((foundChat) => {
+                if (foundChat) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            })
+            .catch((error) => {
+                console.error("Error finding chat room: ", error);
+                reject(error);
+            })
+            .finally(() => {
+                // Close the connection after the operation is complete
+                client.close();
+            });
+    });
+}
+
+async function createChat(chat) {
+    try {
+        await client.connect();
+        const uniqueId = generalFunctions.generateUniqueId();
+        chat.id = uniqueId;
+        const result = await chatsCollection.insertOne(chat);
+        return result;
+    } catch (error) {
+        console.error("Error creating chat: ", error);
+        throw error;
+    }
+}
+
+
+
 module.exports = {
     getChatsById,
     postMessageChat,
-    postPostChat
+    postPostChat,
+    checkChat,
+    createChat
 }

@@ -24,13 +24,16 @@
   <div class="btn-seguir bg-principal">
     <ButtonFollow :text="buttonText" @click="followState" />
   </div>
+  <div class="btn-seguir bg-principal">
+    <ButtonFollow text="Send Message" @click="sendMessage" />
+  </div>
 
   <v-dialog v-model="showPopUp" width="79%">
     <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
       :changeFollowed="changeFollowed" :changeFollowers="changeFollowers" />
   </v-dialog>
   <v-dialog v-model="showPasswordCheck" width="79%">
-    <passwordCheck/>
+    <passwordCheck />
   </v-dialog>
 </template>
 
@@ -56,6 +59,7 @@ const followers = ref([]);
 const followed = ref([])
 const buttonText = ref("")
 const showPasswordCheck = ref(false)
+const showSendMessage = ref(false)
 
 onMounted(() => {
   changeButtonText()
@@ -115,6 +119,8 @@ async function followState() {
     showPasswordCheck.value = true
   }
   else {
+    showSendMessage.value = true
+    console.log(showSendMessage.value)
     if (buttonText.value === "follow") {
       funcionsCM.followUser({ idFollower: user.id, idFollowed: props.userProfile.id })
       buttonText.value = "unfollow"
@@ -126,12 +132,19 @@ async function followState() {
       check = false
     }
     var userAux = props.userProfile.followers
-    if(check){
+    if (check) {
       userAux.push(user.id)
-    }else {
+    } else {
       props.userProfile.followers = props.userProfile.followers.filter(item => item != user.id)
     }
   }
+}
+
+async function sendMessage() {
+  const appStore = useAppStore()
+  const user = appStore.getUser()
+
+  await funcionsCM.checkChat({user1: user, user2: props.userProfile})
 }
 </script>
 
@@ -159,7 +172,7 @@ async function followState() {
   margin: 10px;
 }
 
-.btn-seguir{
+.btn-seguir {
 
   margin-bottom: 10%;
 }

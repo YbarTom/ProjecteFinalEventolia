@@ -251,6 +251,27 @@ app.post("/postPostChat", async (req, res) => {
         res.status(500).json({ error: "Error posting post" });
     }
 })
+
+app.post("/checkChat", async (req, res) => {
+    try {
+        const data = req.body.users
+        const response = await chatsDB.checkChat(data.user1, data.user2)
+        if(!response){
+            const chat = {
+                room: data.user1.userName+data.user2.userName,
+                users: [
+                    data.user1.email,
+                    data.user2.email
+                ],
+                messages: []
+            }
+            await chatsDB.createChat(chat)
+        }
+        //res.status(200).json({ message: "Message posted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error posting message" });
+    }
+})
 //#region POSTEVENT:
 
 app.post("/getPostsEvents", async (req, res) => {
@@ -312,9 +333,7 @@ app.post("/createPost", async (req, res) => {
 
         post.likes = []
         post.comments = []
-        post.publicationDate = new Date()
-
-        
+        post.publicationDate = new Date()       
 
         await postsDB.createPost(post)
         res.status(200).json({ message: "Post created successfully" });

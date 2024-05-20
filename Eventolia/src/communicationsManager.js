@@ -420,10 +420,24 @@ export async function getUserByEmailName(email) {
         body: JSON.stringify({ email })
       });
     const resposta = await response.json();
-    console.log(resposta)
     return resposta;
   } catch (error) {
     console.log("Get user by email Error CM");
+    throw error;
+  }
+}
+
+export async function checkChat(users){
+  try {
+    const response = await fetch(`${SERVER_URL}/checkChat`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ users })
+      });
+    const resposta = await response.json();
+    return resposta;
+  } catch (error) {
+    console.log("Check chat Error CM");
     throw error;
   }
 }

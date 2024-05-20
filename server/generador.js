@@ -28,4 +28,4 @@ async function generatePosts() {
     await postsDB.createPost(post)
 }
 
-generatePosts()
+generateUser(1)
