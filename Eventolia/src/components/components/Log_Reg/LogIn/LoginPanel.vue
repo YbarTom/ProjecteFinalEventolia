@@ -9,6 +9,9 @@
         <TextField text="password" v-model="password" type="password" />
       </div>
       <div><Button @click="login" text="Log In" /></div>
+
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+
       <div @click="signUp = true">
         <p>Sign Up</p>
       </div>
@@ -37,13 +40,14 @@ export default {
     return {
       email: '',
       password: '',
+      errorMessage: '',
       signUp: false
     };
   },
   methods: {
     async login() {
       try {
-        const appStore = useAppStore(); // You might want to check if you can access the store directly here without using a hook
+        const appStore = useAppStore();
         const userInfo = {
           email: this.email,
           password: this.password
@@ -57,10 +61,18 @@ export default {
             appStore.setUser(response);
             this.$router.push('/MainPage');
           }
+        } else {
+          this.errorMessage = "Invalid email or password";
+          this.clearErrorMessage();
         }
       } catch (error) {
         console.error('Login Error: ', error);
       }
+    },
+    clearErrorMessage() {
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 10000);
     }
   }
 };
@@ -86,5 +98,10 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+.error-message {
+  color: red;
+  margin-top: 20px;
 }
 </style>
