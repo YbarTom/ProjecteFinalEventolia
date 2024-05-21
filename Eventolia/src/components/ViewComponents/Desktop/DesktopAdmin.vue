@@ -107,7 +107,7 @@ const deleteEvent = (eventId) => {
 
 .button-container {
   position: absolute;
-  bottom: 3px;
+  bottom: -8px;
   right: 5px;
 }
 
@@ -122,3 +122,4 @@ span.mdi {
   margin: 0 5px; /* Espaciado entre los íconos y el borde del botón */
 }
 </style>
++
