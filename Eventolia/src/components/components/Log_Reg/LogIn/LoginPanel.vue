@@ -10,14 +10,22 @@
       </div>
       <div><Button @click="login" text="Log In" /></div>
 
-      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-
       <div @click="signUp = true">
         <p>Sign Up</p>
       </div>
     </div>
     <v-dialog v-model="signUp" width="79%">
       <SignUp/>
+    </v-dialog>
+    <v-dialog v-model="showErrorDialog" max-width="500">
+      <v-card class="bg-principal">
+        <v-card-title class="headline">Error</v-card-title>
+        <v-card-text>{{ errorMessage }}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="closeErrorDialog">Close</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -41,7 +49,8 @@ export default {
       email: '',
       password: '',
       errorMessage: '',
-      signUp: false
+      signUp: false,
+      showErrorDialog: false
     };
   },
   methods: {
@@ -63,6 +72,7 @@ export default {
           }
         } else {
           this.errorMessage = "Invalid email or password";
+          this.showErrorDialog = true;
           this.clearErrorMessage();
         }
       } catch (error) {
@@ -72,7 +82,11 @@ export default {
     clearErrorMessage() {
       setTimeout(() => {
         this.errorMessage = '';
+        this.showErrorDialog = false;
       }, 10000);
+    },
+    closeErrorDialog() {
+      this.showErrorDialog = false;
     }
   }
 };
@@ -100,8 +114,4 @@ export default {
   width: 100%;
 }
 
-.error-message {
-  color: red;
-  margin-top: 20px;
-}
 </style>
