@@ -27,6 +27,8 @@ if (props.type === 'heart') {
   icono.value = "mdi-plus-box-outline";
 } else if (props.type === 'assistantPlus') {
   icono.value = "mdi-account-multiple-plus";
+} else if (props.type === 'delete') {
+  icono.value = "mdi-trash-can-outline";
 }
 
 const handleClick = () => {

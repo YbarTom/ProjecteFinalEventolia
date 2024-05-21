@@ -234,6 +234,20 @@ function editUserName(idUser, newUserName) {
     });
 }
 
+function deletePost(idPost) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                postsCollection.deleteOne({ id: idPost })
+                resolve()
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 module.exports = {
     likePost,
     getPosts,
@@ -243,5 +257,6 @@ module.exports = {
     getPostsByIdUsers,
     dislikePost,
     addComment,
-    editUserName
+    editUserName,
+    deletePost
 }

@@ -14,6 +14,7 @@
             <buttonPublication type="heart" @click="like" />
             <buttonPublication type="chat" />
             <buttonPublication type="send" @click="sendPost=true"/>
+            <buttonPublication type="delete" v-if="checkDelete" @click="deletePost"/>
           </div>
           <div class="right">
             <buttonPublication type="save" />
@@ -58,6 +59,7 @@ const likeCheck = ref(false)
 const comment = ref("")
 const seeComments = ref(false)
 const sendPost = ref(false)
+const checkDelete = ref(false)
 
 onMounted(async () => {
   try {
@@ -67,6 +69,9 @@ onMounted(async () => {
       if (props.post.likes[i] == user.id) {
         likeCheck.value = true
       }
+    }
+    if(props.post.idUser === user.id){
+      checkDelete.value = true
     }
   } catch (error) {
     console.error(error)
@@ -119,6 +124,9 @@ async function like() {
   }
 }
 
+async function deletePost() {
+  funcionsCM.deletePost(props.post.id)
+}
 
 async function createComment() {
   const appStore = useAppStore()

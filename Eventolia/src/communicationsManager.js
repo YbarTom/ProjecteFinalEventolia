@@ -441,3 +441,16 @@ export async function checkChat(users){
     throw error;
   }
 }
+
+export async function deletePost(idPost){
+  try {
+    await fetch(`${SERVER_URL}/deletePost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idPost })
+      });
+  } catch (error) {
+    console.log("Delete post Error CM");
+    throw error;
+  }
+}

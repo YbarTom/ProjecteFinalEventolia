@@ -330,6 +330,14 @@ app.post("/dislikePost", async (req, res) => {
     }
 })
 
+app.post("/deletePost", async (req, res) => {
+    try {
+        const data = req.body.idPost
+        await postsDB.deletePost(data)
+    } catch (error) {
+        console.error(error)
+    }
+})
 
 app.post("/createPost", async (req, res) => {
     try {
