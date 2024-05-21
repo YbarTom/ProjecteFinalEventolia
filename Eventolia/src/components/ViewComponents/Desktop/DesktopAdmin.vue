@@ -69,18 +69,28 @@ onMounted(async () => {
 
 const acceptPost = (postId) => {
   funcionsCM.acceptPost(postId);
+  const postIndex = posts.value.findIndex(post => post.id === postId);
+  if (postIndex !== -1) {
+    posts.value[postIndex].accepted = true; // Marcar el post como aceptado
+  }
 };
 
 const deletePost = (postId) => {
   funcionsCM.deletePost(postId);
+  posts.value = posts.value.filter(post => post.id !== postId); // Eliminar el post
 };
 
 const acceptEvent = (eventId) => {
   funcionsCM.acceptEvent(eventId);
+  const eventIndex = events.value.findIndex(event => event.id === eventId);
+  if (eventIndex !== -1) {
+    events.value[eventIndex].accepted = true; // Marcar el evento como aceptado
+  }
 };
 
 const deleteEvent = (eventId) => {
  funcionsCM.deleteEvent(eventId);
+ events.value = events.value.filter(event => event.id !== eventId); // Eliminar el evento
 };
 </script>
 
