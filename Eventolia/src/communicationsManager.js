@@ -27,6 +27,7 @@ export async function getPostsEvents() {
   try {
     const response = await fetch(`${SERVER_URL}/getPostsEvents`, { method: 'POST', mode: 'cors' });
     const posts = await response.json();
+    console.log(posts)
     return posts;
   } catch (error) {
     console.log("Error al recuperar posts CM");
@@ -35,13 +36,13 @@ export async function getPostsEvents() {
 
 }
 
-export async function postMessageChat(room, message, user,type) {
+export async function postMessageChat(room, message, user, type) {
 
   try {
     fetch(`${SERVER_URL}/postMessageChat`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ room: room, message: message, user: user, type: type})
+        body: JSON.stringify({ room: room, message: message, user: user, type: type })
       });
   } catch (error) {
     console.log("Error al enviar mensaje CM");
@@ -49,18 +50,18 @@ export async function postMessageChat(room, message, user,type) {
   }
 }
 
-export async function postPostChat(room, post, type,user) {
+export async function postPostChat(room, post, type, user) {
 
-    try {
-      fetch(`${SERVER_URL}/postPostChat`,
-        {
-          method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ room: room, post: post, type: type, user: user })
-        });
-    } catch (error) {
-      console.log("Error al enviar mensaje CM");
-      throw error;
-    }
+  try {
+    fetch(`${SERVER_URL}/postPostChat`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ room: room, post: post, type: type, user: user })
+      });
+  } catch (error) {
+    console.log("Error al enviar mensaje CM");
+    throw error;
+  }
 }
 
 export async function getChats() {
@@ -84,7 +85,7 @@ export async function getNotificationsByIdUser(idUser) {
     const response = await fetch(`${SERVER_URL}/getNotificationsByIdUser`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({idUser})
+        body: JSON.stringify({ idUser })
       });
     const notifications = await response.json();
     return notifications;
@@ -157,8 +158,8 @@ export async function editUserName(data) {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
       });
-      const user = await response.json()
-      return user;
+    const user = await response.json()
+    return user;
   } catch (error) {
     console.log("Error editing user CM");
     throw error;
@@ -172,8 +173,8 @@ export async function editPassword(data) {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
       });
-      const user = await response.json()
-      return user
+    const user = await response.json()
+    return user
   } catch (error) {
     console.log("Error editing user CM");
     throw error;
@@ -427,7 +428,7 @@ export async function getUserByEmailName(email) {
   }
 }
 
-export async function checkChat(users){
+export async function checkChat(users) {
   try {
     const response = await fetch(`${SERVER_URL}/checkChat`,
       {
@@ -442,13 +443,32 @@ export async function checkChat(users){
   }
 }
 
-export async function deletePost(idPost){
+export async function acceptPost(postId) {
   try {
-    await fetch(`${SERVER_URL}/deletePost`,
+    const response = await fetch(`${SERVER_URL}/acceptPost`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idPost })
+        body: JSON.stringify({ postId })
       });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Accept post Error CM");
+    throw error;
+  }
+}
+
+export async function deletePost(postId) {
+  try {
+    const response = await fetch(`${SERVER_URL}/deletePost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
   } catch (error) {
     console.log("Delete post Error CM");
     throw error;

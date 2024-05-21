@@ -40,6 +40,27 @@ function getPosts() {
             });
     });
 }
+function acceptPost(idPost) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                console.log("Connected to database");
+                postsCollection.updateOne({ id: idPost }, { $set: { accepted: true } })
+                    .then((result) => {
+                        console.log(result.modifiedCount + " post updated successfully");
+                        resolve(result.modifiedCount + " post updated successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error updating post: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 
 function createPost(post) {
     return new Promise((resolve, reject) => {
@@ -258,5 +279,6 @@ module.exports = {
     dislikePost,
     addComment,
     editUserName,
-    deletePost
+    deletePost,
+    acceptPost
 }

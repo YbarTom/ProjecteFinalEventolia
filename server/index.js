@@ -277,7 +277,16 @@ app.post("/checkChat", async (req, res) => {
     }
 })
 //#region POSTEVENT:
-
+app.post("/acceptPost", async (req, res) => {
+    try {
+        const data = req.body
+        console.log(data)
+        await postsDB.acceptPost(data.postId)
+        res.status(200).json({ message: "Post accepted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error accepting post" });
+    }
+})
 app.post("/getPostsEvents", async (req, res) => {
     try {
         const data = req.body
@@ -346,7 +355,7 @@ app.post("/createPost", async (req, res) => {
         post.likes = []
         post.comments = []
         post.publicationDate = new Date()
-
+        post.accepted = false
         await postsDB.createPost(post)
         res.status(200).json({ message: "Post created successfully" });
     } catch (error) {
