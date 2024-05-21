@@ -28,6 +28,8 @@
     <ButtonFollow text="Send Message" @click="sendMessage" />
   </div>
 
+  <ToggleTheme/>
+
   <v-dialog v-model="showPopUp" width="79%">
     <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
       :changeFollowed="changeFollowed" :changeFollowers="changeFollowers" />
@@ -46,7 +48,7 @@ import * as funcionsCM from '@/communicationsManager.js'
 import ButtonFollow from './ButtonFollow.vue';
 import { useAppStore } from '@/stores/app';
 import passwordCheck from '@/components/components/UserProfile/passwordCheck.vue'
-
+import ToggleTheme from '../ToggleTheme.vue';
 
 const props = defineProps({
   userProfile: Object,
