@@ -23,6 +23,17 @@ export async function getEvents() {
   }
 }
 
+export async function getCategories() {
+  try {
+    const response = await fetch(`${SERVER_URL}/getCategories`, { method: 'GET', mode: 'cors' });
+    const categories = await response.json();
+    return categories;
+  } catch (error) {
+    console.log("Error al recuperar categories CM");
+    throw error;
+  }
+}
+
 export async function getPostsEvents() {
   try {
     const response = await fetch(`${SERVER_URL}/getPostsEvents`, { method: 'POST', mode: 'cors' });

@@ -12,6 +12,7 @@ const eventsDB = require("./events.js")
 const commentsDB = require("./comments.js")
 const chatsDB = require("./chats.js")
 const notificationsDB = require("./notifications.js")
+const categoriesDB = require("./categories.js")
 
 const bodyParserOptions = {
     limit: "50mb" // Cambia el valor según tus necesidades
@@ -550,5 +551,16 @@ app.post("/getNotificationsByIdUser", async (req, res) => {
         res.status(200).json(notifications)
     } catch (error) {
         console.error("Error getting notifications", error)
+    }
+})
+
+//#region CATEGORIES:
+
+app.get("/getCategories", async (req, res) => {
+    try {
+        const categories = await categoriesDB.getCategories()
+        res.status(200).json(categories)
+    } catch (error){
+        console.error(error)
     }
 })

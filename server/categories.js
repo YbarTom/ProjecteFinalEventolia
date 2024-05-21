@@ -29,6 +29,30 @@ async function createCategorie(categorie) {
     }
 }
 
+function getCategories() {
+    return new Promise((resolve, reject) => {
+        client
+            .connect()
+            .then(() => {
+                categoriesCollection
+                    .find()
+                    .toArray()
+                    .then((result) => {
+                        resolve(result);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting categories: ", error)
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error)
+                reject(error);
+            });
+    });
+}
+
 module.exports = {
-    createCategorie
+    createCategorie,
+    getCategories
 }

@@ -9,7 +9,13 @@
         <TextField text="password" v-model="password" type="password" />
       </div>
       <div><Button @click="login" text="Log In" /></div>
+      <div @click="signUp = true">
+        <p>Sign Up</p>
+      </div>
     </div>
+    <v-dialog v-model="signUp" width="79%">
+      <SignUp/>
+    </v-dialog>
   </div>
 </template>
 
@@ -19,6 +25,7 @@ import TextField from '@/components/components/Log_Reg/TextField.vue'
 import Button from '@/components/components/Log_Reg/Button.vue'
 import * as funcionsCM from '../../../../communicationsManager.js'
 import { useAppStore } from '@/stores/app.js'
+import SignUp from './SignUp.vue'
 
 export default {
   components: {
@@ -29,7 +36,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      signUp: false
     };
   },
   methods: {
@@ -42,10 +50,10 @@ export default {
         };
         const response = await funcionsCM.logIn(userInfo);
         if (response.id) {
-          if(response.type === 'admin') {
+          if (response.type === 'admin') {
             appStore.setUser(response);
             this.$router.push('/Admin');
-          }else{
+          } else {
             appStore.setUser(response);
             this.$router.push('/MainPage');
           }
