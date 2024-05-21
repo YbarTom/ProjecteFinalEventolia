@@ -442,3 +442,35 @@ export async function checkChat(users){
     throw error;
   }
 }
+
+export async function acceptPost(postId){
+  try {
+    const response = await fetch(`${SERVER_URL}/acceptPost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Accept post Error CM");
+    throw error;
+  }
+}
+
+export async function deletePost(postId){
+  try {
+    const response = await fetch(`${SERVER_URL}/deletePost`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Delete post Error CM");
+    throw error;
+  }
+}

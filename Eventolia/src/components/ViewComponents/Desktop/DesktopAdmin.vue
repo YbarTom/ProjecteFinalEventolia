@@ -4,7 +4,7 @@
     <div v-else>
       <h2>Posts:</h2>
       <div class="grid-container">
-        <div v-for="post in posts" :key="post.id" class="grid-item">
+        <div v-for="post in filteredPosts" :key="post.id" class="grid-item">
           <img :src="post.image" alt="Imagen del post">
           <p>{{ post.title }}</p>
           <div class="button-container">
@@ -19,7 +19,7 @@
       </div>
       <h2>Eventos:</h2>
       <div class="grid-container">
-        <div v-for="event in events" :key="event.id" class="grid-item">
+        <div v-for="event in filteredEvents" :key="event.id" class="grid-item">
           <img :src="event.image" alt="Imagen del evento">
           <p>{{ event.name }}</p>
           <div class="button-container">
@@ -37,12 +37,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import * as funcionsCM from '../../../communicationsManager.js';
 
 const loading = ref(true);
 const posts = ref([]);
 const events = ref([]);
+
+// Propiedades computadas para filtrar los posts y eventos aceptados
+const filteredPosts = computed(() => posts.value.filter(post => !post.accepted));
+const filteredEvents = computed(() => events.value.filter(event => !event.accepted));
 
 onMounted(async () => {
   try {
@@ -50,6 +54,7 @@ onMounted(async () => {
     const eventData = await funcionsCM.getEvents();
 
     if (postData && Array.isArray(postData) && eventData && Array.isArray(eventData)) {
+      // Asignar todos los datos recibidos a las variables posts y events
       posts.value = postData;
       events.value = eventData;
       loading.value = false;
@@ -63,19 +68,19 @@ onMounted(async () => {
 });
 
 const acceptPost = (postId) => {
-  // Lógica para aceptar un post con el ID dado
+  funcionsCM.acceptPost(postId);
 };
 
 const deletePost = (postId) => {
-  // Lógica para borrar un post con el ID dado
+  funcionsCM.deletePost(postId);
 };
 
 const acceptEvent = (eventId) => {
-  // Lógica para aceptar un evento con el ID dado
+  funcionsCM.acceptEvent(eventId);
 };
 
 const deleteEvent = (eventId) => {
-  // Lógica para borrar un evento con el ID dado
+ funcionsCM.deleteEvent(eventId);
 };
 </script>
 
@@ -122,4 +127,3 @@ span.mdi {
   margin: 0 5px; /* Espaciado entre los íconos y el borde del botón */
 }
 </style>
-+
