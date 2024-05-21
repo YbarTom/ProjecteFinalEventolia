@@ -230,6 +230,26 @@ function removeAssist(idEvent, idUser) {
     });
 }
 
+function acceptEvent(idEvent){
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.updateOne({ id: idEvent }, { $set: { accepted:true } })
+                    .then((result) => {
+                        resolve(result.modifiedCount + " event updated successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error updating event: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
+
 
 module.exports = {
     createEvent,
@@ -240,5 +260,6 @@ module.exports = {
     editUserName,
     addAssist,
     removeAssist,
-    deleteEvent
+    deleteEvent,
+    acceptEvent
 }
