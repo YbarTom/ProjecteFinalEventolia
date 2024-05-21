@@ -443,12 +443,12 @@ export async function checkChat(users) {
   }
 }
 
-export async function acceptPost(postId) {
+export async function acceptPost(idPost) {
   try {
     const response = await fetch(`${SERVER_URL}/acceptPost`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ postId })
+        body: JSON.stringify({ idPost })
       });
     const resposta = await response.json();
     console.log(resposta)
@@ -459,12 +459,12 @@ export async function acceptPost(postId) {
   }
 }
 
-export async function deletePost(postId) {
+export async function deletePost(idPost) {
   try {
     const response = await fetch(`${SERVER_URL}/deletePost`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ postId })
+        body: JSON.stringify({ idPost })
       });
     const resposta = await response.json();
     console.log(resposta)
