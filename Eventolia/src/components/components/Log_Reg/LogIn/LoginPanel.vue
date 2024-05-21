@@ -41,11 +41,15 @@ export default {
           password: this.password
         };
         const response = await funcionsCM.logIn(userInfo);
-
         if (response.id) {
-          appStore.setUser(response);
-          this.$router.push('/MainPage');
-        } 
+          if(response.type === 'admin') {
+            appStore.setUser(response);
+            this.$router.push('/Admin');
+          }else{
+            appStore.setUser(response);
+            this.$router.push('/MainPage');
+          }
+        }
       } catch (error) {
         console.error('Login Error: ', error);
       }

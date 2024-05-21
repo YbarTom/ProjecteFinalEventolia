@@ -47,6 +47,11 @@ const routes = [
     name: 'UserEdit',
     component: () => import('@/pages/userEdit.vue'),
   },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/pages/Admin.vue'),
+  }
 ]
 
 const router = createRouter({
