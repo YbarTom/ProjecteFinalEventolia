@@ -1,7 +1,12 @@
 <template>
     <div class="container">
         <div class="middle-panel ">
-            <ChatComponent />
+            <div class="middle-panel " v-if="isDesktop">
+                <ChatComponent />
+            </div>
+            <div class="middle-panel " v-else>
+                <ChatComponentMobile />
+            </div>
         </div>
     </div>
     <div class="bottom-bar bg-background" v-if="isMobile">
@@ -11,30 +16,18 @@
 
 <script setup>
 import ChatComponent from "@/components/components/ChatComponent.vue";
+import ChatComponentMobile from "@/components/components/ChatComponentMobile.vue";
 import btnBotonBar from '@/components/components/buttonBotomBar.vue';
 
 const isMobile = ref(window.innerWidth < 800);
-const updateWidth = () => {
-    isMobile.value = window.innerWidth < 800;
-};
 
-onMounted(() => {
-    window.addEventListener('resize', updateWidth);
-});
-
-onUnmounted(() => {
-    window.removeEventListener('resize', updateWidth);
-});
 </script>
 
 <style scoped>
-.container {
+.container, .middle-panel {
     display: flex;
     height: 100vh;
-}
-.middle-panel {
-    flex: 2;
-    /* Ocupa los dos tercios del contenedor */
+    width: 100%;
 }
 
 .bottom-bar {

@@ -11,8 +11,9 @@
             <option value="10000">10000 km</option>
         </select>
 
-        <v-dialog v-model="dialogVisible" fullscreen>
-            <EventPublication :post="selectedEvent" />
+        <v-dialog v-model="dialogVisible" persistent fullscreen>
+            <EventPublication :post="selectedEvent"/>
+            <v-btn  class="bg-principal2"@click="dialogVisible = false">Cerrar</v-btn>
         </v-dialog>
     </div>
 </template>
