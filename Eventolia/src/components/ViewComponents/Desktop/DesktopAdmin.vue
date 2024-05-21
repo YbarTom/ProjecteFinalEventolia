@@ -100,6 +100,7 @@ const deleteEvent = (eventId) => {
   height: 100vh;
   width: 100%;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .grid-container {
