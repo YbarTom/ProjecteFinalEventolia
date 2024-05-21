@@ -51,15 +51,10 @@ const notificationsMessage = computed(() => {
 }
 
 .notification {
-    padding: 1rem;
+    padding: 0.8rem;
     background-color: #F0A1F7 ;
     border: 1px solid #780F80;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.notification:hover {
-    background-color: #f0f0f0;
+    border-radius: 7px;
 }
 
 .notification:nth-child(even) {
