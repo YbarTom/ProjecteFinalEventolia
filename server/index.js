@@ -288,6 +288,17 @@ app.post("/acceptPost", async (req, res) => {
         res.status(500).json({ error: "Error accepting post" });
     }
 })
+
+app.post("/acceptEvent", async (req, res) => {
+    try {
+        const data = req.body.idEvent
+        await eventsDB.acceptEvent(data)
+        res.status(200).json({ message: "Event accepted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error accepting event" });
+    }
+})
+
 app.post("/getPostsEvents", async (req, res) => {
     try {
         const data = req.body
@@ -415,6 +426,15 @@ app.get("/getEvents", async (req, res) => {
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ error: "Error getting events" });
+    }
+})
+
+app.post("/deleteEvent", async (req, res) => {
+    try {
+        const data = req.body.idEvent
+        await eventsDB.deleteEvent(data)
+    } catch (error) {
+        console.error(error)
     }
 })
 

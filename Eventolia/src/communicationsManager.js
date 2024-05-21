@@ -485,3 +485,35 @@ export async function deletePost(idPost) {
     throw error;
   }
 }
+
+export async function deleteEvent(idEvent) {
+  try {
+    const response = await fetch(`${SERVER_URL}/deleteEvent`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idEvent })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Delete event Error CM");
+    throw error;
+  }
+}
+
+export async function acceptEvent(idEvent){
+  try {
+    const response = await fetch(`${SERVER_URL}/acceptEvent`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idEvent })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Accept event Error CM");
+    throw error;
+  }
+}
