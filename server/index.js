@@ -418,6 +418,15 @@ app.get("/getEvents", async (req, res) => {
     }
 })
 
+app.post("/deleteEvent", async (req, res) => {
+    try {
+        const data = req.body.idEvent
+        await eventsDB.deleteEvent(data)
+    } catch (error) {
+        console.error(error)
+    }
+})
+
 app.post("/createEvent", async (req, res) => {
     try {
         const data = req.body

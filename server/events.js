@@ -55,7 +55,25 @@ function createEvent(event) {
     });
 }
 
-
+function deleteEvent(idEvent) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.deleteOne({ id: idEvent })
+                    .then((result) => {
+                        resolve(result.deletedCount + " event deleted successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting event: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 
 function getEventsByIdUser(idUser) {
     return new Promise((resolve, reject) => {
@@ -221,5 +239,6 @@ module.exports = {
     getEvents,
     editUserName,
     addAssist,
-    removeAssist
+    removeAssist,
+    deleteEvent
 }
