@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <p v-for="(notification, index) in notificationsMessage" :key="index">{{ notification }}</p>
+    <div class="notification-container">
+        <div v-for="(notification, index) in notificationsMessage" :key="index" class="notification">
+            {{ notification }}
+        </div>
     </div>
 </template>
 
@@ -38,4 +40,29 @@ const notificationsMessage = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.notification-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: auto;
+    padding: 1rem;
+}
+
+.notification {
+    padding: 1rem;
+    background-color: #F0A1F7 ;
+    border: 1px solid #780F80;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.notification:hover {
+    background-color: #f0f0f0;
+}
+
+.notification:nth-child(even) {
+    background-color: #c55bda;
+}
+</style>
