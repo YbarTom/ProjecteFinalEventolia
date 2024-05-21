@@ -279,9 +279,9 @@ app.post("/checkChat", async (req, res) => {
 //#region POSTEVENT:
 app.post("/acceptPost", async (req, res) => {
     try {
-        const data = req.body
+        const data = req.body.idPost
         console.log(data)
-        await postsDB.acceptPost(data.postId)
+        await postsDB.acceptPost(data)
         res.status(200).json({ message: "Post accepted successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error accepting post" });
