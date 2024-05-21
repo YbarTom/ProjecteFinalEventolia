@@ -327,6 +327,26 @@ function addEvent(idEvent, idUser) {
     });
 }
 
+function addChat(idUser, idChat) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return usersCollection.findOneAndUpdate(
+                    { id: idUser },
+                    { $addToSet: { chats: idChat } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedUser) => {
+                resolve(updatedUser);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
+
 
 module.exports = {
     getUsers,
@@ -341,5 +361,6 @@ module.exports = {
     getUserByName,
     unfollowUser,
     editUserName,
-    editPassword
+    editPassword,
+    addChat
 }

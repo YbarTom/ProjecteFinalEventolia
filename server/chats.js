@@ -124,8 +124,8 @@ async function createChat(chat) {
         await client.connect();
         const uniqueId = generalFunctions.generateUniqueId();
         chat.id = uniqueId;
-        const result = await chatsCollection.insertOne(chat);
-        return result;
+        await chatsCollection.insertOne(chat);
+        return uniqueId;
     } catch (error) {
         console.error("Error creating chat: ", error);
         throw error;

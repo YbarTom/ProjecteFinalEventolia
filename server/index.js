@@ -265,7 +265,9 @@ app.post("/checkChat", async (req, res) => {
                 ],
                 messages: []
             }
-            await chatsDB.createChat(chat)
+            const idChat = await chatsDB.createChat(chat)
+            await usersDB.addChat(data.user1.id, idChat)
+            await usersDB.addChat(data.user2.id, idChat)
         }
         //res.status(200).json({ message: "Message posted successfully" });
     } catch (error) {
