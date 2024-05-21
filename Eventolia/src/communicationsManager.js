@@ -27,6 +27,7 @@ export async function getPostsEvents() {
   try {
     const response = await fetch(`${SERVER_URL}/getPostsEvents`, { method: 'POST', mode: 'cors' });
     const posts = await response.json();
+    console.log(posts)
     return posts;
   } catch (error) {
     console.log("Error al recuperar posts CM");
