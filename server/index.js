@@ -35,21 +35,22 @@ const io = new Server(server, {
 // Codi del servidor del chat
 io.on('connection', (socket) => {
     console.log('a user connected');
-  
+
     socket.on('joinRoom', (roomName) => {
-      socket.join(roomName); // Úne al usuario a la sala correspondiente
-      console.log(`User joined room: ${roomName}`);
+        socket.join(roomName); // Úne al usuario a la sala correspondiente
+        console.log(`User joined room: ${roomName}`);
     });
-  
+
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+        console.log('user disconnected');
     });
-  
+
     socket.on('chat message', (msg) => {
-      io.to(msg.room).emit('chat message', msg); // Envía el mensaje a todos los usuarios en la sala
+        console.log(msg)
+        io.to(msg.room).emit('chat message', msg); // Envía el mensaje a todos los usuarios en la sala
     });
-  });
-  
+});
+
 
 app.use(bodyParser.json(bodyParserOptions));
 
@@ -124,7 +125,7 @@ app.post("/followUser", async (req, res) => {
     try {
         const data = req.body.data
         await usersDB.followUser(data.idFollower, data.idFollowed)
-        createNotification({type: "follow", follower: data.idFollower, followed: data.idFollowed})
+        createNotification({ type: "follow", follower: data.idFollower, followed: data.idFollowed })
         res.status(200).json({ message: "User followed successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error following user" });
@@ -232,7 +233,7 @@ app.post("/postMessageChat", async (req, res) => {
         const message = req.body.message
         const user = req.body.user
         const type = req.body.type
-        await chatsDB.postMessageChat(room,message,user,type)
+        await chatsDB.postMessageChat(room, message, user, type)
         res.status(200).json({ message: "Message posted successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error posting message" });
@@ -245,7 +246,7 @@ app.post("/postPostChat", async (req, res) => {
         const post = req.body.post
         const user = req.body.user
         const type = req.body.type
-        await chatsDB.postPostChat(room,post,type,user)
+        await chatsDB.postPostChat(room, post, type, user)
         res.status(200).json({ message: "Post posted successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error posting post" });
@@ -256,9 +257,9 @@ app.post("/checkChat", async (req, res) => {
     try {
         const data = req.body.users
         const response = await chatsDB.checkChat(data.user1, data.user2)
-        if(!response){
+        if (!response) {
             const chat = {
-                room: data.user1.userName+data.user2.userName,
+                room: data.user1.userName + data.user2.userName,
                 users: [
                     data.user1.email,
                     data.user2.email
@@ -266,6 +267,7 @@ app.post("/checkChat", async (req, res) => {
                 messages: []
             }
             const idChat = await chatsDB.createChat(chat)
+            console.log(idChat)
             await usersDB.addChat(data.user1.id, idChat)
             await usersDB.addChat(data.user2.id, idChat)
         }
@@ -312,7 +314,7 @@ app.post("/likePost", async (req, res) => {
         const data = req.body.likeInfo
         await postsDB.likePost(data.idUser, data.idPost)
         res.status(200).json({ message: "Post liked successfully" });
-        createNotification({type: "likePost", post: data.idPost, liker: data.idUser})
+        createNotification({ type: "likePost", post: data.idPost, liker: data.idUser })
     } catch (error) {
         res.status(500).json({ error: "Error liking post" });
     }
@@ -335,7 +337,7 @@ app.post("/createPost", async (req, res) => {
 
         post.likes = []
         post.comments = []
-        post.publicationDate = new Date()       
+        post.publicationDate = new Date()
 
         await postsDB.createPost(post)
         res.status(200).json({ message: "Post created successfully" });
@@ -419,7 +421,7 @@ app.post("/addAssist", async (req, res) => {
     try {
         const data = req.body.assistInfo
         await eventsDB.addAssist(data.idEvent, data.idUser)
-        createNotification({type: "newAssist", event: data.idEvent, assistant: data.idUser})
+        createNotification({ type: "newAssist", event: data.idEvent, assistant: data.idUser })
         res.status(200).json({ message: "Assistance updated successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error assistance update" });
@@ -475,7 +477,7 @@ app.post("/createComment", async (req, res) => {
         const data = req.body.comment
         await commentsDB.createComment(data)
         res.status(200).json({ message: "Comment created successfully" });
-        createNotification({type: "newComment", comment: data})
+        createNotification({ type: "newComment", comment: data })
     } catch (error) {
         res.status(500).json({ error: "Error creating comment" });
     }
@@ -498,29 +500,29 @@ async function createNotification(notification) {
     var post
     var newNotification
 
-    switch(notification.type){
+    switch (notification.type) {
         case "newComment":
-        post = await postsDB.getPostsById(notification.comment.idPost)
-        newNotification = {notificated: post.idUser, type: "newComment", text: notification.comment.text, notificator: notification.comment.userName}
-        notificationsDB.createNotification(newNotification)
-        break;
+            post = await postsDB.getPostsById(notification.comment.idPost)
+            newNotification = { notificated: post.idUser, type: "newComment", text: notification.comment.text, notificator: notification.comment.userName }
+            notificationsDB.createNotification(newNotification)
+            break;
         case "follow":
-        const userFollower = await usersDB.getUserById(notification.follower)
-        newNotification = {notificated: notification.followed, type: "follow", notificator: userFollower.userName}
-        notificationsDB.createNotification(newNotification)
-        break;
+            const userFollower = await usersDB.getUserById(notification.follower)
+            newNotification = { notificated: notification.followed, type: "follow", notificator: userFollower.userName }
+            notificationsDB.createNotification(newNotification)
+            break;
         case "likePost":
-        post = await postsDB.getPostsById(notification.post)
-        const userLiker = await usersDB.getUserById(notification.liker)
-        newNotification = {notificated: post.idUser, type: "likePost", notificator: userLiker.userName}
-        notificationsDB.createNotification(newNotification)
-        break;
+            post = await postsDB.getPostsById(notification.post)
+            const userLiker = await usersDB.getUserById(notification.liker)
+            newNotification = { notificated: post.idUser, type: "likePost", notificator: userLiker.userName }
+            notificationsDB.createNotification(newNotification)
+            break;
         case "newAssist":
-        const event = await eventsDB.getEventById(notification.event)
-        const userAssistant = await usersDB.getUserById(notification.assistant)
-        newNotification = {notificated: event.idUser, type: "newAssist", notificator: userAssistant.userName}
-        notificationsDB.createNotification(newNotification)
-        break;
+            const event = await eventsDB.getEventById(notification.event)
+            const userAssistant = await usersDB.getUserById(notification.assistant)
+            newNotification = { notificated: event.idUser, type: "newAssist", notificator: userAssistant.userName }
+            notificationsDB.createNotification(newNotification)
+            break;
     }
 }
 

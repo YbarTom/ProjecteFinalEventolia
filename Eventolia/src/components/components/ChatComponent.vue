@@ -6,8 +6,7 @@
           :isSelected="selectedUser === chat" @selectUser="selectUser(chat)" />
       </div>
     </div>
-    <div class="input-container"
-      :class="{ 'background-color-1': selectedUser === 'tom.ybarguengoitia', 'background-color-2': selectedUser === 'mikiDix', 'background-color-3': selectedUser === 'crosmyc', 'background-color-4': selectedUser === 'fcbarcelona' }">
+    <div class="input-container">
       <ul>
         <li v-for="(message, index) in messages" :key="index"
           :class="message.user === myUser && message.type === 'message' ? 'right-message' : 'left-message'">
@@ -83,11 +82,14 @@ export default {
     };
 
     const sendMessage = () => {
+      console.log("fora if")
       if (newMessage.value.trim() !== '') {
+        console.log("dins if")
         const message = {
           user: myUser.value,
           message: newMessage.value,
-          room: selectedUser.value.room // Agrega el nombre de la sala al mensaje
+          room: selectedUser.value.room,
+          type: "message"
         };
         socket.emit('chat message', message);
         funcionsCM.postMessageChat(selectedUser.value.room, newMessage.value, myUser.value, "message");
@@ -96,6 +98,7 @@ export default {
     };
 
     socket.on('chat message', (msg) => {
+      console.log("missatge rebut: ",msg)
       messages.value.push(msg);
     });
 
