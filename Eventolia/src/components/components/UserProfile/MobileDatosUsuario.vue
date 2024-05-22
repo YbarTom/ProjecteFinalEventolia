@@ -35,13 +35,14 @@
       :changeFollowed="changeFollowed" :changeFollowers="changeFollowers" />
   </v-dialog>
   <v-dialog v-model="showPasswordCheck" width="79%">
-    <passwordCheck/>
+    <passwordCheckMobile />
   </v-dialog>
 </template>
 
 <script setup>
 import ImagenUsuario from '@/components/components/foto.vue'
 import BtnSeguir from '@/components/components/UserProfile/btnSeguir.vue'
+import passwordCheckMobile from '@/components/components/UserProfile/passwordCheckMobile.vue'
 import PopUpUsers from './PopUpUsers.vue';
 import { defineProps, onMounted } from "vue";
 import * as funcionsCM from '@/communicationsManager.js'
