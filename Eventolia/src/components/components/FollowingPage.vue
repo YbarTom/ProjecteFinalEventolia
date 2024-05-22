@@ -19,7 +19,6 @@ onMounted(async () => {
     const user = appStore.getUser()
     const data = await funcionsCM.getFollowingPage(user)
     posts.value = data;
-    console.log(posts.value)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
