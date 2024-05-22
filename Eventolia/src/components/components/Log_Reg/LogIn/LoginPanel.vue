@@ -1,7 +1,6 @@
 <template>
   <div class="loginPanel">
     <div class="TituloLoginPanel">
-      <h1>Eventolia</h1>
       <div class="input-container">
         <TextField text="email" v-model="email" />
       </div>

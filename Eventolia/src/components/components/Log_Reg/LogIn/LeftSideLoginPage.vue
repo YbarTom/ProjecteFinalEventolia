@@ -1,22 +1,21 @@
 <template>
   <div class="lado-izquierda">
-    <img data-v-1ed81890="" class="profile-img" src="" alt="Imagen de perfil">
+    <img data-v-1ed81890="" class="profile-img" src="@/assets/logo.png" alt="Imagen de perfil">
   </div>
 </template>
 
 <script setup>
-  // Aquí iría tu código JavaScript si necesitas algún comportamiento especial
 </script>
 
 <style scoped>
   .lado-izquierda {
-  display: flex; /* Utiliza flexbox para alinear el contenido */
-  justify-content: center; /* Centra el contenido horizontalmente */
+  display: flex;
+  justify-content: center;
 }
 .profile-img {
   width: 100%;
-  max-width: 400px;
+  margin-top: 25% ;
+  margin-left:40%;
+  max-width: 500px;
 }
 </style>
-
-  
