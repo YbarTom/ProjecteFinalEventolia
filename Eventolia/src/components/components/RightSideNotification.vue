@@ -1,22 +1,15 @@
 <template>
     <div class="notification-container bg-background">
-        <div v-for="(notification, index) in notificationsMessage" :key="index"
-            :class="['notification', notification.type]">
+        <div v-for="(notification, index) in notificationsMessage" :key="index" :class="['notification', notification.type]">
             <div class="content">
                 <div class="message">{{ notification.message }}</div>
             </div>
-
         </div>
-    </div>
-    <div class="bottom-bar bg-background">
-        <btnBotonBar />
     </div>
 </template>
 
 <script setup>
 import { defineProps, computed } from 'vue';
-
-import btnBotonBar from '@/components/components/buttonBotomBar.vue';
 
 const props = defineProps({
     notifications: {
@@ -55,23 +48,12 @@ const notificationsMessage = computed(() => {
 </script>
 
 <style scoped>
-.bottom-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-.notification {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
+
+.content {
+    margin: 10px;
     padding: 20px;
-    margin: 0 25px;
-    margin-top:25px;
-    background-color: #f0f2f5;
 }
+
 
 .notification:before {
     content: '';
