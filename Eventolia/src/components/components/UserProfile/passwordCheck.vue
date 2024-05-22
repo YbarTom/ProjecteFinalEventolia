@@ -1,6 +1,8 @@
 <template>
-    <TextField v-model="password" text="password" />
-    <button @click="checkPassword">Check</button>
+    <div class="container">
+        <TextField v-model="password" text="password" class="textField bg-principal" />
+        <button class="check-button" @click="checkPassword">Check</button>
+    </div>
 </template>
 <script setup>
 import { useAppStore } from '@/stores/app';
@@ -17,4 +19,22 @@ async function checkPassword() {
     }
 }
 </script>
-<style scoped></style>
+<style scoped>
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.textField, button {
+    margin: 10px 0;
+}
+
+.check-button {
+    color: #fcecfd; /* Cambia el color del texto aquí */
+}
+
+</style>

@@ -34,7 +34,7 @@
     <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
       :changeFollowed="changeFollowed" :changeFollowers="changeFollowers" />
   </v-dialog>
-  <v-dialog v-model="showPasswordCheck" width="79%">
+  <v-dialog v-model="showPasswordCheck" width="10%">
     <passwordCheck />
   </v-dialog>
 </template>
