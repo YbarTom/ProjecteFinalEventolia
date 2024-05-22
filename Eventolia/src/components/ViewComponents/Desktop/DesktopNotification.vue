@@ -1,15 +1,14 @@
 <template>
-    <div class="notification-container bg-background">
-        <div v-for="(notification, index) in notificationsMessage" :key="index" :class="['notification', notification.type]">
-            <div class="content">
-                <div class="message">{{ notification.message }}</div>
-            </div>
-        </div>
+    <div class="container">
+      <div class="left-panel"><LeftSideMainPage/></div>
+      <div class="right-panel">
+        <RightSideNotification :notifications="notifications" />
+      </div>
     </div>
 </template>
 
 <script setup>
-
+import LeftSideMainPage from "@/components/components/LeftSideMainPage.vue";
 import RightSideNotification from "@/components/components/RightSideNotification.vue";
 
 import { onMounted, ref,onUnmounted } from 'vue';
@@ -42,14 +41,10 @@ onMounted(async () => {
 }
 
 .right-panel {
-  flex: 2; 
+  flex: 1; 
   display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.center-content {
-    width: 100%;
-    max-width: 70%;
+    margin-right: 15%;
 }
 </style>
