@@ -273,7 +273,8 @@ app.post("/checkChat", async (req, res) => {
             await usersDB.addChat(data.user1.id, idChat)
             await usersDB.addChat(data.user2.id, idChat)
         }
-        //res.status(200).json({ message: "Message posted successfully" });
+        const user = await usersDB.getUserById(data.user1.id)
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: "Error posting message" });
     }
