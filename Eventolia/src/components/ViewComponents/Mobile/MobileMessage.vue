@@ -1,15 +1,12 @@
 <template>
     <div class="container">
         <div class="middle-panel ">
-            <div class="middle-panel " v-if="isDesktop">
-                <ChatComponent />
-            </div>
-            <div class="middle-panel " v-else>
+            <div class="middle-panel ">
                 <ChatComponentMobile />
             </div>
         </div>
     </div>
-    <div class="bottom-bar bg-background" v-if="isMobile">
+    <div class="bottom-bar bg-background" >
         <btnBotonBar />
     </div>
 </template>

@@ -1,9 +1,12 @@
 <template>
   <DesktopNotification :notifications="notifications" v-if="isDesktop"/>
   <MobileNotification :notifications="notifications" v-else/>
+
 </template>
 
 <script setup>
+
+
 import DesktopNotification from '@/components/ViewComponents/Desktop/DesktopNotification.vue';
 import MobileNotification from '@/components/ViewComponents/Mobile/MobileNotification.vue';
 
