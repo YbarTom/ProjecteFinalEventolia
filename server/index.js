@@ -399,8 +399,7 @@ app.post("/getPostsByIdUser", async (req, res) => {
 
 app.post("/getFollowingPage", async (req, res) => {
     try {
-        const data = req.body;
-        const user = data.user
+        const user = req.body.user;
 
         const [posts, events] = await Promise.all([
             postsDB.getPostsByIdUsers(user.followed),
@@ -414,6 +413,8 @@ app.post("/getFollowingPage", async (req, res) => {
             const dateB = new Date(b.publicationDate);
             return dateB - dateA;
         });
+
+        console.log(followingPage)
 
         res.status(200).json(followingPage);
     } catch (error) {
