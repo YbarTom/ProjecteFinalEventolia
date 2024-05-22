@@ -162,6 +162,19 @@ export async function unfollowUser(data) {
   }
 }
 
+export async function createUser(user) {
+  try {
+    fetch(`${SERVER_URL}/createUser`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user })
+      });
+  } catch (error) {
+    console.log("Error creating user CM");
+    throw error;
+  }
+}
+
 export async function editUserName(data) {
   try {
     const response = await fetch(`${SERVER_URL}/editUserName`,

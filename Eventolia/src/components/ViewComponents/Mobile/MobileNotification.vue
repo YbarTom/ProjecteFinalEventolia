@@ -4,7 +4,6 @@
             :class="['notification', notification.type]">
             <div class="content">
                 <div class="message">{{ notification.message }}</div>
-                <div class="time">{{ notification.time }}</div>
             </div>
 
         </div>
