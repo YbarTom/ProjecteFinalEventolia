@@ -40,7 +40,7 @@ function getUsers() {
     });
 }
 
-function createUser(user) {
+async function createUser(user) {
     return new Promise((resolve, reject) => {
         client
             .connect()
@@ -54,9 +54,15 @@ function createUser(user) {
                 usersCollection.findOne(query)
                     .then((existingUser) => {
                         if (existingUser) {
-                            reject("User with the same email or userName already exists.");
+                            if (existingUser.email === user.email) {
+                                reject("The email is already used");
+                            } else if (existingUser.userName === user.userName) {
+                                reject("The userName is already used");
+                            } else {
+                                reject("El email o userName ya está en uso.");
+                            }
                         } else {
-                            // Generate unique ID and insert user
+                            // Generar ID único e insertar usuario
                             const uniqueId = generalFunctions.generateUniqueId();
                             user.id = uniqueId;
                             usersCollection.insertOne(user)
@@ -64,22 +70,23 @@ function createUser(user) {
                                     resolve(result);
                                 })
                                 .catch((error) => {
-                                    console.error("Error creating user: ", error);
+                                    console.error("Error creando el usuario: ", error);
                                     reject(error);
                                 });
                         }
                     })
                     .catch((error) => {
-                        console.error("Error checking for existing user: ", error);
+                        console.error("Error verificando el usuario existente: ", error);
                         reject(error);
                     });
             })
             .catch((error) => {
-                console.error("Error connecting to database: ", error)
-                reject(error)
+                console.error("Error conectando a la base de datos: ", error);
+                reject(error);
             });
     });
 }
+
 
 
 function login(user) {

@@ -5,6 +5,7 @@
         <TextField text="password" v-model="password" />
         <TextField text="repeat password" v-model="password2" />
         <v-text-field v-model="birthDate" label="birth date" type="date"></v-text-field>
+        <p v-if="showError">{{ errorMessage }}</p>
         <button @click="Register">Sign Up</button>
     </div>
 </template>
@@ -18,6 +19,8 @@ const userName = ref("")
 const password = ref("")
 const password2 = ref("")
 const birthDate = ref("")
+const showError = ref(false)
+const errorMessage = ref("")
 
 async function Register() {
     if (password.value === password2.value) {
@@ -27,7 +30,14 @@ async function Register() {
             password: password.value,
             birthDate: birthDate.value
         }
-        funcionsCM.createUser(user)
+        const serverData = await funcionsCM.createUser(user)
+        if (serverData !== "User created successfully") {
+            errorMessage.value = serverData
+            showError.value = true
+        }
+    } else {
+        errorMessage.value = "The passwords are different"
+        showError.value = true
     }
 
 }

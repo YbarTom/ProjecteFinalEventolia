@@ -83,7 +83,6 @@ const mostrarPopUp = async (users, type) => {
 }
 
 const changeFollowed = async (id, check) => {
-  console.log(props.userProfile.followed)
   if (check) {
     props.userProfile.followed.push(id)
   } else {
@@ -116,14 +115,11 @@ async function followState() {
   var check
   const appStore = useAppStore()
   const user = appStore.getUser()
-  console.log(user)
-  console.log(props.userProfile)
   if (props.ownProfile) {
     showPasswordCheck.value = true
   }
   else {
     showSendMessage.value = true
-    console.log(showSendMessage.value)
     if (buttonText.value === "follow") {
       funcionsCM.followUser({ idFollower: user.id, idFollowed: props.userProfile.id })
       buttonText.value = "unfollow"

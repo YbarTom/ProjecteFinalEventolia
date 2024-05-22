@@ -85,10 +85,10 @@ app.post("/createUser", async (req, res) => {
         user.privacity = false
         user.chats = []
 
-        await usersDB.createUser(user)
-        res.status(200).json({ message: "User created successfully" });
+        const response = await usersDB.createUser(user)
+        res.status(200).json("User created successfully");
     } catch (error) {
-        res.status(500).json({ error: "Error creating user" });
+        res.status(500).json(error);
     }
 })
 
