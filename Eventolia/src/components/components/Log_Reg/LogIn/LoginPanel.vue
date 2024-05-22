@@ -15,7 +15,7 @@
       </div>
     </div>
     <v-dialog v-model="signUp" width="79%">
-      <SignUp />
+      <SignUp @close-dialog="closeSignUpDialog" />
     </v-dialog>
     <v-dialog v-model="showErrorDialog" max-width="500">
       <v-card class="bg-principal">
@@ -42,7 +42,8 @@ export default {
   components: {
     ThemeToggler,
     TextField,
-    Button
+    Button,
+    SignUp
   },
   data() {
     return {
@@ -87,6 +88,9 @@ export default {
     },
     closeErrorDialog() {
       this.showErrorDialog = false;
+    },
+    closeSignUpDialog() {
+      this.signUp = false;
     }
   }
 };

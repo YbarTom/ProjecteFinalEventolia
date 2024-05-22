@@ -11,7 +11,7 @@
 </template>
 <script setup>
 import TextField from '@/components/components/Log_Reg/TextField.vue'
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import * as funcionsCM from '@/communicationsManager.js'
 
 const email = ref("")
@@ -21,6 +21,7 @@ const password2 = ref("")
 const birthDate = ref("")
 const showError = ref(false)
 const errorMessage = ref("")
+const emit = defineEmits(['close-dialog']);
 
 async function Register() {
     if (password.value === password2.value) {
@@ -34,6 +35,9 @@ async function Register() {
         if (serverData !== "User created successfully") {
             errorMessage.value = serverData
             showError.value = true
+        }
+        else {
+            emit('close-dialog')
         }
     } else {
         errorMessage.value = "The passwords are different"
