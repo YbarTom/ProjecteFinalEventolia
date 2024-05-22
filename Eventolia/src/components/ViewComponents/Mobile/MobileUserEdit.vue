@@ -8,11 +8,19 @@
   
       <p v-if="checkError" class="error-message">{{ errorMessage }}</p>
     </div>
+
+    <div class="bottom-bar bg-background">
+        <btnBotonBar />
+    </div>
   </template>
   
   <script setup>
   import { ref } from 'vue'
   import TextField from '@/components/components/Log_Reg/TextField.vue'
+
+import btnBotonBar from '@/components/components/buttonBotomBar.vue';
+
+
   import { useAppStore } from '@/stores/app';
   import * as funcionsCM from '@/communicationsManager.js'
   import { useRouter } from 'vue-router';
@@ -57,6 +65,12 @@
   </script>
   
   <style scoped>
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
   .form-container {
     display: flex;
     flex-direction: column;
