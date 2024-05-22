@@ -1,13 +1,11 @@
 <template>
   <div class="div">
-    <ToggleTheme />
     <Publication v-for="post in posts" :key="post.id" :post="post" />
   </div> <!-- Nuevo div con color azul -->
 
 </template>
 
 <script setup>
-import ToggleTheme from './ToggleTheme.vue';
 import Publication from './Publication.vue';
 import { onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js';
@@ -36,8 +34,11 @@ onMounted(async () => {
   left: 0;
   width: 100%;
   height: calc(100% - 78px);
+  overflow-y: auto;
   /* Restamos la altura del topBar */
 }
-
+.div::-webkit-scrollbar {
+  display: none;
+}
 /* Ajustamos la posición del div azul */
 </style>

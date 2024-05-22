@@ -164,11 +164,13 @@ export async function unfollowUser(data) {
 
 export async function createUser(user) {
   try {
-    fetch(`${SERVER_URL}/createUser`,
+    const response = await fetch(`${SERVER_URL}/createUser`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user })
       });
+    const resposta = await response.json()
+    return resposta;
   } catch (error) {
     console.log("Error creating user CM");
     throw error;
@@ -515,7 +517,7 @@ export async function deleteEvent(idEvent) {
   }
 }
 
-export async function acceptEvent(idEvent){
+export async function acceptEvent(idEvent) {
   try {
     const response = await fetch(`${SERVER_URL}/acceptEvent`,
       {

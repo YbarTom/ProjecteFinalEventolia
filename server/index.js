@@ -85,10 +85,10 @@ app.post("/createUser", async (req, res) => {
         user.privacity = false
         user.chats = []
 
-        await usersDB.createUser(user)
-        res.status(200).json({ message: "User created successfully" });
+        const response = await usersDB.createUser(user)
+        res.status(200).json("User created successfully");
     } catch (error) {
-        res.status(500).json({ error: "Error creating user" });
+        res.status(500).json(error);
     }
 })
 
@@ -273,7 +273,8 @@ app.post("/checkChat", async (req, res) => {
             await usersDB.addChat(data.user1.id, idChat)
             await usersDB.addChat(data.user2.id, idChat)
         }
-        //res.status(200).json({ message: "Message posted successfully" });
+        const user = await usersDB.getUserById(data.user1.id)
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: "Error posting message" });
     }
@@ -398,8 +399,7 @@ app.post("/getPostsByIdUser", async (req, res) => {
 
 app.post("/getFollowingPage", async (req, res) => {
     try {
-        const data = req.body;
-        const user = data.user
+        const user = req.body.user;
 
         const [posts, events] = await Promise.all([
             postsDB.getPostsByIdUsers(user.followed),
@@ -413,6 +413,8 @@ app.post("/getFollowingPage", async (req, res) => {
             const dateB = new Date(b.publicationDate);
             return dateB - dateA;
         });
+
+        console.log(followingPage)
 
         res.status(200).json(followingPage);
     } catch (error) {

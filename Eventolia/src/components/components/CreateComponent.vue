@@ -24,6 +24,10 @@
               rows="1"></v-textarea>
             <v-textarea v-model="Description" label="Description" variant="outlined" counter :rules="rules2" no-resize
               rows="4"></v-textarea>
+            <v-select label="Category" :items="categories" variant="outlined"
+              @update:modelValue="handleCategorySelect"></v-select>
+            <v-select label="Subcategory" :items="subcategories" variant="outlined"
+              @update:modelValue="handleSubCategorySelect"></v-select>
             <v-number-input v-model="AssistantsMax" :reverse="false" controlVariant="default" label="Maximum Assitants"
               :hideInput="false" :inset="false" variant="outlined"></v-number-input>
             <v-textarea v-model="Address" label="Address" variant="outlined" counter no-resize rows="1"></v-textarea>
@@ -38,7 +42,7 @@
   </div>
 </template>
 <script setup>
-import { ref,defineEmits, onMounted } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from '@/stores/app.js';
 
@@ -53,8 +57,41 @@ const Title = ref('');
 const Description = ref('');
 const AssistantsMax = ref('');
 const Address = ref('');
+const selectedCategorie = ref('')
+const selectedSubCategorie = ref('')
 const emit = defineEmits(['close-dialog']);
+const categories = ref([])
+const subcategories = ref([])
+const categoriesData = ref([])
 
+
+onMounted(async () => {
+  try {
+    categoriesData.value = await funcionsCM.getCategories()
+    for (let i = 0; i < categoriesData.value.length; i++) {
+      categories.value.push(categoriesData.value[i].title)
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
+
+function handleCategorySelect(selectedCategory) {
+  selectedCategorie.value = selectedCategory
+  let index;
+  for (let i = 0; i < categoriesData.value.length; i++) {
+    if (selectedCategory === categoriesData.value[i].title) {
+      index = i
+    }
+  }
+  for (let i = 0; i < categoriesData.value[index].subcategories.length; i++) {
+    subcategories.value.push(categoriesData.value[index].subcategories[i])
+  }
+}
+
+function handleSubCategorySelect(selectedSubCategory) {
+  selectedSubCategorie.value = selectedSubCategory
+}
 
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -81,7 +118,8 @@ const createEvent = async () => {
       image: imagePreview.value,
       startDate: startDate.value,
       endDate: endDate.value,
-      categories: [],
+      category: selectedCategorie.value,
+      subcategory: selectedSubCategorie.value,
       location: Address.value,
       type: "eventPublication"
     }

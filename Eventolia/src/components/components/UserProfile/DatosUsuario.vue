@@ -28,7 +28,7 @@
     <ButtonFollow text="Send Message" @click="sendMessage" />
   </div>
 
-  <ToggleTheme/>
+  <ToggleTheme />
 
   <v-dialog v-model="showPopUp" width="79%">
     <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
@@ -49,6 +49,7 @@ import ButtonFollow from './ButtonFollow.vue';
 import { useAppStore } from '@/stores/app';
 import passwordCheck from '@/components/components/UserProfile/passwordCheck.vue'
 import ToggleTheme from '../ToggleTheme.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   userProfile: Object,
@@ -62,6 +63,7 @@ const followed = ref([])
 const buttonText = ref("")
 const showPasswordCheck = ref(false)
 const showSendMessage = ref(false)
+const router = useRouter();
 
 onMounted(() => {
   changeButtonText()
@@ -81,7 +83,6 @@ const mostrarPopUp = async (users, type) => {
 }
 
 const changeFollowed = async (id, check) => {
-  console.log(props.userProfile.followed)
   if (check) {
     props.userProfile.followed.push(id)
   } else {
@@ -98,7 +99,6 @@ const changeButtonText = async () => {
     buttonText.value = "Edit"
   } else {
     const appStore = useAppStore()
-    console.log(appStore)
     const user = appStore.getUser()
     for (let i = 0; i < props.userProfile.followers.length; i++) {
       if (user.id == props.userProfile.followers[i]) {
@@ -115,14 +115,11 @@ async function followState() {
   var check
   const appStore = useAppStore()
   const user = appStore.getUser()
-  console.log(user)
-  console.log(props.userProfile)
   if (props.ownProfile) {
     showPasswordCheck.value = true
   }
   else {
     showSendMessage.value = true
-    console.log(showSendMessage.value)
     if (buttonText.value === "follow") {
       funcionsCM.followUser({ idFollower: user.id, idFollowed: props.userProfile.id })
       buttonText.value = "unfollow"
@@ -146,7 +143,12 @@ async function sendMessage() {
   const appStore = useAppStore()
   const user = appStore.getUser()
 
-  await funcionsCM.checkChat({user1: user, user2: props.userProfile})
+  const updatedUser = await funcionsCM.checkChat({ user1: user, user2: props.userProfile })
+
+  appStore.setUser(updatedUser)
+
+  router.push("/messagespage");
+
 }
 </script>
 
