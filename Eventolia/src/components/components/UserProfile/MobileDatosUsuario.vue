@@ -24,6 +24,11 @@
   <div class="btn-seguir bg-principal">
     <ButtonFollow :text="buttonText" @click="followState" />
   </div>
+  <div class="btn-seguir bg-principal">
+    <ButtonFollow text="Send Message" @click="sendMessage" />
+  </div>
+
+  <ToggleTheme class="Toggler "/>
 
   <v-dialog v-model="showPopUp" width="79%">
     <PopUpUsers :type="typePopUp" :followers="followers" :followed="followed" :ownProfile="props.ownProfile"
@@ -43,7 +48,8 @@ import * as funcionsCM from '@/communicationsManager.js'
 import ButtonFollow from './ButtonFollow.vue';
 import { useAppStore } from '@/stores/app';
 import passwordCheck from '@/components/components/UserProfile/passwordCheck.vue'
-
+import ToggleTheme from '../ToggleTheme.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   userProfile: Object,
@@ -56,6 +62,8 @@ const followers = ref([]);
 const followed = ref([])
 const buttonText = ref("")
 const showPasswordCheck = ref(false)
+const showSendMessage = ref(false)
+const router = useRouter();
 
 onMounted(() => {
   changeButtonText()
@@ -75,7 +83,6 @@ const mostrarPopUp = async (users, type) => {
 }
 
 const changeFollowed = async (id, check) => {
-  console.log(props.userProfile.followed)
   if (check) {
     props.userProfile.followed.push(id)
   } else {
@@ -92,7 +99,6 @@ const changeButtonText = async () => {
     buttonText.value = "Edit"
   } else {
     const appStore = useAppStore()
-    console.log(appStore)
     const user = appStore.getUser()
     for (let i = 0; i < props.userProfile.followers.length; i++) {
       if (user.id == props.userProfile.followers[i]) {
@@ -109,12 +115,11 @@ async function followState() {
   var check
   const appStore = useAppStore()
   const user = appStore.getUser()
-  console.log(user)
-  console.log(props.userProfile)
   if (props.ownProfile) {
     showPasswordCheck.value = true
   }
   else {
+    showSendMessage.value = true
     if (buttonText.value === "follow") {
       funcionsCM.followUser({ idFollower: user.id, idFollowed: props.userProfile.id })
       buttonText.value = "unfollow"
@@ -126,16 +131,32 @@ async function followState() {
       check = false
     }
     var userAux = props.userProfile.followers
-    if(check){
+    if (check) {
       userAux.push(user.id)
-    }else {
+    } else {
       props.userProfile.followers = props.userProfile.followers.filter(item => item != user.id)
     }
   }
 }
+
+async function sendMessage() {
+  const appStore = useAppStore()
+  const user = appStore.getUser()
+
+  const updatedUser = await funcionsCM.checkChat({ user1: user, user2: props.userProfile })
+
+  appStore.setUser(updatedUser)
+
+  router.push("/messagespage");
+
+}
 </script>
 
 <style scoped>
+
+.Toggler{
+  margin-bottom: -20px;
+}
 
 .usuario-info{
   display: flex;
@@ -151,6 +172,7 @@ async function followState() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px
 }
 
 .numeros-usu {

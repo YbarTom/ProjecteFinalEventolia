@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="toggleTheme">
-      {{ selectedTheme === 'customlight' ? 'Switch to Custom Dark' : 'Switch to Custom Light' }}
+      {{ selectedTheme === 'customlight' ? 'Switch to  Dark' : 'Switch to  Light' }}
     </button>
   </div>
 </template>
