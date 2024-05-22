@@ -54,11 +54,8 @@ const notificationsMessage = computed(() => {
     flex-direction: column;
     gap: 15px;
     padding: 20px;
+    margin: 0 25px;
     background-color: #f0f2f5;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .notification {
