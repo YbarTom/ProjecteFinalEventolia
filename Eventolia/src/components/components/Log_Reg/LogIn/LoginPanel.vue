@@ -15,7 +15,7 @@
       </div>
     </div>
     <v-dialog v-model="signUp" width="79%">
-      <SignUp/>
+      <SignUp />
     </v-dialog>
     <v-dialog v-model="showErrorDialog" max-width="500">
       <v-card class="bg-principal">
@@ -113,5 +113,4 @@ export default {
   align-items: center;
   width: 100%;
 }
-
 </style>

@@ -75,7 +75,7 @@ app.get("/getUsers", async (req, res) => {
 
 app.post("/createUser", async (req, res) => {
     try {
-        const user = req.body
+        const user = req.body.user
 
         user.posts = []
         user.followers = []
@@ -83,6 +83,7 @@ app.post("/createUser", async (req, res) => {
         user.events = []
         user.profilePic = predeterminedProfilePic
         user.privacity = false
+        user.chats = []
 
         await usersDB.createUser(user)
         res.status(200).json({ message: "User created successfully" });

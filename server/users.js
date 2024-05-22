@@ -45,7 +45,6 @@ function createUser(user) {
         client
             .connect()
             .then(() => {
-                // Check if user with same email or userName exists
                 const query = {
                     $or: [
                         { email: user.email },
@@ -55,7 +54,6 @@ function createUser(user) {
                 usersCollection.findOne(query)
                     .then((existingUser) => {
                         if (existingUser) {
-                            // User with same email or userName already exists
                             reject("User with the same email or userName already exists.");
                         } else {
                             // Generate unique ID and insert user

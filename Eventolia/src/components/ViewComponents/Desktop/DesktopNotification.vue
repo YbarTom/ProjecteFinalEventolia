@@ -1,10 +1,8 @@
 <template>
-    <div class="container">
-        <div class="left-panel"><LeftSideMainPage/></div>
-
-        <div class="right-panel">
-            <div class="center-content">
-                <RightSideNotification :notifications="notifications" :notificationsMessage="notificationsMessage" />
+    <div class="notification-container bg-background">
+        <div v-for="(notification, index) in notificationsMessage" :key="index" :class="['notification', notification.type]">
+            <div class="content">
+                <div class="message">{{ notification.message }}</div>
             </div>
         </div>
     </div>
