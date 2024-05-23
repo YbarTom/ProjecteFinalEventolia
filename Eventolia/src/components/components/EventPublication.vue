@@ -2,7 +2,7 @@
   <div ref="divExterior" class="div-exterior bg-principal">
     <div class="profile-div">
       <div class="perfil-img"></div>
-      <p><b>{{ props.post.organizer }}</b></p>
+      <p @click="router.push('/userprofile/' + props.post.organizer)"><b>{{ props.post.organizer }}</b></p>
       <div class="right">
         <p><b>{{ props.post.assistants.length }}</b></p>
         <v-icon icon="mdi-account-multiple" class="text-text" />
@@ -15,14 +15,9 @@
       <p class="userComments text-text"><b>{{ props.post.description }}</b></p>
       <div class="commentsButtons">
         <div class="left">
-          <buttonPublication type="heart" />
-          <buttonPublication type="chat" />
-          <buttonPublication type="send" @click="sendPost=true"/>
+          <buttonPublication type="send" @click="sendPost = true" />
           <buttonPublication type="add" :onClick="createPost" />
           <buttonPublication type="assistantPlus" :onClick="addAssistant" />
-        </div>
-        <div class="right">
-          <buttonPublication type="save" />
         </div>
       </div>
     </div>
@@ -38,9 +33,9 @@
         <addPostMobile :idEvent="props.post.id" @close-dialog="boolean = false" />
       </v-dialog>
     </div>
-    <v-dialog v-model="sendPost" >
-          <SendList :post="props.post"/>
-        </v-dialog>
+    <v-dialog v-model="sendPost">
+      <SendList :post="props.post" />
+    </v-dialog>
   </div>
 
 </template>
@@ -53,7 +48,9 @@ import addPost from './addPost.vue';
 import addPostMobile from '@/components/components/addPostMobile.vue';
 import * as funcionsCM from '../../communicationsManager.js'
 import { useAppStore } from "@/stores/app";
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const divExterior = ref(null);
 const image = ref(null);
 const commentsDiv = ref(null);
@@ -129,7 +126,7 @@ async function addAssistant() {
     await funcionsCM.removeAssist({ idUser: user.id, idEvent: props.post.id })
     props.post.assistants = props.post.assistants.filter(item => item !== user.id);
     assistCheck.value = false
-  } else if(!assistCheck.value && props.post.assistantsMax !== props.post.assistants.length){
+  } else if (!assistCheck.value && props.post.assistantsMax !== props.post.assistants.length) {
     await funcionsCM.addAssist({ idUser: user.id, idEvent: props.post.id })
     props.post.assistants.push(user.id)
     assistCheck.value = true

@@ -12,12 +12,8 @@
         <div class="commentsButtons">
           <div class="left">
             <buttonPublication type="heart" @click="like" />
-            <buttonPublication type="chat" />
             <buttonPublication type="send" @click="sendPost=true"/>
             <buttonPublication type="delete" v-if="checkDelete" @click="deletePost"/>
-          </div>
-          <div class="right">
-            <buttonPublication type="save" />
           </div>
         </div>
         <p class="likes text-text"><b>{{ post.likes.length }} likes</b></p>
