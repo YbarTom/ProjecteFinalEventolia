@@ -65,53 +65,57 @@ app.post("/getAlgorithm", async (req, res) => {
     const data = req.body;
     try {
         const idsAssistedEvents = await usersDB.getAssistedEvents(data.idUser);
-        
-        if(idsAssistedEvents) {
-            const assistedEvents = await eventsDB.getEventsByIds(idsAssistedEvents);
+        if (idsAssistedEvents === undefined) {
             const events = await eventsDB.getEvents();
+            res.json(events);
+        } else {
+            if (idsAssistedEvents) {
+                const assistedEvents = await eventsDB.getEventsByIds(idsAssistedEvents);
+                const events = await eventsDB.getEvents();
 
-            const eventosRecomendados = [];
-            const preferenciasUsuario = assistedEvents.reduce((acc, evento) => {
-                acc[evento.subcategory] = true;
-                return acc;
-            }, {});
+                const eventosRecomendados = [];
+                const preferenciasUsuario = assistedEvents.reduce((acc, evento) => {
+                    acc[evento.subcategory] = true;
+                    return acc;
+                }, {});
 
-            const subcategoriasPreferidas = new Map();
-            Object.keys(preferenciasUsuario).forEach(subcategoria => {
-                subcategoriasPreferidas.set(subcategoria, true);
-            });
+                const subcategoriasPreferidas = new Map();
+                Object.keys(preferenciasUsuario).forEach(subcategoria => {
+                    subcategoriasPreferidas.set(subcategoria, true);
+                });
 
-            for (const evento of events) {
-                if (!preferenciasUsuario.hasOwnProperty(evento.subcategory)) {
-                    const { category, subcategory, rating } = evento;
+                for (const evento of events) {
+                    if (!preferenciasUsuario.hasOwnProperty(evento.subcategory)) {
+                        const { category, subcategory, rating } = evento;
 
-                    // Calcular la similitud de categorías y subcategorías
-                    const similarityScore = calculateSimilarity(assistedEvents, evento);
+                        // Calcular la similitud de categorías y subcategorías
+                        const similarityScore = calculateSimilarity(assistedEvents, evento);
 
-                    if (subcategoriasPreferidas.has(subcategory)) {
-                        eventosRecomendados.push({ evento, category, subcategory, rating, similarityScore });
-                    } else {
-                        // Introducir variedad
-                        const frecuenciaRecomendacion = eventosRecomendados.length / events.length;
-                        if (frecuenciaRecomendacion < 0.2 || Math.random() < 0.1) {
-                            eventosRecomendados.push(evento);
+                        if (subcategoriasPreferidas.has(subcategory)) {
+                            eventosRecomendados.push({ evento, category, subcategory, rating, similarityScore });
+                        } else {
+                            // Introducir variedad
+                            const frecuenciaRecomendacion = eventosRecomendados.length / events.length;
+                            if (frecuenciaRecomendacion < 0.2 || Math.random() < 0.1) {
+                                eventosRecomendados.push(evento);
+                            }
                         }
                     }
                 }
+
+                // Ordenar por rating y similitud
+                eventosRecomendados.sort((a, b) => {
+                    // Si tienen el mismo rating, ordenar por similitud
+                    if (a.rating === b.rating) {
+                        return b.similarityScore - a.similarityScore;
+                    }
+                    return b.rating - a.rating;
+                });
+
+                res.json(eventosRecomendados); // Devuelve los resultados en formato JSON
+            } else {
+                res.status(404).json({ error: 'No assisted events found for this user.' }); // Devuelve un error en formato JSON
             }
-
-            // Ordenar por rating y similitud
-            eventosRecomendados.sort((a, b) => {
-                // Si tienen el mismo rating, ordenar por similitud
-                if (a.rating === b.rating) {
-                    return b.similarityScore - a.similarityScore;
-                }
-                return b.rating - a.rating;
-            });
-
-            res.json(eventosRecomendados); // Devuelve los resultados en formato JSON
-        } else {
-            res.status(404).json({ error: 'No assisted events found for this user.' }); // Devuelve un error en formato JSON
         }
     } catch (error) {
         console.error("Error getting algorithm", error);
@@ -656,7 +660,7 @@ app.get("/getCategories", async (req, res) => {
     try {
         const categories = await categoriesDB.getCategories()
         res.status(200).json(categories)
-    } catch (error){
+    } catch (error) {
         console.error(error)
     }
 })

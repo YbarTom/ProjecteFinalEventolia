@@ -14,7 +14,8 @@ export const useAppStore = defineStore('app', {
       profilePic: "",
       privacity: false,
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      loggedIn: false,
     }
   }),
   actions: {
@@ -29,9 +30,14 @@ export const useAppStore = defineStore('app', {
       this.user.events = events;
       this.user.profilePic = profilePic;
       this.user.privacity = privacity;
+      this.user.loggedIn = true;
     },
     setUser(user) {
       this.user = user
+      this.user.loggedIn = true;
+    },
+    isLoggedIn() {
+      return this.user.loggedIn;
     },
     setUserId(id) {
       this.user.id = id;
