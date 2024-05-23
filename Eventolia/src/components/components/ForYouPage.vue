@@ -1,5 +1,5 @@
 <template>
-  <div class="div">    
+  <div class="div">
     <Publication v-for="post in posts" :key="post.id" :post="post"/>
   </div>
 </template>
@@ -8,14 +8,18 @@
 import Publication from './Publication.vue';
 import { onMounted } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js'
+import { useAppStore } from '@/stores/app.js';
 
 const posts = ref([]);
 
 onMounted(async () => {
   try {
-    const dataPosts = await funcionsCM.getPosts()
-    const dataEvents = await funcionsCM.getEvents()
-    posts.value = dataPosts.concat(dataEvents);
+    const appStore = useAppStore()
+    const user = appStore.getUser()
+
+    const dataEvents = await funcionsCM.getAlgorithm(user.id);
+    console.log(dataEvents);
+    posts.value = dataEvents;
   } catch (error) {
     console.error('Error fetching data: ', error);
   }
