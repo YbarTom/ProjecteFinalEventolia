@@ -1,4 +1,4 @@
-export const SERVER_URL = "http://localhost:3001"
+export const SERVER_URL = "http://eventolia.dam.inspedralbes.cat:3693"
 import { useAppStore } from '@/stores/app.js'
 
 export async function getPosts() {
