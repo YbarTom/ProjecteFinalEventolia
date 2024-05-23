@@ -462,6 +462,7 @@ app.post("/addAssist", async (req, res) => {
     try {
         const data = req.body.assistInfo
         await eventsDB.addAssist(data.idEvent, data.idUser)
+        await usersDB.addAssist(data.idUser, data.idEvent)
         createNotification({ type: "newAssist", event: data.idEvent, assistant: data.idUser })
         res.status(200).json({ message: "Assistance updated successfully" });
     } catch (error) {
@@ -474,6 +475,7 @@ app.post("/removeAssist", async (req, res) => {
         const data = req.body.assistInfo
 
         await eventsDB.removeAssist(data.idEvent, data.idUser)
+        await usersDB.removeAssist(data.idUser, data.idEvent)
         res.status(200).json({ message: "Assistance updated successfully" });
     } catch (error) {
         res.status(500).json({ error: "Error assistance update" });

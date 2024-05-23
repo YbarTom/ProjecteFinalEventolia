@@ -352,6 +352,45 @@ function addChat(idUser, idChat) {
     });
 }
 
+function addAssist(idUser, idEvent) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return usersCollection.findOneAndUpdate(
+                    { id: idUser },
+                    { $addToSet: { assistedEvents: idEvent } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedUser) => {
+                resolve(updatedUser);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
+
+function removeAssist(idUser, idEvent) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return usersCollection.findOneAndUpdate(
+                    { id: idUser },
+                    { $pull: { assistedEvents: idEvent } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedUser) => {
+                resolve(updatedUser);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
 
 module.exports = {
     getUsers,
@@ -367,5 +406,7 @@ module.exports = {
     unfollowUser,
     editUserName,
     editPassword,
-    addChat
+    addChat,
+    addAssist,
+    removeAssist
 }
