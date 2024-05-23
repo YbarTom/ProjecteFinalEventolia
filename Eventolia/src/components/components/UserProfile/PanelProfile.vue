@@ -45,6 +45,5 @@ const selectedOption = ref(true)
 .imagen {
   width: 79%;
   flex: 1;
-  margin-top: -200px;
 }
 </style>

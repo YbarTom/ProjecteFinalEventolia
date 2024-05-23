@@ -19,7 +19,7 @@
       ></v-autocomplete>
     </div>
     <div class="buttons-container">
-      <button class="button" @click="toggleMap">Botón 1</button>
+      <button class="button" @click="toggleMap">Switch</button>
     </div>
     <div class="grid" v-if="map">
       <div
@@ -45,6 +45,8 @@ import { ref, onMounted, nextTick, computed } from 'vue';
 import * as funcionsCM from '../../communicationsManager.js';
 import Map from './Map.vue';
 import MapMobile from './MapMobile.vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const map = ref(true);
 const searchText = ref('');
@@ -70,6 +72,9 @@ onMounted(async () => {
 
 const toggleMap = () => {
   map.value = !map.value;
+  if (map.value) {
+    router.push('/cheat')
+  }
 };
 
 const adjustGridItemHeight = () => {
@@ -80,7 +85,7 @@ const adjustGridItemHeight = () => {
 };
 
 const clearSearch = () => {
-  searchText.value = '';
+  router.push('/cheat')
 };
 
 const filterItems = () => {
