@@ -68,6 +68,7 @@ app.post("/getAlgorithm", async (req, res) => {
         if (idsAssistedEvents === undefined) {
             const events = await eventsDB.getEvents();
             res.json(events);
+
         } else {
             if (idsAssistedEvents) {
                 const assistedEvents = await eventsDB.getEventsByIds(idsAssistedEvents);
@@ -430,8 +431,8 @@ app.post("/dislikePost", async (req, res) => {
 
 app.post("/deletePost", async (req, res) => {
     try {
-        const data = req.body.idPost
-        await postsDB.deletePost(data)
+        const data = req.body.post
+        await postsDB.deletePost(data.id, data.idUser)
     } catch (error) {
         console.error(error)
     }

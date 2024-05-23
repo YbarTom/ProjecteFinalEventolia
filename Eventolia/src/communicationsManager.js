@@ -485,12 +485,12 @@ export async function acceptPost(idPost) {
   }
 }
 
-export async function deletePost(idPost) {
+export async function deletePost(post) {
   try {
     const response = await fetch(`${SERVER_URL}/deletePost`,
       {
         method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idPost })
+        body: JSON.stringify({ post })
       });
     const resposta = await response.json();
     console.log(resposta)

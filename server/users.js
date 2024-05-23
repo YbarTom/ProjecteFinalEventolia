@@ -312,6 +312,26 @@ function addPost(idPost, idUser) {
     });
 }
 
+function deletePost(idPost, idUser) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                return usersCollection.findOneAndUpdate(
+                    { id: idUser },
+                    { $pull: { posts: idPost } },
+                    { returnOriginal: false }
+                );
+            })
+            .then((updatedUser) => {
+                resolve(updatedUser);
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+}
+
 function addEvent(idEvent, idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
@@ -428,5 +448,6 @@ module.exports = {
     addChat,
     addAssist,
     removeAssist,
-    getAssistedEvents
+    getAssistedEvents,
+    deletePost
 }

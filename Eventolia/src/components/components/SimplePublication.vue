@@ -121,7 +121,7 @@ async function like() {
 }
 
 async function deletePost() {
-  funcionsCM.deletePost(props.post.id)
+  funcionsCM.deletePost(props.post)
 }
 
 async function createComment() {
