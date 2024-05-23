@@ -9,11 +9,11 @@
       </div>
       <div><Button @click="login" text="Log In" /></div>
 
-      <div @click="signUp = true">
+      <div @click="signUp = true" class="bg-principal2">
         <p>Sign Up</p>
       </div>
     </div>
-    <v-dialog v-model="signUp" width="79%">
+    <v-dialog v-model="signUp" width="60%" class="bg-background">
       <SignUp @close-dialog="closeSignUpDialog" />
     </v-dialog>
     <v-dialog v-model="showErrorDialog" max-width="500">
@@ -115,5 +115,13 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+.bg-principal2{
+  padding-top: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 15px;
+
 }
 </style>
