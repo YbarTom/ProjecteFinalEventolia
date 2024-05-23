@@ -1,8 +1,12 @@
 <template>
   <div class="ancho">
-    <div class="grid" ref="grid" v-if="map && grid">
+    <div class="grid" ref="grid" v-if="map && grid && props.selectedOption===true">
       <div class="grid-item" @click="seePost(post)" v-for="(post, index) in props.posts" :key="index"
         :style="{ backgroundImage: 'url(' + post.image + ')' }"></div>
+    </div>
+    <div class="grid" ref="grid" v-if="map && grid && props.selectedOption===false">
+      <div class="grid-item" @click="seePost(event)" v-for="(event, index) in props.events" :key="index"
+        :style="{ backgroundImage: 'url(' + event.image + ')' }"></div>
     </div>
     <div v-else>
       <Publication :post="postToSee" :key="postToSee.id"></Publication>
@@ -20,8 +24,11 @@ import Publication from '../Publication.vue';
 
 const props = defineProps({
   posts: Array,
-  events: Array
+  events: Array,
+  selectedOption: Boolean
 })
+
+console.log(props.selectedOption)
 
 const map = ref(true);
 const grid = ref(true)
