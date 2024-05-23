@@ -392,6 +392,25 @@ function removeAssist(idUser, idEvent) {
     });
 }
 
+
+function getAssistedEvents(idUser) {
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                console.log("getUserById", idUser)
+                return usersCollection.findOne({ id: idUser })
+            })
+            .then((user) => {
+                resolve(user.assistedEvents)
+            })
+            .catch((error) => {
+                console.error("Error connecting to database or updating document: ", error)
+                reject(error)
+            });
+    });
+
+}
+
 module.exports = {
     getUsers,
     createUser,
@@ -408,5 +427,6 @@ module.exports = {
     editPassword,
     addChat,
     addAssist,
-    removeAssist
+    removeAssist,
+    getAssistedEvents
 }

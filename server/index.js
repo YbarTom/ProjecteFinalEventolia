@@ -61,7 +61,15 @@ server.listen(PORT, () => {
 });
 
 //#region USERS
-
+app.post("/getAlgorithm", async (req, res) => {
+    try {
+        const data = req.body
+        const assistedEvents = await usersDB.getAssistedEvents(data.idUser)
+        res.status(200).json(assistedEvents)
+    } catch (error) {
+        console.error("Error getting algorithm", error)
+    }
+})
 app.get("/getUsers", async (req, res) => {
     try {
         const users = await usersDB.getUsers();
