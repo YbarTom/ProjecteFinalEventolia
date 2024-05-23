@@ -85,18 +85,30 @@ app.post("/getAlgorithm", async (req, res) => {
                 if (!preferenciasUsuario.hasOwnProperty(evento.subcategory)) {
                     const { category, subcategory, rating } = evento;
 
+                    // Calcular la similitud de categorías y subcategorías
+                    const similarityScore = calculateSimilarity(assistedEvents, evento);
+
                     if (subcategoriasPreferidas.has(subcategory)) {
-                        eventosRecomendados.push({ evento, category, subcategory, rating });
+                        eventosRecomendados.push({ evento, category, subcategory, rating, similarityScore });
                     } else {
+                        // Introducir variedad
                         const frecuenciaRecomendacion = eventosRecomendados.length / events.length;
-                        if (frecuenciaRecomendacion < 0.2) {
-                            eventosRecomendados.push(evento );
+                        if (frecuenciaRecomendacion < 0.2 || Math.random() < 0.1) {
+                            eventosRecomendados.push(evento);
                         }
                     }
                 }
             }
 
-            eventosRecomendados.sort((a, b) => b.rating - a.rating);
+            // Ordenar por rating y similitud
+            eventosRecomendados.sort((a, b) => {
+                // Si tienen el mismo rating, ordenar por similitud
+                if (a.rating === b.rating) {
+                    return b.similarityScore - a.similarityScore;
+                }
+                return b.rating - a.rating;
+            });
+
             res.json(eventosRecomendados); // Devuelve los resultados en formato JSON
         } else {
             res.status(404).json({ error: 'No assisted events found for this user.' }); // Devuelve un error en formato JSON
@@ -106,6 +118,19 @@ app.post("/getAlgorithm", async (req, res) => {
         res.status(500).json({ error: 'Error getting algorithm' }); // Devuelve un error en formato JSON
     }
 });
+
+// Función para calcular la similitud entre eventos asistidos y un evento dado
+function calculateSimilarity(assistedEvents, evento) {
+    let similarityScore = 0;
+    for (const assistedEvent of assistedEvents) {
+        if (assistedEvent.category === evento.category || assistedEvent.subcategory === evento.subcategory) {
+            similarityScore += 1;
+        }
+    }
+    return similarityScore;
+}
+
+
 
 
 app.get("/getUsers", async (req, res) => {
