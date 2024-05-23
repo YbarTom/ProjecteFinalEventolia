@@ -255,11 +255,12 @@ function editUserName(idUser, newUserName) {
     });
 }
 
-function deletePost(idPost) {
+function deletePost(idPost, idUser) {
     return new Promise((resolve, reject) => {
         client.connect()
             .then(() => {
                 postsCollection.deleteOne({ id: idPost })
+                usersDB.deletePost(idPost, idUser)
                 resolve()
             })
             .catch((error) => {
