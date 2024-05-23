@@ -250,6 +250,27 @@ function acceptEvent(idEvent){
     });
 }
 
+function getEventsByIds(arrayId) {
+    console.log("arrayid",arrayId)
+    return new Promise((resolve, reject) => {
+        client.connect()
+            .then(() => {
+                eventsCollection.find({ id: { $in: arrayId } }).toArray()
+                    .then((events) => {
+                        console.log("events",events)
+                        resolve(events);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting events by id: ", error);
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error connecting to database: ", error);
+                reject(error);
+            });
+    });
+}
 
 module.exports = {
     createEvent,
@@ -261,5 +282,6 @@ module.exports = {
     addAssist,
     removeAssist,
     deleteEvent,
-    acceptEvent
+    acceptEvent,
+    getEventsByIds
 }

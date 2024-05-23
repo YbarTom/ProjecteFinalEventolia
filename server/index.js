@@ -61,6 +61,24 @@ server.listen(PORT, () => {
 });
 
 //#region USERS
+app.post("/getAlgorithm", async (req, res) => {
+    try {
+        const data = req.body
+        const idsAssistedEvents = await usersDB.getAssistedEvents(data.idUser)
+        
+        // Ensure idsAssistedEvents is not undefined or null before proceeding
+        if(idsAssistedEvents) {
+            const assistedEvents = await eventsDB.getEventsByIds(idsAssistedEvents)
+            res.status(200).json(assistedEvents)
+        } else {
+            res.status(400).json({ error: 'No assisted events found for this user.' })
+        }
+    } catch (error) {
+        console.error("Error getting algorithm", error)
+        res.status(500).json({ error: 'Error getting algorithm' })
+    }
+})
+
 
 app.get("/getUsers", async (req, res) => {
     try {
