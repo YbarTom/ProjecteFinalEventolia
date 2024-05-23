@@ -4,7 +4,7 @@
       <div class="left">
         <div class="perfil-img"></div>
         <div>
-          <p class="first-text"><b>{{ event.organizer }}</b></p>
+          <p class="first-text" @click="router.push('/userprofile/' + event.organizer)"><b>{{ event.organizer }}</b></p>
           <p class="second-text">{{ event.title }}</p>
         </div>
       </div>
@@ -44,9 +44,6 @@ onMounted(async () => {
   }
 });
 
-const navigateToRoute = () => {
-  router.push("/ProfilePage");
-};
 </script>
 
 
