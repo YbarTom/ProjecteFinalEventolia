@@ -1,10 +1,14 @@
 <template>
   <div class="Profile">
     <div class="perfil">
-      <InfoUserProfile :userProfile="props.userProfile" :ownProfile="props.ownProfile"/>
+      <InfoUserProfile :userProfile="props.userProfile" :ownProfile="props.ownProfile" />
     </div>
+    <v-radio-group v-model="selectedOption" inline>
+      <v-radio label="Posts" :value="true"></v-radio>
+      <v-radio label="Events" :value="false"></v-radio>
+    </v-radio-group>
     <div class="imagen">
-      <grid :events="props.events" :posts="props.posts"/>
+      <grid :events="props.events" :posts="props.posts" :selectedOption="selectedOption" :key="selectedOption"/>
     </div>
   </div>
 </template>
@@ -15,11 +19,13 @@ import grid from '@/components/components/UserProfile/grid.vue'
 import { defineProps } from "vue";
 
 const props = defineProps({
-    userProfile: Object,
-    ownProfile: Boolean,
-    posts: Array,
-    events: Array
+  userProfile: Object,
+  ownProfile: Boolean,
+  posts: Array,
+  events: Array
 })
+
+const selectedOption = ref(true)
 </script>
 
 <style scoped>
@@ -37,7 +43,8 @@ const props = defineProps({
 
 
 .imagen {
-  width:79%;
+  width: 79%;
   flex: 1;
-  /* Ambos elementos ocupan la misma fracción del espacio disponible */
-}</style>
+  margin-top: -200px;
+}
+</style>
