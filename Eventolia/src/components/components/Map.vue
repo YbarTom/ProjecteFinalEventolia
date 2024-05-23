@@ -11,7 +11,7 @@
       <option value="10000">10000 km</option>
     </select>
 
-    <v-dialog v-model="dialogVisible" width="30%">
+    <v-dialog v-model="dialogVisible" >
       <EventPublication :post="selectedEvent"/>
     </v-dialog>
   </div>

@@ -532,3 +532,20 @@ export async function acceptEvent(idEvent) {
     throw error;
   }
 }
+
+export async function getAlgorithm(idUser) {
+  console.log(idUser)
+  try {
+    const response = await fetch(`${SERVER_URL}/getAlgorithm`,
+      {
+        method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idUser })
+      });
+    const resposta = await response.json();
+    console.log(resposta)
+    return resposta;
+  } catch (error) {
+    console.log("Get algorithm Error CM");
+    throw error;
+  }
+}
