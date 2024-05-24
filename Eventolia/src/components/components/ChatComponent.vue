@@ -48,7 +48,7 @@ export default {
     UserChat
   },
   setup() {
-    const socket = io('http://localhost:3001');
+    const socket = io('http://eventolia.dam.inspedralbes.cat:3693');
     const messages = ref([]);
     const newMessage = ref('');
     const selectedUser = ref(null);
