@@ -6,7 +6,9 @@
         <TextField text="repeat password" v-model="password2" />
         <v-text-field v-model="birthDate" label="birth date" type="date"></v-text-field>
         <p v-if="showError">{{ errorMessage }}</p>
-        <button @click="Register">Sign Up</button>
+        <div class="bg-principal3">
+            <button @click="Register">Sign Up</button>
+        </div>
     </div>
 </template>
 <script setup>
@@ -47,12 +49,28 @@ async function Register() {
 }
 </script>
 <style scoped>
+
+.TextField input {
+    color: black;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: aqua;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
+}
+
+
+@media (min-width: 900px) {
+    .container {
+        max-width: 400px;
+    }
+}
+
+.bg-principal3 {
+    padding: 15px;
 }
 </style>

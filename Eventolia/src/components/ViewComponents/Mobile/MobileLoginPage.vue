@@ -1,4 +1,5 @@
 <template>
+  <LogoLogin/>
     <div class="container">
       <div class="right-panel"><RightSideLoginPage/></div>
     </div>
@@ -6,6 +7,7 @@
   
   <script setup>
     import RightSideLoginPage from '@/components/components/Log_Reg/LogIn/RightSideLoginPage.vue'
+    import LogoLogin from '@/components/components/Log_Reg/LogIn/LogoLogin.vue'
   </script>
   
   <style scoped>
