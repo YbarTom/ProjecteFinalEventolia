@@ -14,16 +14,31 @@ const posts = ref([]);
 
 onMounted(async () => {
   try {
-    const appStore = useAppStore()
-    const user = appStore.getUser()
+    const appStore = useAppStore();
+    const user = appStore.getUser();
 
     const dataEvents = await funcionsCM.getAlgorithm(user.id);
-    console.log(dataEvents);
-    posts.value = dataEvents;
+    const posts = await funcionsCM.getPosts();
+
+    // Intercalar los elementos de dataEvents y posts
+    const combined = [];
+    const maxLength = Math.max(dataEvents.length, posts.length);
+    for (let i = 0; i < maxLength; i++) {
+      if (i < dataEvents.length) {
+        combined.push(dataEvents[i]);
+      }
+      if (i < posts.length) {
+        combined.push(posts[i]);
+      }
+    }
+
+    console.log(combined);
+    posts.value = combined;
   } catch (error) {
     console.error('Error fetching data: ', error);
   }
 });
+
 </script>
 
 <style scoped>
