@@ -135,9 +135,6 @@ function calculateSimilarity(assistedEvents, evento) {
     return similarityScore;
 }
 
-
-
-
 app.get("/getUsers", async (req, res) => {
     try {
         const users = await usersDB.getUsers();
@@ -147,7 +144,6 @@ app.get("/getUsers", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" }); // Send an error response with status code 500
     }
 });
-
 
 app.post("/createUser", async (req, res) => {
     try {
