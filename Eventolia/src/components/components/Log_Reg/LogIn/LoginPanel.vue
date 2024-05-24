@@ -65,6 +65,7 @@ export default {
         if (response.id) {
           if (response.type === 'admin') {
             appStore.setUser(response);
+            appStore.setAdmin();
             this.$router.push('/Admin');
           } else {
             appStore.setUser(response);

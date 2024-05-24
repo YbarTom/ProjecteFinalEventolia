@@ -1,3 +1,4 @@
+import { get } from 'core-js/core/dict';
 import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
@@ -16,7 +17,8 @@ export const useAppStore = defineStore('app', {
       latitude: 0,
       longitude: 0,
       loggedIn: false,
-    }
+    },
+    isAdmin: false,
   }),
   actions: {
     setUser(id, userName, email, password, followers, followed, posts, events, profilePic, privacity) {
@@ -35,6 +37,12 @@ export const useAppStore = defineStore('app', {
     setUser(user) {
       this.user = user
       this.user.loggedIn = true;
+    },
+    setAdmin() {
+      this.isAdmin = true;
+    },
+    getAdmin() {
+      return this.isAdmin;
     },
     isLoggedIn() {
       return this.user.loggedIn;
