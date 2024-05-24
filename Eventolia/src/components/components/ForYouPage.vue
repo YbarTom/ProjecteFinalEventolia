@@ -1,6 +1,6 @@
 <template>
   <div class="div">
-    <Publication v-for="post in posts" :key="post.id" :post="post"/>
+    <Publication v-for="post in posts" :key="post.id" :post="post" />
   </div>
 </template>
 
@@ -18,10 +18,17 @@ onMounted(async () => {
     const user = appStore.getUser();
 
     const dataEvents = await funcionsCM.getAlgorithm(user.id);
+    const dataPost = await funcionsCM.getPosts(dataEvents);
+    let dataEventPost = dataEvents.concat(dataPost);
 
+    // Fisher-Yates (Knuth) Shuffle
+    for (let i = dataEventPost.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [dataEventPost[i], dataEventPost[j]] = [dataEventPost[j], dataEventPost[i]];
+    }
 
     console.log(dataEvents);
-    posts.value = dataEvents;
+    posts.value = dataEventPost;
   } catch (error) {
     console.error('Error fetching data: ', error);
   }
@@ -31,17 +38,21 @@ onMounted(async () => {
 
 <style scoped>
 .div {
-  position: absolute; /* Posicionamos el div absolutamente dentro del contenedor */
-  top: 78px; /* Altura del topBar */
+  position: absolute;
+  /* Posicionamos el div absolutamente dentro del contenedor */
+  top: 78px;
+  /* Altura del topBar */
   width: 100%;
   height: calc(100% - 78px);
-  justify-content: center; /* Centramos horizontalmente el contenido */
+  justify-content: center;
+  /* Centramos horizontalmente el contenido */
   flex-direction: column;
-  overflow-y: auto; /* Habilitamos el desplazamiento vertical */
+  overflow-y: auto;
+  /* Habilitamos el desplazamiento vertical */
 
 }
+
 /* Ocultar la barra de desplazamiento */
 .div::-webkit-scrollbar {
   display: none;
-}
-</style>
+}</style>
