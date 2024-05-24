@@ -12,6 +12,20 @@ const checkAuthentication = (to, from, next) => {
   }
 };
 
+const checkAdmin = (to, from, next) => {
+  const store = useAppStore();
+  if (store.isLoggedIn()) {
+    if (store.getAdmin()==true){
+      next();
+    }
+    else {
+      next('/MainPage')
+    }// El usuario está autenticado, permitir el acceso
+  } else {
+    next('/'); // El usuario no está autenticado, redirigir a la página de inicio de sesión
+  }
+}
+
 const routes = [
 
   {
@@ -64,6 +78,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('@/pages/Admin.vue'),
+    beforeEnter: checkAdmin,
   },
   {
     path: '/cheat',
