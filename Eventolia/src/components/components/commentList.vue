@@ -1,5 +1,5 @@
 <template>
-    <div class="background">
+    <div class="bg-principal">
         <div v-for="comment in comments">
             <p class="userComments text-text"><b>{{ comment.userName }}</b> {{ comment.text }}</p>
         </div>
@@ -29,8 +29,5 @@ onMounted(async () => {
     margin-right: 10px;
     margin-bottom: 10px;
     text-align: left;
-}
-.background {
-    background-color: aqua
 }
 </style>
