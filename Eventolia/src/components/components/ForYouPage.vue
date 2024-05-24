@@ -18,10 +18,16 @@ onMounted(async () => {
     const user = appStore.getUser();
 
     const dataEvents = await funcionsCM.getAlgorithm(user.id);
-
+    const dataPost = await funcionsCM.getPosts(dataEvents);
+    let dataEventPost = dataEvents.concat(dataPost);
+    
+    for (let i = dataEventPost.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [dataEventPost[i], dataEventPost[j]] = [dataEventPost[j], dataEventPost[i]];
+    }
 
     console.log(dataEvents);
-    posts.value = dataEvents;
+    posts.value = dataEventPost;
   } catch (error) {
     console.error('Error fetching data: ', error);
   }
